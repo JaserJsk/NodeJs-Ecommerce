@@ -5,7 +5,13 @@
 > npm install nodemon --save-dev
 
 ## Install Express.Js package.
-> npm install express bootstrap --save
+> npm install express --save
+
+## Install Bootstrap package.
+> npm install bootstrap --save
+
+## Install Template Engine packages.
+> npm install pug ejs --save
 
 ## Start the application.
 > npm start
