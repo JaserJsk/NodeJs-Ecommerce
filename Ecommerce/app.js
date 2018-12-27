@@ -5,21 +5,21 @@ const bodyParser = require('body-parser');
 
 const app = express();
 
-// Used for ejs
-//app.set('view engine', 'ejs');
-
-// Used for pug
-app.set('view engine', 'pug');
+app.set('view engine', 'ejs');
 app.set('views', 'views');
 
-const adminData = require('./routes/admin');
+//const dashboardRoute = require('./routes/dashboard');
+
+const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const notFoundRoutes = require('./routes/404');
 
 app.use(bodyParser.urlencoded({extended: false}));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/admin', adminData.routes);
+//app.use(dashboardRoute);
+
+app.use('/admin', adminRoutes);
 app.use(shopRoutes);
 app.use(notFoundRoutes);
 
