@@ -1,11 +1,13 @@
-<%- include('../includes/sh_head.ejs') %>
+<%- include('../includes/shop/sh_head.ejs') %>
 </head>
 
 <body>
     <div class="container-fluid">
-        <%- include('../includes/sh_nav.ejs') %>
+        <%- include('../includes/shop/sh_nav.ejs') %>
 
         <div id="page-wrapper">
+
+            <%- include('../includes/shop/sh_carousel.ejs') %>
 
             <main>
                 <% if (prods.length > 0) { %>
@@ -45,4 +47,4 @@
 
     </div>
 
-    <%- include('../includes/sh_end.ejs') %>
+    <%- include('../includes/shop/sh_end.ejs') %>

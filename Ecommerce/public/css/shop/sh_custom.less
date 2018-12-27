@@ -1,0 +1,35 @@
+@import "../color-schemes.less";
+
+* {
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+	background-color: @color-background;
+}
+
+.navbar {
+	min-height: 72px !important;
+	background-color: @color-background !important;
+
+	.nav-item {
+		.nav-link {
+			color: @color-secondary;
+		}
+		.nav-link.active {
+			color: @color-primary;
+		}
+	}
+
+	.form-inline .form-control {
+		background-color: @color-thirdly;
+	}
+
+	.btn-outline-success {
+		color: @color-blue;
+		border-color: @color-blue;
+	}
+}

@@ -1,20 +1,23 @@
-<%- include('includes/sh_head.ejs') %>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<%- include('includes/shop/sh_head.ejs') %>
+<link rel="stylesheet/less" type="text/css" href="/css/404.less">
 </head>
 
 <body>
-    <div class="page-wrap d-flex flex-row align-items-center">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-12 text-center">
-                    <span class="display-1 d-block">404</span>
-                    <div class="mb-4 lead">The page you are looking for was not found.</div>
-                    <a href="http://localhost:3000/" class="btn btn-link">Back to Home</a>
-                </div>
+    <div id="notfound">
+        <div class="notfound">
+            <div class="notfound-404">
+                <h1>404</h1>
+            </div>
+            <h2>Oops! Nothing was found</h2>
+            <p>The page you are looking for might have been removed had its name changed or is temporarily unavailable.
+                <a href="http://localhost:3000/">Return to homepage</a></p>
+            <div class="notfound-social">
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-pinterest"></i></a>
+                <a href="#"><i class="fa fa-google-plus"></i></a>
             </div>
         </div>
     </div>
 
-<%- include('includes/sh_end.ejs') %>
+    <%- include('includes/shop/sh_end.ejs') %>

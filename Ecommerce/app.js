@@ -2,6 +2,7 @@ const path = require('path');
 
 const express = require('express');
 const bodyParser = require('body-parser');
+//var less = require('less-middleware');
 
 const app = express();
 
@@ -15,6 +16,7 @@ const shopRoutes = require('./routes/shop');
 const notFoundRoutes = require('./routes/404');
 
 app.use(bodyParser.urlencoded({extended: false}));
+//app.use(less({ src: __dirname + '/public', compress: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 //app.use(dashboardRoute);
