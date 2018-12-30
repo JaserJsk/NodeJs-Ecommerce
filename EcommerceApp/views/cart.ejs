@@ -1,0 +1,61 @@
+<%- include('includes/ecommerce/head.ejs') %>
+<link rel="stylesheet" href="/css/portfolio.css">
+</head>
+
+<body>
+
+    <div id="main-wrapper">
+
+        <!-- ============================================================== -->
+        <!-- Top header -->
+        <div class="topbar">
+
+            <div class="header13 po-relative">
+
+                <%- include('includes/ecommerce/header.ejs') %>
+
+                <div class="container">
+
+                    <%- include('includes/ecommerce/navigation.ejs') %>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- Page wrapper -->
+        <div class="page-wrapper">
+
+            <!-- ============================================================== -->
+            <!-- Container fluid -->
+            <div class="container-fluid">
+
+                <!-- ============================================================== -->
+                <!-- Slider or Banner -->
+                <%- include('includes/ecommerce/banner.ejs') %>
+
+                <!-- ============================================================== -->
+                <!-- Masonry -->
+                <%- include('includes/ecommerce/Masonry.ejs') %>
+
+            </div>
+
+            <!-- ============================================================== -->
+            <!-- Back to top -->
+            <a class="bt-top btn btn-circle btn-lg btn-info" href="#top"><i class="fa fa-angle-double-up" aria-hidden="true"></i></a>
+            
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- footer -->
+        <%- include('includes/ecommerce/footer.ejs') %>
+
+    </div>
+
+    <%- include('includes/ecommerce/end.ejs') %>
+
+    <script type="text/javascript" src="/js/jquery.magnific-popup.min.js"></script>
+    <script type="text/javascript" src="/js/isotope.pkgd.min.js"></script>
+    <script type="text/javascript" src="/js/portfolio.js"></script>
