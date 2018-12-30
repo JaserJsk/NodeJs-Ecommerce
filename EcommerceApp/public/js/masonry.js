@@ -51,7 +51,7 @@ $(function() {
     }
 
     //append load more button
-    $grid.after('<div class="text-center"><a id="load-more" class="btn btn-info btn-md btn-arrow m-t-20" href="javascript:void(0)"> <span>Load More <i class="ti-arrow-right"></i></span></a></div>');
+    $grid.after('<div class="text-center"><a id="load-more" class="btn btn-info btn-md btn-arrow m-t-20" href="javascript:void(0)"> <span>Load More <i class="fa fa-refresh" aria-hidden="true"></i></span></a></div>');
 
     //when load more button clicked
     $(".portfolio4 #load-more").click(function() {

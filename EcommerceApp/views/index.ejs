@@ -1,5 +1,5 @@
 <%- include('includes/ecommerce/head.ejs') %>
-<link rel="stylesheet" href="/css/portfolio.css">
+<link rel="stylesheet" href="/css/masonry.css">
 </head>
 
 <body>
@@ -38,14 +38,54 @@
 
                 <!-- ============================================================== -->
                 <!-- Masonry -->
-                <%- include('includes/ecommerce/Masonry.ejs') %>
+
+                <div class="portfolio4 spacer up">
+                    <div class="container">
+                        <!-- Tittle and filter  -->
+                        <div class="d-flex align-items-center">
+                            <div class="">
+                                <h3 class="font-medium">Products</h3>
+                            </div>
+                            <div class="ml-auto filterby">
+                                <a href="JavaScript:void(0)" class="active" data-filter="*">All</a>
+                                <a href="JavaScript:void(0)" data-filter=".books">Books</a>
+                                <a href="JavaScript:void(0)" data-filter=".magazines">Magazines</a>
+                                <a href="JavaScript:void(0)" data-filter=".posters">Posters</a>
+                                <a href="JavaScript:void(0)" data-filter=".print">Print</a>
+                            </div>
+                        </div>
+                        <!-- End Tittle and filter  -->
+                        <!-- Card Columns -->
+                        <div class="row portfolio-box4">
+
+                            <!-- Columns -->
+                            <div class="col-lg-4 col-md-6 filter books print">
+                                <div class="overlay-box">
+                                    <img src="https://fakeimg.pl/350x300/" alt="wrpkit" class="img-fluid">
+                                    <a href="javascript:void(0)" class="overlay">
+                                        <div class="port-text">
+                                            <h5>Product 1</h5>
+                                            <span>books, Print</span>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- Columns -->
+                            
+                        </div>
+                        <!-- End Card Columns -->
+                        <!-- portfolio start -->
+                    </div>
+                </div>
 
             </div>
 
             <!-- ============================================================== -->
             <!-- Back to top -->
-            <a class="bt-top btn btn-circle btn-lg btn-info" href="#top"><i class="fa fa-angle-double-up" aria-hidden="true"></i></a>
-            
+            <a class="bt-top btn btn-circle btn-lg btn-info" href="#top">
+                <i class="fa fa-angle-double-up" aria-hidden="true"></i>
+            </a>
+
         </div>
 
         <!-- ============================================================== -->
@@ -58,4 +98,4 @@
 
     <script type="text/javascript" src="/js/jquery.magnific-popup.min.js"></script>
     <script type="text/javascript" src="/js/isotope.pkgd.min.js"></script>
-    <script type="text/javascript" src="/js/portfolio.js"></script>
+    <script type="text/javascript" src="/js/masonry.js"></script>

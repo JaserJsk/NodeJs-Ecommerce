@@ -1,0 +1,14 @@
+/*============================================================== 
+ You can write your style here.
+ ============================================================== */
+.srh-btn {
+    margin-top: 9px;
+}
+
+.srh-btn .ti-close {
+    position: absolute;
+}
+
+.rpanel-title .ti-close {
+    top: 3px;
+}
