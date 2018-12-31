@@ -59,7 +59,21 @@ body {
 }
 /* Dropdown Items *** */
 
+/* *** Product Items */
+.card {
+    background-color: #f4f8fa;
+}
+/* Product Items *** */
 
+/* *** Pagination Items */
+.page-item.disabled .page-link {
+    background-color: #f4f8fa;
+}
+.page-link {
+    background-color: #f4f8fa;
+}
+/* Pagination Items *** */
 
-
-
+.form-control {
+    background-color: #f4f8fa;
+}

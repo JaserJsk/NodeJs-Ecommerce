@@ -1,5 +1,5 @@
 <%- include('../includes/ecommerce/head.ejs') %>
-<link rel="stylesheet" href="/css/masonry.css">
+<link rel="stylesheet" href="/css/shop.css">
 </head>
 
 <body>
@@ -38,14 +38,146 @@
 
                 <!-- ============================================================== -->
                 <!-- Masonry -->
-                <%- include('../includes/ecommerce/Masonry.ejs') %>
+                <div class="spacer">
+                    <div class="container">
+                        <div class="row m-t-30">
+                            <!-- column  -->
+                            <div class="col-lg-5">
+                                <form class="m-b-40">
+                                    <div class="form-group">
+                                        <h6 class="m-b-20 font-medium">CUSTOMER INFORMATION</h6>
+                                        <input type="text" class="form-control" value="Email Address">
+                                        <br />
+                                        <span class="help-block"><small>Already have an account? <a href="#">Login Now</a></small></span>
+                                    </div>
+                                </form>
+                                <form class="m-t-40">
+                                    <h6 class="m-b-20 font-medium">SHIPPING INFORMATION</h6>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" value="First Name">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" value="Last Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" value="Postal Address">
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <select class="form-control custom-select">
+                                                <option>Country</option>
+                                                <option>Country name</option>
+                                                <option>Country name</option>
+                                                <option>Country name</option>
+                                                <option>Country name</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <select class="form-control custom-select">
+                                                <option>State</option>
+                                                <option>State name</option>
+                                                <option>State name</option>
+                                                <option>State name</option>
+                                                <option>State name</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <select class="form-control custom-select">
+                                                <option>City</option>
+                                                <option>City name</option>
+                                                <option>City name</option>
+                                                <option>City name</option>
+                                                <option>City name</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" value="Zip Code">
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="form-group">
+                                        <div class="col-auto my-1">
+                                            <div class="custom-control custom-checkbox mr-sm-2">
+                                                <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
+                                                <label class="custom-control-label" for="customControlAutosizing">
+                                                    I agree with <a href="">Terms &amp; Condition</a></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <button type="submit" class="btn btn-info btn-md ">Checkout</button>
+                                </form>
+                            </div>
+                            <!-- column  -->
+                            <div class="col-lg-6 ml-auto">
+                                <table class="table shop-table">
+                                    <tr>
+                                        <th class="b-0">Product</th>
+                                        <th class="b-0">Decription</th>
+                                        <th class="b-0 text-right">Price</th>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="https://fakeimg.pl/100x95/dbdfe1/909090" width="100" alt="wrapkit" /></td>
+                                        <td>
+                                            <h6>Nike Roshe Run NM </h6>
+                                            <h6 class="subtitle">Color: Gray</h6>
+                                            <h6 class="subtitle">Size: 9</h6>
+                                        </td>
+                                        <td class="text-right">
+                                            <h5 class="font-medium m-b-30">$195 / <del class="text-muted line-through">$225</del></h5>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><img src="https://fakeimg.pl/100x95/dbdfe1/909090" width="100" alt="wrapkit" /></td>
+                                        <td>
+                                            <h6>Nike Roshe Run NM </h6>
+                                            <h6 class="subtitle">Color: Gray</h6>
+                                            <h6 class="subtitle">Size: 9</h6>
+                                        </td>
+                                        <td class="text-right">
+                                            <h5 class="font-medium m-b-30">$19</h5>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <div class="d-flex">
+                                                <span>Sub Total</span>
+                                                <h5 class="font-medium m-b-30 ml-auto">$233</h5>
+                                            </div>
+                                            <div class="d-flex">
+                                                <span>Shipping</span>
+                                                <h5 class="font-medium m-b-30 ml-auto">$0</h5>
+                                            </div>
+                                            <div class="d-flex">
+                                                <span>Tax</span>
+                                                <h5 class="font-medium ml-auto">-</h5>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="3">
+                                            <div class="d-flex">
+                                                <span>Total</span>
+                                                <h5 class="font-medium m-b-30 ml-auto">$233</h5>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
             </div>
 
             <!-- ============================================================== -->
             <!-- Back to top -->
             <a class="bt-top btn btn-circle btn-lg btn-info" href="#top"><i class="fa fa-angle-double-up" aria-hidden="true"></i></a>
-            
+
         </div>
 
         <!-- ============================================================== -->
@@ -55,7 +187,3 @@
     </div>
 
     <%- include('../includes/ecommerce/end.ejs') %>
-
-    <script type="text/javascript" src="/plugins/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
-    <script type="text/javascript" src="/js/isotope.pkgd.min.js"></script>
-    <script type="text/javascript" src="/js/masonry.js"></script>
