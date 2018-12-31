@@ -23,22 +23,43 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
-                <li class="nav-small-cap">DASHBOARD</li>
+                <li class="nav-small-cap">Personal</li>
                 <li>
-                    <a href="/admin/add-product" aria-expanded="false" >
-                        <i class="fas fa-plus"></i>
+                    <a href="/admin/dashboard" aria-expanded="false">
+                        <i class="fas fa-tachometer-alt"></i>
                         <span class="hide-menu">
-                            Add Product
+                            Dashboard
                         </span>
                     </a>
                 </li>
+                <li class="nav-small-cap">Ecommerce</li>
+
                 <li>
-                    <a href="/admin/products" aria-expanded="false">
-                        <i class="fas fa-th-list"></i>
+                    <a class="has-arrow " href="#" aria-expanded="false">
+                        <i class="fas fa-home"></i>
                         <span class="hide-menu">
-                            Products
+                            Manage Shop
                         </span>
                     </a>
+
+                    <ul aria-expanded="false" class="collapse">
+                        <li>
+                            <a href="/admin/products">
+                                <i class="fas fa-th-list"></i>
+                                <span class="hide-menu" style="margin-left: 10px">
+                                    Products
+                                </span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/admin/add-product">
+                                <i class="fas fa-plus"></i>
+                                <span class="hide-menu" style="margin-left: 10px">
+                                    Add Product
+                                </span>
+                            </a>
+                        </li>
+                    </ul>
                 </li>
             </ul>
         </nav>

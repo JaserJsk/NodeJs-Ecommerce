@@ -7,26 +7,42 @@
     <div class="collapse navbar-collapse" id="header1">
         <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
 
-            <li class="nav-item active"><a class="nav-link" href="/">Home</a></li>
+            <li class="nav-item active">
+                <a class="nav-link <%= path === '/' ? 'active' : '' %> " href="/">Home</a>
+            </li>
 
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="h1-dropdown" data-toggle="dropdown" aria-haspopup="true"
                     aria-expanded="false">
-                    Ecommerce <i class="fa fa-angle-down m-l-5"></i>
+                    Ecommerce 
+                    <i class="fa fa-angle-down m-l-5"></i>
                 </a>
                 <ul class="b-none dropdown-menu animated fadeInUp">
 
-                    <li><a class="dropdown-item" href="/products">Products</a></li>
-                    <li><a class="dropdown-item" href="/orders">Orders</a></li>
-                    <li><a class="dropdown-item" href="/cart">Shopping Cart</a></li>
+                    <li>
+                        <a class="dropdown-item <%= path === '/products' ? 'active' : '' %>" href="/products">Products</a>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item <%= path === '/cart' ? 'active' : '' %>" href="/cart">Shopping Cart</a>
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item <%= path === '/orders' ? 'active' : '' %>" href="/orders">Orders</a>
+                    </li>
+
                     <li class="divider" role="separator"></li>
-                    <li><a class="dropdown-item" href="/checkout">Checkout</a></li>
+
+                    <li>
+                        <a class="dropdown-item <%= path === '/checkout' ? 'active' : '' %>" href="/checkout">Checkout</a>
+                    </li>
+
                 </ul>
             </li>
 
             <li class="nav-item"><a class="nav-link" href="https://github.com/JonasJsk/Node-Apps.git">Github</a></li>
 
-            <li class="nav-item"><a class="btn btn-outline-success" href="/admin/add-product">Admin Login</a></li>
+            <li class="nav-item"><a class="btn btn-outline-info" href="/admin/dashboard">Login</a></li>
 
         </ul>
     </div>

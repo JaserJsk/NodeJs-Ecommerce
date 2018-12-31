@@ -3,7 +3,7 @@ const Product = require('../../models/product')
 // GET INDEX PAGE
 exports.getIndex = (request, response, next) => {
     Product.fetchAll(products => {
-        response.render('index', {
+        response.render('ecommerce/index', {
             prods: products,
             pageTitle: 'Ecomerce',
             path: '/'
@@ -14,7 +14,7 @@ exports.getIndex = (request, response, next) => {
 // GET PRODUCT PAGE
 exports.getProducts = (request, response, next) => {
     Product.fetchAll(products => {
-        response.render('product_list', {
+        response.render('ecommerce/product_list', {
             prods: products,
             pageTitle: 'All Products',
             path: '/products'
@@ -24,24 +24,24 @@ exports.getProducts = (request, response, next) => {
 
 // GET CART PAGE
 exports.getCart = (request, response, next) => {
-    response.render('cart', {
-        path: '/cart',
-        pageTitle: 'Your Cart'
+    response.render('ecommerce/cart', {
+        pageTitle: 'Your Cart',
+        path: '/cart'
     });
 };
 
 // GET ORDES PAGE
 exports.getOrders = (request, response, next) => {
-    response.render('orders', {
-        path: '/orders',
-        pageTitle: 'Your Orders'
+    response.render('ecommerce/orders', {
+        pageTitle: 'Your Orders',
+        path: '/orders'
     });
 };
 
 // GET CECKOUT PAGE
 exports.getCheckout = (request, response, next) => {
-    response.render('checkout', {
-        path: '/checkout',
-        pageTitle: 'Checkout'
+    response.render('ecommerce/checkout', {
+        pageTitle: 'Checkout',
+        path: '/checkout'
     });
 };

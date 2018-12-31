@@ -1,13 +1,18 @@
 const Product = require('../../models/product')
 
 // GET All products
+exports.getDashboard = (request, response, next) => {
+    response.render('admin/dashboard', {
+        pageTitle: 'Dashboard',
+        path: '/admin/dashboard'
+    });
+};
+
+// GET All products
 exports.getAddProduct = (request, response, next) => {
     response.render('admin/add_product', {
         pageTitle: 'Add Product',
-        path: '/admin/add_product',
-        formsCSS: true,
-        productCSS: true,
-        activeAddProduct: true
+        path: '/admin/add_product'
     });
 };
 

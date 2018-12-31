@@ -2,11 +2,11 @@
  You can write your style here.
  ============================================================== */
 
- body {
+body {
     background: #f4f8fa;
 }
 
- .header13 .h13-topbar .navbar-brand {
+.header13 .h13-topbar .navbar-brand {
     visibility: hidden;
 }
 
@@ -18,10 +18,48 @@
     color: #8d97ad;
 }
 
+/* *** Move To Top Btn */
 .btn-circle.btn-lg {
     width: 50px;
     height: 50px;
     padding: 14px 15px;
-    font-size: 20px;
-    line-height: 23px;
 }
+/* Move To Top Btn *** */
+
+/* *** Header Links */
+.header13 .h13-topbar .navbar .nav-item:hover .nav-link {
+    color: #1cc8cd;
+}
+/* Header Links *** */
+
+/* *** Navigation Links */
+.h1-nav .navbar-nav .nav-item .nav-link:hover {
+    color: #1cc8cd;
+}
+
+.dropdown .dropdown-menu a.active {
+    color: #ffffff;
+    background: transparent;
+}
+
+.nav-item a.active {
+    color: #1cc8cd !important;
+}
+/* Navigation Links *** */
+
+/* *** Dropdown Items */
+.dropdown-menu li a:hover,
+.dropdown-menu li a:focus {
+    color: ffffff;
+    background: #1cc8cd;
+}
+
+.dropdown-menu li a.active {
+    color: #1cc8cd !important;
+}
+/* Dropdown Items *** */
+
+
+
+
+
