@@ -10,15 +10,11 @@
         <!-- Top header -->
         <div class="topbar">
 
-            <div class="header13 po-relative">
+            <div class="header14 po-relative">
 
                 <%- include('../includes/ecommerce/header.ejs') %>
 
-                <div class="container">
-
-                    <%- include('../includes/ecommerce/navigation.ejs') %>
-
-                </div>
+                <%- include('../includes/ecommerce/navigation.ejs') %>
 
             </div>
 
@@ -34,18 +30,33 @@
 
                 <!-- ============================================================== -->
                 <!-- Slider or Banner -->
-                <%- include('../includes/ecommerce/banner.ejs') %>
+
+                <div class="static-slider3">
+                    <div class="container">
+                        <div class="row justify-content-center ">
+                            <!-- Column -->
+                            <div class="col-md-8 align-self-center text-center" data-aos="fade-right" data-aos-duration="1200">
+                                <h1 class="title">
+                                    <b class="font-bold">Orders</b> <br />
+                                    <span class="text-success-gradiant typewrite" data-period="2000"
+                                        data-type='[ "This is your order list!" ]'>
+                                    </span>
+                                </h1>
+                            </div>
+                            <!-- Column -->
+                        </div>
+                    </div>
+                </div>
 
                 <!-- ============================================================== -->
-                <!-- Masonry -->
-                <%- include('../includes/ecommerce/Masonry.ejs') %>
+                <!-- Content -->
 
             </div>
 
             <!-- ============================================================== -->
             <!-- Back to top -->
-            <a class="bt-top btn btn-circle btn-lg btn-info" href="#top"><i class="fa fa-angle-double-up" aria-hidden="true"></i></a>
-            
+            <a class="bt-top btn btn-circle btn-lg btn-success" href="#top"><i class="fa fa-angle-double-up" aria-hidden="true"></i></a>
+
         </div>
 
         <!-- ============================================================== -->
@@ -56,6 +67,4 @@
 
     <%- include('../includes/ecommerce/end.ejs') %>
 
-    <script type="text/javascript" src="/plugins/magnific-popup/dist/jquery.magnific-popup.min.js"></script>
-    <script type="text/javascript" src="/js/isotope.pkgd.min.js"></script>
-    <script type="text/javascript" src="/js/masonry.js"></script>
+    <script type="text/javascript" src="/js/type.js"></script>
