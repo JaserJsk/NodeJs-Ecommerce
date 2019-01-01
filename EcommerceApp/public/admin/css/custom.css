@@ -18,3 +18,14 @@
     border: 1px dashed #d9d9d9 !important;
 }
 /* Dropzone Images *** */
+
+/* *** Delete Images */
+.btn-transparent {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+/* Delete Images *** */

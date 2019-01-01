@@ -19,12 +19,12 @@ exports.getAddProduct = (request, response, next) => {
 // POST new product
 exports.postAddProduct = (request, response, next) => {
     const title = request.body.title;
-    const imageUrl = request.body.imageUrl;
     const price = request.body.price;
     const description = request.body.description;
-    const product = new Product(title, imageUrl, description, price);
+    const imageUrl = request.body.imageUrl;
+    const product = new Product(title, price, description, imageUrl);
     product.save();
-    response.redirect('/');
+    response.redirect('/admin/products');
 };
 
 exports.getProducts = (request, response, next) => {

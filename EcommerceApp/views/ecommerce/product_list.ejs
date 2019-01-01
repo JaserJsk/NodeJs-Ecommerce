@@ -38,8 +38,8 @@
                             <div class="col-md-8 align-self-center text-center" data-aos="fade-right" data-aos-duration="1200">
                                 <h1 class="title">
                                     <b class="font-bold text-secondary">Products</b> <br />
-                                    <span class="text-success-gradiant font-bold typewrite"
-                                        data-period="2000" data-type='[ "Browse Available Products!" ]'>
+                                    <span class="text-success-gradiant font-bold typewrite" data-period="2000"
+                                        data-type='[ "Browse Available Products!" ]'>
                                     </span>
                                 </h1>
                             </div>
@@ -50,7 +50,7 @@
 
                 <!-- ============================================================== -->
                 <!-- Content -->
-                
+
                 <div class="spacer">
                     <div class="container">
                         <div class="row m-t-30">
@@ -69,128 +69,39 @@
                                 </div>
                                 <!-- End Tittle  -->
                                 <div class="row shop-listing">
-                                    <!-- column  -->
-                                    <div class="col-lg-3">
-                                        <div class="card shop-hover">
-                                            <img src="https://fakeimg.pl/250x240/dbdfe1/909090" alt="wrapkit" class="img-fluid" />
-                                            <div class="card-img-overlay align-items-center">
-                                                <button class="btn btn-md btn-success">Add to Cart</button>
+
+                                    <% if (prods.length > 0) { %>
+
+                                        <% for (let product of prods) { %>
+
+                                            <!-- column  -->
+                                            <div class="col-lg-3">
+                                                <div class="card shop-hover">
+                                                    <img src="<%= product.imageUrl %>" alt="<%= product.title %>" class="img-fluid" />
+
+                                                    <div class="card-img-overlay align-items-center">
+                                                        <form action="/add_to_cart" method="POST">
+                                                            <button class="btn btn-md btn-success">Add to Cart</button>
+                                                        </form>
+                                                    </div>
+                                                </div>
+
+                                                <div class="card">
+                                                    <h6><a href="#" class="link"><%= product.title %></a></h6>
+                                                    <p class="subtitle"><%= product.description %></p>
+                                                    <h5 class="font-medium m-b-30">$<%= product.price %></h5>
+                                                </div>
                                             </div>
-                                            <span class="label label-rounded label-success">Sale</span>
-                                        </div>
-                                        <div class="card">
-                                            <h6><a href="#" class="link">Nike Roshe Run NM </a></h6>
-                                            <h6 class="subtitle">by Nike</h6>
-                                            <h5 class="font-medium m-b-30">$195 / <del class="text-muted line-through">$225</del></h5>
-                                        </div>
-                                    </div>
-                                    <!-- column  -->
-                                    <!-- column  -->
-                                    <div class="col-lg-3">
-                                        <div class="card shop-hover">
-                                            <img src="https://fakeimg.pl/250x240/dbdfe1/909090" alt="wrapkit" class="img-fluid" />
-                                            <div class="card-img-overlay align-items-center">
-                                                <button class="btn btn-md btn-success">Add to Cart</button>
-                                            </div>
-                                        </div>
-                                        <div class="card">
-                                            <h6><a href="#" class="link">Nike Roshe Run NM </a></h6>
-                                            <h6 class="subtitle">by Nike</h6>
-                                            <h5 class="font-medium m-b-30">$195 / <del class="text-muted line-through">$225</del></h5>
-                                        </div>
-                                    </div>
-                                    <!-- column  -->
-                                    <!-- column  -->
-                                    <div class="col-lg-3">
-                                        <div class="card shop-hover">
-                                            <img src="https://fakeimg.pl/250x240/dbdfe1/909090" alt="wrapkit" class="img-fluid" />
-                                            <div class="card-img-overlay align-items-center">
-                                                <button class="btn btn-md btn-success">Add to Cart</button>
-                                            </div>
-                                        </div>
-                                        <div class="card">
-                                            <h6><a href="#" class="link">Nike Roshe Run NM </a></h6>
-                                            <h6 class="subtitle">by Nike</h6>
-                                            <h5 class="font-medium m-b-30">$195 / <del class="text-muted line-through">$225</del></h5>
-                                        </div>
-                                    </div>
-                                    <!-- column  -->
-                                    <!-- column  -->
-                                    <div class="col-lg-3">
-                                        <div class="card shop-hover">
-                                            <img src="https://fakeimg.pl/250x240/dbdfe1/909090" alt="wrapkit" class="img-fluid" />
-                                            <div class="card-img-overlay align-items-center">
-                                                <button class="btn btn-md btn-success">Add to Cart</button>
-                                            </div>
-                                        </div>
-                                        <div class="card">
-                                            <h6><a href="#" class="link">Nike Roshe Run NM </a></h6>
-                                            <h6 class="subtitle">by Nike</h6>
-                                            <h5 class="font-medium m-b-30">$195 / <del class="text-muted line-through">$225</del></h5>
-                                        </div>
-                                    </div>
-                                    <!-- column  -->
-                                    <!-- column  -->
-                                    <div class="col-lg-3">
-                                        <div class="card shop-hover">
-                                            <img src="https://fakeimg.pl/250x240/dbdfe1/909090" alt="wrapkit" class="img-fluid" />
-                                            <div class="card-img-overlay align-items-center">
-                                                <button class="btn btn-md btn-success">Add to Cart</button>
-                                            </div>
-                                        </div>
-                                        <div class="card">
-                                            <h6><a href="#" class="link">Nike Roshe Run NM </a></h6>
-                                            <h6 class="subtitle">by Nike</h6>
-                                            <h5 class="font-medium m-b-30">$195 / <del class="text-muted line-through">$225</del></h5>
-                                        </div>
-                                    </div>
-                                    <!-- column  -->
-                                    <!-- column  -->
-                                    <div class="col-lg-3">
-                                        <div class="card shop-hover">
-                                            <img src="https://fakeimg.pl/250x240/dbdfe1/909090" alt="wrapkit" class="img-fluid" />
-                                            <div class="card-img-overlay align-items-center">
-                                                <button class="btn btn-md btn-success">Add to Cart</button>
-                                            </div>
-                                            <span class="label label-rounded label-success">Sale</span>
-                                        </div>
-                                        <div class="card">
-                                            <h6><a href="#" class="link">Nike Roshe Run NM </a></h6>
-                                            <h6 class="subtitle">by Nike</h6>
-                                            <h5 class="font-medium m-b-30">$195 / <del class="text-muted line-through">$225</del></h5>
-                                        </div>
-                                    </div>
-                                    <!-- column  -->
-                                    <!-- column  -->
-                                    <div class="col-lg-3">
-                                        <div class="card shop-hover">
-                                            <img src="https://fakeimg.pl/250x240/dbdfe1/909090" alt="wrapkit" class="img-fluid" />
-                                            <div class="card-img-overlay align-items-center">
-                                                <button class="btn btn-md btn-success">Add to Cart</button>
-                                            </div>
-                                            <span class="label label-rounded label-success">Sale</span>
-                                        </div>
-                                        <div class="card">
-                                            <h6><a href="#" class="link">Nike Roshe Run NM </a></h6>
-                                            <h6 class="subtitle">by Nike</h6>
-                                            <h5 class="font-medium m-b-30">$195 / <del class="text-muted line-through">$225</del></h5>
-                                        </div>
-                                    </div>
-                                    <!-- column  -->
-                                    <!-- column  -->
-                                    <div class="col-lg-3">
-                                        <div class="card shop-hover">
-                                            <img src="https://fakeimg.pl/250x240/dbdfe1/909090" alt="wrapkit" class="img-fluid" />
-                                            <div class="card-img-overlay align-items-center">
-                                                <button class="btn btn-md btn-success">Add to Cart</button>
-                                            </div>
-                                        </div>
-                                        <div class="card">
-                                            <h6><a href="#" class="link">Nike Roshe Run NM </a></h6>
-                                            <h6 class="subtitle">by Nike</h6>
-                                            <h5 class="font-medium m-b-30">$195 / <del class="text-muted line-through">$225</del></h5>
-                                        </div>
-                                    </div>
+                                        <!-- column  -->
+
+                                        <% } %>
+
+                                    <% } else { %>
+
+                                    <h3>No Products Found!</h3>
+
+                                    <% } %>
+
                                     <!-- column  -->
                                     <div class="col-lg-12">
                                         <nav class="">
@@ -209,6 +120,7 @@
                                             </ul>
                                         </nav>
                                     </div>
+                                    <!-- column  -->
                                 </div>
                             </div>
                             <!-- column  -->
@@ -220,7 +132,8 @@
 
             <!-- ============================================================== -->
             <!-- Back to top -->
-            <a class="bt-top btn btn-circle btn-lg btn-success" href="#top"><i class="fa fa-angle-double-up" aria-hidden="true"></i></a>
+            <a class="bt-top btn btn-circle btn-lg btn-success" href="#top"><i class="fa fa-angle-double-up"
+                    aria-hidden="true"></i></a>
 
         </div>
 

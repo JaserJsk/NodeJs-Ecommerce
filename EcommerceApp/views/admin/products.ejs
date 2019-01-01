@@ -63,96 +63,73 @@
                             <h4 class="card-title">All Products</h4>
                             <h6 class="card-subtitle"> List of available products! </h6>
                             <div class="table-responsive">
+
+                                <% if (prods.length > 0) { %>
+
                                 <table class="table product-overview">
+
                                     <thead>
                                         <tr>
-                                            <th>Customer</th>
-                                            <th>Photo</th>
-                                            <th>Quantity</th>
-                                            <th>Date</th>
-                                            <th>Status</th>
+                                            <th>Title</th>
+                                            <th>Price</th>
+                                            <th>Description</th>
+                                            <th>Image</th>
                                             <th>Actions</th>
                                         </tr>
                                     </thead>
+
+                                    <% for (let product of prods) { %>
+
                                     <tbody>
+
                                         <tr>
-                                            <td>Steave Jobs</td>
+
                                             <td>
-                                                <img src="https://fakeimg.pl/80x100/ffffff/455a64" alt="iMac" width="80">
+                                                <%= product.title %>
                                             </td>
-                                            <td>20</td>
-                                            <td>10-7-2017</td>
+
                                             <td>
-                                                <span class="label label-success font-weight-100">Paid</span>
+                                                $
+                                                <%= product.price %>
                                             </td>
+
                                             <td>
-                                                <a href="javascript:void(0)" class="text-inverse p-r-10" data-toggle="tooltip"
-                                                    title="" data-original-title="Edit"><i class="ti-marker-alt"></i>
+                                                <%= product.description %>
+                                            </td>
+
+                                            <td>
+                                                <img src="<%= product.imageUrl %>" alt="<%= product.title %>" width="80"
+                                                    height="100">
+                                            </td>
+
+                                            <td>
+                                                <a href="/admin/edit_product" class="text-inverse p-r-10" >
+                                                    <i class="ti-marker-alt"></i>
                                                 </a>
-                                                <a href="javascript:void(0)" class="text-inverse" title="" data-toggle="tooltip"
-                                                    data-original-title="Delete"><i class="ti-trash"></i>
-                                                </a>
+
+                                                <form action="/admin/delete_product" method="POST" style="display: inline;">
+                                                    
+                                                    <button class="btn-transparent text-inverse" type="submit">
+                                                        <i class="ti-trash"></i>
+                                                    </button>
+                                                </form>
+
                                             </td>
+
                                         </tr>
-                                        <tr>
-                                            <td>Varun Dhavan</td>
-                                            <td>
-                                                <img src="https://fakeimg.pl/80x100/ffffff/455a64" alt="iPhone" width="80">
-                                            </td>
-                                            <td>25</td>
-                                            <td>09-7-2017</td>
-                                            <td>
-                                                <span class="label label-warning font-weight-100">Pending</span>
-                                            </td>
-                                            <td>
-                                                <a href="javascript:void(0)" class="text-inverse p-r-10" data-toggle="tooltip"
-                                                    title="" data-original-title="Edit"><i class="ti-marker-alt"></i>
-                                                </a>
-                                                <a href="javascript:void(0)" class="text-inverse" title="" data-toggle="tooltip"
-                                                    data-original-title="Delete"><i class="ti-trash"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Ritesh Desh</td>
-                                            <td>
-                                                <img src="https://fakeimg.pl/80x100/ffffff/455a64" alt="apple_watch" width="80">
-                                            </td>
-                                            <td>12</td>
-                                            <td>08-7-2017</td>
-                                            <td>
-                                                <span class="label label-success font-weight-100">Paid</span>
-                                            </td>
-                                            <td>
-                                                <a href="javascript:void(0)" class="text-inverse p-r-10" data-toggle="tooltip"
-                                                    title="" data-original-title="Edit"><i class="ti-marker-alt"></i>
-                                                </a>
-                                                <a href="javascript:void(0)" class="text-inverse" title="" data-toggle="tooltip"
-                                                    data-original-title="Delete"><i class="ti-trash"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>Hrithik</td>
-                                            <td>
-                                                <img src="https://fakeimg.pl/80x100/ffffff/455a64" alt="mac_mouse" width="80">
-                                            </td>
-                                            <td>18</td>
-                                            <td>02-7-2017</td>
-                                            <td>
-                                                <span class="label label-danger font-weight-100">Failed</span>
-                                            </td>
-                                            <td>
-                                                <a href="javascript:void(0)" class="text-inverse p-r-10" data-toggle="tooltip"
-                                                    title="" data-original-title="Edit"><i class="ti-marker-alt"></i>
-                                                </a>
-                                                <a href="javascript:void(0)" class="text-inverse" title="" data-toggle="tooltip"
-                                                    data-original-title="Delete"><i class="ti-trash"></i>
-                                                </a>
-                                            </td>
-                                        </tr>
+
                                     </tbody>
+
+                                    <% } %>
+
                                 </table>
+
+                                <% } else { %>
+
+                                <h3>No Products Found!</h3>
+
+                                <% } %>
+
                             </div>
                         </div>
                     </div>
@@ -178,3 +155,4 @@
     </div>
 
     <%- include('../includes/admin/ad_end.ejs') %>
+    
