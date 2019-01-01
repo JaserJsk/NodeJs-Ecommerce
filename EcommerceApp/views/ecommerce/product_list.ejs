@@ -80,9 +80,9 @@
                                                     <img src="<%= product.imageUrl %>" alt="<%= product.title %>" class="img-fluid" />
 
                                                     <div class="card-img-overlay align-items-center">
-                                                        <form action="/add_to_cart" method="POST">
-                                                            <button class="btn btn-md btn-success">Add to Cart</button>
-                                                        </form>
+
+                                                        <a href="/products/<%= product.id %>" class="btn btn-md btn-success">Details</a>
+
                                                     </div>
                                                 </div>
 

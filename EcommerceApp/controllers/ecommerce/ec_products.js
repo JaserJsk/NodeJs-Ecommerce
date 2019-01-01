@@ -1,4 +1,5 @@
 const Product = require('../../models/product')
+const Cart = require('../../models/cart')
 
 // GET INDEX PAGE
 exports.getIndex = (request, response, next) => {
@@ -22,12 +23,31 @@ exports.getProducts = (request, response, next) => {
     });
 };
 
+exports.getProductById = (request, response, next) => {
+    const prodId = request.params.productId;
+    Product.findById(prodId, product => {
+        response.render('ecommerce/product_detail', {
+            product: product, 
+            pageTitle: product.title,
+            path: '/products'
+        });
+    });
+}
+
 // GET CART PAGE
 exports.getCart = (request, response, next) => {
     response.render('ecommerce/cart', {
         pageTitle: 'Your Cart',
         path: '/cart'
     });
+};
+
+exports.postToCart = (request, response, next) => {
+    const prodId = request.body.productId;
+    Product.findById(prodId, product => {
+      Cart.addProduct(prodId, product.price);
+    });
+    response.redirect('/cart');
 };
 
 // GET ORDES PAGE
