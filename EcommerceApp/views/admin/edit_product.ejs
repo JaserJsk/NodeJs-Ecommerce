@@ -1,4 +1,5 @@
 <%- include('../includes/admin/ad_head.ejs') %>
+<link rel="stylesheet" type="text/css" href="/admin/plugins/dropzone-master/dist/dropzone.css">
 </head>
 
 <body class="fix-header fix-sidebar card-no-border">
@@ -18,10 +19,14 @@
                 <!-- ============================================================== -->
                 <div class="row page-titles">
                     <div class="col-md-5 col-8 align-self-center">
-                        <h3 class="text-themecolor m-b-0 m-t-0">Edit Product</h3>
+                        <h3 class="text-themecolor m-b-0 m-t-0">
+                            <% if (editing) { %> Update Product <% } else { %> Add Product <% } %>
+                        </h3>
                         <ol class="breadcrumb">
                             <li class="breadcrumb-item"><a href="javascript:void(0)">Admin</a></li>
-                            <li class="breadcrumb-item active">Edit Product</li>
+                            <li class="breadcrumb-item active">
+                                <% if (editing) { %> Update Product <% } else { %> Add Product <% } %>
+                            </li>
                         </ol>
                     </div>
                     <div class="col-md-7 col-4 align-self-center">
@@ -58,11 +63,85 @@
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
                 <div class="row">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="card-body">
-                                This is some text within a card block.
-                            </div>
+                    <div class="col-sm-12">
+                        <div class="card card-body">
+                            <h4 class="card-title">
+                                <% if (editing) { %> Update Product <% } else { %> Add Product <% } %>
+                            </h4>
+                            <h6 class="card-subtitle"> 
+                                <% if (editing) { %> Change product details! <% } else { %> Add product details! <% } %>
+                            </h6>
+                            
+                            <form class="form-horizontal m-t-40" 
+                                action="/admin/<% if (editing) { %>edit-product<% } else { %>add-product<% } %>"
+                                method="POST">
+
+                                <div class="form-group">
+                                    <label for="title">Title </label>
+                                    <input type="text" id="title" name="title" class="form-control" 
+                                        value="<%if(editing){%><%=product.title%><%}%>" 
+                                        placeholder="Title..."
+                                        required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="price">Price </label>
+                                    <input type="number" id="price" name="price" class="form-control" step="0.01" 
+                                        value="<% if (editing) { %><%= product.price %><% } %>"
+                                        placeholder="0.00"
+                                        required>
+                                </div>
+
+                                <!--
+                                <div class="form-group">
+                                    <label>Category</label>
+                                    <select class="custom-select col-12" id="inlineFormCustomSelect">
+                                        <option selected>Choose...</option>
+                                        <option value="1">One</option>
+                                        <option value="2">Two</option>
+                                        <option value="3">Three</option>
+                                    </select>
+                                </div>
+                                -->
+
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <textarea id="description" name="description" class="form-control" rows="5" 
+                                        placeholder="Description..." 
+                                        required><%if(editing){%><%=product.description%><%}%>
+                                    </textarea>
+                                </div>
+
+                                <!-- Temp Image uploader-->
+                                <div class="form-group">
+                                    <label for="imageUrl">Image Url </label>
+                                    <input type="text" id="imageUrl" name="imageUrl" class="form-control" 
+                                        value="<%if(editing){%><%=product.imageUrl%><%}%>"
+                                        placeholder="ImageUrl..." 
+                                        required>
+                                </div>
+                                <!-- End Temp Image uploader-->
+                                
+                                <!-- If in edit mode -->
+                                <% if (editing) { %>
+                                    <input type="hidden" value="<%= product.id %>" name="productId">
+                                <% } %>
+
+                                <button class="btn btn-outline-success" type="submit">
+                                    <% if (editing) { %>Update Product<% } else { %>Add Product<% } %>
+                                </button>
+
+                            </form>
+
+                            <!--
+                            <label>Upload Images</label>
+                            <form action="#" class="dropzone">
+                                <div class="fallback">
+                                    <input name="file" type="file" multiple />
+                                </div>
+                            </form>
+                            -->
+                            
                         </div>
                     </div>
                 </div>
@@ -74,7 +153,7 @@
                 <!-- ============================================================== -->
                 <!-- .right-sidebar -->
                 <%- include('../includes/admin/ad_switcher.ejs') %>
-                
+
                 <!-- ============================================================== -->
                 <!-- End Right sidebar -->
                 <!-- ============================================================== -->
@@ -87,3 +166,5 @@
     </div>
 
     <%- include('../includes/admin/ad_end.ejs') %>
+
+    <script type="text/javascript" src="/admin/plugins/dropzone-master/dist/dropzone.js"></script>
