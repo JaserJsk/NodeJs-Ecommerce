@@ -37,8 +37,7 @@
                             <div class="col-md-8 align-self-center text-center" data-aos="fade-right" data-aos-duration="1200">
                                 <h1 class="title">
                                     <b class="font-bold text-secondary">Cart</b> <br />
-                                    <span class="text-success-gradiant typewrite" data-period="2000"
-                                        data-type='[ "Verify Your Products!" ]'>
+                                    <span class="text-success-gradiant typewrite" data-period="2000" data-type='[ "Verify Your Products!" ]'>
                                     </span>
                                 </h1>
                             </div>
@@ -49,67 +48,89 @@
 
                 <!-- ============================================================== -->
                 <!-- Content -->
-                
+
                 <div class="spacer">
                     <div class="container">
                         <div class="row m-t-30">
+
                             <!-- column  -->
                             <div class="col-lg-12 ml-auto">
+
+                                <% if (products.length > 0) { %>
+
                                 <table class="table shop-table">
+
+                                    <thead>
+                                        <tr>
+                                            <th class="b-0 text-center">Title</th>
+                                            <th class="b-0 text-center">Image</th>
+                                            <th class="b-0 text-center">Quantity</th>
+                                            <th class="b-0 text-center">Price</th>
+                                            <th class="b-0 text-center">Actions</th>
+                                        </tr>
+                                    </thead>
+
+                                    <% products.forEach(p => { %>
+
+                                    <tbody>
+
+                                        <tr>
+
+                                            <td class="text-center">
+                                                <%= p.productData.title %>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <img src="<%= p.productData.imageUrl %>" alt="<%= p.productData.title %>"
+                                                    width="200" height="188">
+                                            </td>
+
+                                            <td class="text-center">
+                                                <%= p.qty %>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <h5 class="font-medium m-b-30">
+                                                    $
+                                                    <%= product.price %>
+                                                </h5>
+                                            </td>
+
+                                            <form action="/cart-delete-item" method="POST">
+                                                <td class="text-center">
+                                                    <input type="hidden" value="<%= p.productData.id %>" name="productId">
+                                                    <button class="btn-transparent text-inverse" type="submit">
+                                                        <i class="ti-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </form>
+
+                                        </tr>
+
+                                    </tbody>
+
+                                    <% }) %>
+
                                     <tr>
-                                        <th class="b-0">Product</th>
-                                        <th class="b-0">Decription</th>
-                                        <th class="b-0">Quantity</th>
-                                        <th class="b-0 text-right">Price</th>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="https://fakeimg.pl/200x188/dbdfe1/909090" width="200" alt="wrapkit" /></td>
-                                        <td>
-                                            <h6>Nike Roshe Run NM </h6>
-                                            <h6 class="subtitle">Color: Gray</h6>
-                                            <h6 class="subtitle">Size: 9</h6>
-                                        </td>
-                                        <td>
-                                            <select class="custom-select" id="inlineFormCustomSelect">
-                                                <option selected="">1</option>
-                                                <option value="1">2</option>
-                                                <option value="2">3</option>
-                                                <option value="3">4</option>
-                                            </select>
-                                        </td>
-                                        <td class="text-right">
-                                            <h5 class="font-medium m-b-30">$195 / <del class="text-muted line-through">$225</del></h5>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td><img src="https://fakeimg.pl/200x188/dbdfe1/909090" width="200" alt="wrapkit" /></td>
-                                        <td>
-                                            <h6>Nike Roshe Run NM </h6>
-                                            <h6 class="subtitle">Color: Gray</h6>
-                                            <h6 class="subtitle">Size: 9</h6>
-                                        </td>
-                                        <td>
-                                            <select class="custom-select" id="inlineFormCustomSelect1">
-                                                <option selected="">1</option>
-                                                <option value="1">2</option>
-                                                <option value="2">3</option>
-                                                <option value="3">4</option>
-                                            </select>
-                                        </td>
-                                        <td class="text-right">
-                                            <h5 class="font-medium m-b-30">$19</h5>
-                                        </td>
-                                    </tr>
-                                    <tr>
-                                        <td colspan="4">
+                                        <td colspan="6">
                                             <div class="d-flex">
                                                 <span>Total</span>
-                                                <h5 class="font-medium m-b-30 ml-auto">$233</h5>
+                                                <h5 class="font-medium m-b-30 ml-auto">
+                                                    $
+                                                    1000
+                                                </h5>
                                             </div>
                                         </td>
                                     </tr>
+
                                 </table>
-                                <button type="submit" class="btn btn-success btn-md m-t-20 pull-right">Go to Cart</button>
+
+                                <% } else { %>
+                                <h3>No Products in Cart!</h3>
+                                <% } %>
+
+                                <button type="submit" class="btn btn-success btn-md m-t-20 pull-right">Chechout</button>
+
                             </div>
                         </div>
                     </div>
@@ -118,7 +139,8 @@
 
             <!-- ============================================================== -->
             <!-- Back to top -->
-            <a class="bt-top btn btn-circle btn-lg btn-success" href="#top"><i class="fa fa-angle-double-up" aria-hidden="true"></i></a>
+            <a class="bt-top btn btn-circle btn-lg btn-success" href="#top"><i class="fa fa-angle-double-up"
+                    aria-hidden="true"></i></a>
 
         </div>
 

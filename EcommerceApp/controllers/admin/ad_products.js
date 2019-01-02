@@ -94,3 +94,13 @@ exports.getProducts = (request, response, next) => {
         });
     });
 };
+
+/**
+ * *********************************************************** 
+ * Delete an existing product!
+ */
+exports.postDeleteProduct = (request, response, next) => {
+    const prodId = request.body.productId;
+    Product.deleteById(prodId);
+    response.redirect('/admin/products');
+};

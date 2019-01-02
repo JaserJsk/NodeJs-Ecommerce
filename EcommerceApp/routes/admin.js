@@ -22,7 +22,12 @@ router.post('/add-product', adminProductsController.postAddProduct);
  * Routes for editing product
  */
 router.get('/edit-product=:productId', adminProductsController.getEditProduct);
-
 router.post('/edit-product', adminProductsController.postEditProduct);
+
+/**
+ * Route for deleting a product
+ */
+router.post('/delete-product', adminProductsController.postDeleteProduct);
+
 
 module.exports = router;

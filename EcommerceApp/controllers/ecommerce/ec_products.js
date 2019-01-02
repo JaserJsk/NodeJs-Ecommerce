@@ -27,7 +27,7 @@ exports.getProductById = (request, response, next) => {
     const prodId = request.params.productId;
     Product.findById(prodId, product => {
         response.render('ecommerce/product_detail', {
-            product: product, 
+            product: product,
             pageTitle: product.title,
             path: '/products'
         });
@@ -36,18 +36,43 @@ exports.getProductById = (request, response, next) => {
 
 // GET CART PAGE
 exports.getCart = (request, response, next) => {
-    response.render('ecommerce/cart', {
-        pageTitle: 'Your Cart',
-        path: '/cart'
+    Cart.getCart(cart => {
+        Product.fetchAll(products => {
+            const cartProducts = [];
+            for (product of products) {
+                const cartProductData = cart.products.find(
+                    prod => prod.id === product.id
+                );
+                if (cartProductData) {
+                    cartProducts.push({
+                        productData: product,
+                        qty: cartProductData.qty
+                    });
+                }
+            }
+            response.render('ecommerce/cart', {
+                path: '/cart',
+                pageTitle: 'Your Cart',
+                products: cartProducts
+            });
+        });
     });
 };
 
 exports.postToCart = (request, response, next) => {
     const prodId = request.body.productId;
     Product.findById(prodId, product => {
-      Cart.addProduct(prodId, product.price);
+        Cart.addProduct(prodId, product.price);
     });
     response.redirect('/cart');
+};
+
+exports.postCartDeleteProduct = (request, response, next) => {
+    const prodId = request.body.productId;
+    Product.findById(prodId, product => {
+        Cart.deleteProduct(prodId, product.price);
+        response.redirect('/cart');
+    });
 };
 
 // GET ORDES PAGE

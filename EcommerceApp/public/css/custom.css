@@ -71,3 +71,22 @@ body {
     padding: 14px 15px;
 }
 /* Move To Top Btn *** */
+
+/* *** Delete Product */
+.btn-transparent {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+/* Delete Product *** */
+
+/* *** Text Ellipsis */
+.text-ellipsis {
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+/* Text Ellipsis *** */

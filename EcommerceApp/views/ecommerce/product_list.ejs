@@ -77,7 +77,8 @@
                                             <!-- column  -->
                                             <div class="col-lg-3">
                                                 <div class="card shop-hover">
-                                                    <img src="<%= product.imageUrl %>" alt="<%= product.title %>" class="img-fluid" />
+                                                    <img src="<%= product.imageUrl %>" alt="<%= product.title %>" class="mx-auto d-block"
+                                                    width="250" height="240" />
 
                                                     <div class="card-img-overlay align-items-center">
 
@@ -87,8 +88,8 @@
                                                 </div>
 
                                                 <div class="card">
-                                                    <h6><a href="#" class="link"><%= product.title %></a></h6>
-                                                    <p class="subtitle"><%= product.description %></p>
+                                                    <h6 class="text-ellipsis"><%= product.title %></h6>
+                                                    <p class="subtitle text-ellipsis"><%= product.description %></p>
                                                     <h5 class="font-medium m-b-30">$<%= product.price %></h5>
                                                 </div>
                                             </div>
