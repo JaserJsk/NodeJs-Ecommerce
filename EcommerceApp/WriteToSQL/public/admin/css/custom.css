@@ -1,0 +1,31 @@
+/*============================================================== 
+ You can write your style here.
+ ============================================================== */
+.srh-btn {
+    margin-top: 9px;
+}
+
+.srh-btn .ti-close {
+    position: absolute;
+}
+
+.rpanel-title .ti-close {
+    top: 3px;
+}
+
+/* *** Dropzone Images */
+.dropzone {
+    border: 1px dashed #d9d9d9 !important;
+}
+/* Dropzone Images *** */
+
+/* *** Delete Product */
+.btn-transparent {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+/* Delete Product *** */

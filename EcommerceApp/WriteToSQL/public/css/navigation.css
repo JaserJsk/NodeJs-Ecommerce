@@ -1,0 +1,96 @@
+/******************* Header 14 *******************/
+.h14-topbar {
+    background: #f4f8fa;
+}
+.h14-topbar .navbar-brand {
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: 500;
+    padding: 15px 0;
+}
+.h14-topbar .navbar {
+    padding: 0;
+}
+.h14-topbar .navbar .search-box {
+    padding: 15px;
+    width: 240px;
+}
+.h14-topbar .navbar .nav-item .nav-link {
+    color: #8d97ad;
+    padding: 15px 20px;
+}
+.h14-topbar .navbar .nav-item .nav-link:first-child {
+    padding-left: 0px;
+}
+.h14-navbar {
+    background: #2cdd9b;
+}
+.h14-navbar .navbar {
+    padding: 0;
+}
+.h14-navbar .navbar .hidden-lg-up {
+    padding: 15px;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+.h14-navbar .navbar .navbar-nav .nav-link {
+    padding: 18px 15px;
+    color: #ffffff;
+    font-weight: 400;
+    font-size: 13px;
+    text-transform: uppercase;
+}
+.h14-navbar .navbar .navbar-nav .nav-item:hover .nav-link, .h14-navbar .navbar .navbar-nav .nav-item.active .nav-link {
+    /*background: rgba(120, 130, 140, 0.13);*/
+    background: #23b07c;
+    color: #ffffff;
+}
+.h14-navbar .navbar .navbar-nav .search .nav-link {
+    /*background: rgba(0, 0, 0, 0.05);*/
+    background: #23b07c;
+    padding: 18px 23px;
+}
+.h14-navbar .navbar .navbar-nav .search .dropdown-menu {
+    padding: 20px;
+    min-width: 300px;
+}
+.h14-navbar .navbar .dropdown-menu {
+    background: #2cdd9b;
+    border-radius: 0 0 4px 4px;
+    margin-top: 0px;
+}
+.h14-navbar .navbar .dropdown-menu .dropdown-item {
+    color: #ffffff;
+}
+.h14-navbar .navbar .dropdown-menu .dropdown-item.active, .h14-navbar .navbar .dropdown-menu .dropdown-item:active, .h14-navbar .navbar .dropdown-menu .dropdown-item:hover {
+    /*background: rgba(120, 130, 140, 0.13);*/
+    background: #23b07c;
+}
+.h14-info-bar {
+    padding: 15px 0px;
+}
+.h14-info-bar .donate-btn a {
+    font-size: 13px;
+    font-weight: 500;
+    padding: 13px 25px;
+    margin-left: 15px;
+}
+.h14-info-bar .nav-item .nav-link {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    padding: 0 25px;
+}
+@media (max-width: 1023px) {
+    .h14-info-bar .donate-btn a {
+        display: block;
+        margin-left: 0px;
+   }
+    .h14-info-bar .nav-item .nav-link {
+        padding: 0 10px;
+        margin: 10px 0;
+   }
+}
