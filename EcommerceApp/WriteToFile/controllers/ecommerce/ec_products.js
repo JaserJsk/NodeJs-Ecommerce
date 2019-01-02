@@ -75,14 +75,6 @@ exports.postCartDeleteProduct = (request, response, next) => {
     });
 };
 
-// GET ORDES PAGE
-exports.getOrders = (request, response, next) => {
-    response.render('ecommerce/orders', {
-        pageTitle: 'Your Orders',
-        path: '/orders'
-    });
-};
-
 // GET CECKOUT PAGE
 exports.getCheckout = (request, response, next) => {
     response.render('ecommerce/checkout', {
