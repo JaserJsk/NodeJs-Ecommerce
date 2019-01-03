@@ -125,13 +125,13 @@
 
                                 </table>
 
-                                <% } else { %>
-                                <h3>No Products in Cart!</h3>
-                                <% } %>
-
                                 <form action="/checkout-order" method="POST">
                                     <button type="submit" class="btn btn-success btn-md m-t-20 pull-right">Chechout</button>
                                 </form>
+
+                                <% } else { %>
+                                <h3>No Products in Cart!</h3>
+                                <% } %>
 
                             </div>
                         </div>

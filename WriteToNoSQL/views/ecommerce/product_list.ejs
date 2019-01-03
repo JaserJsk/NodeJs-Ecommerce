@@ -72,34 +72,34 @@
 
                                     <% if (prods.length > 0) { %>
 
-                                        <% for (let product of prods) { %>
+                                    <% for (let product of prods) { %>
 
-                                            <!-- column  -->
-                                            <div class="col-lg-3">
-                                                <div class="card shop-hover">
-                                                    <img src="<%= product.imageUrl %>" alt="<%= product.title %>" class="mx-auto d-block"
-                                                    width="250" height="240" />
+                                    <!-- column  -->
+                                    <div class="col-lg-3">
+                                        <div class="card shop-hover">
+                                            <img src="<%= product.imageUrl %>" alt="<%= product.title %>" class="mx-auto d-block"
+                                                width="250" height="240" />
 
-                                                    <div class="card-img-overlay align-items-center">
+                                            <div class="card-img-overlay align-items-center">
 
-                                                        <a href="/products/<%= product.id %>" class="btn btn-md btn-success">Details</a>
+                                                <a href="/products/<%= product.id %>" class="btn btn-md btn-success">Details</a>
 
-                                                    </div>
-                                                </div>
-
-                                                <div class="card">
-                                                    <h6 class="text-ellipsis"><%= product.title %></h6>
-                                                    <p class="subtitle text-ellipsis"><%= product.description %></p>
-                                                    <h5 class="font-medium m-b-30">$<%= product.price %></h5>
-                                                </div>
                                             </div>
-                                        <!-- column  -->
+                                        </div>
 
-                                        <% } %>
-
-                                    <% } else { %>
-
-                                    <h3>No Products Found!</h3>
+                                        <div class="card">
+                                            <h6 class="text-ellipsis">
+                                                <%= product.title %>
+                                            </h6>
+                                            <p class="subtitle text-ellipsis">
+                                                <%= product.description %>
+                                            </p>
+                                            <h5 class="font-medium m-b-30">$
+                                                <%= product.price %>
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <!-- column  -->
 
                                     <% } %>
 
@@ -122,6 +122,13 @@
                                         </nav>
                                     </div>
                                     <!-- column  -->
+
+                                    <% } else { %>
+
+                                    <h3>No Products Found!</h3>
+
+                                    <% } %>
+
                                 </div>
                             </div>
                             <!-- column  -->
