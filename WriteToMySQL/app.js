@@ -51,8 +51,8 @@ Order.belongsToMany(Product, { through: OrderItem });
 
 sequelize
     // Remove { force: true } in production mode.
-    .sync({ force: true })
-    //.sync()
+    //.sync({ force: true })
+    .sync()
     .then(result => {
         return User.findById(1);
         //console.log(result);
