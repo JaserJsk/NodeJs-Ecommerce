@@ -1,0 +1,41 @@
+.static-slider2 {
+    background: #ffffff;
+}
+
+.static-slider2 h1
+{
+    font-size:90px;
+    font-weight: 800;
+    line-height: 90px;
+}
+
+@media(max-width:767px) 
+{
+    .static-slider2 h1 {
+        
+        font-weight: 700;
+        line-height: 50px;
+        font-size:50px;
+        
+    }
+}
+
+/******************* Static slide 3 *******************/
+.static-slider3 {
+    /*padding: 10% 0;*/
+    padding: 13% 0 7% 0;
+    background: #ffffff;
+}
+.static-slider3 h1 {
+    font-weight: 300;
+    line-height: 50px;
+}
+.static-slider3 h1 span {
+    /*border-bottom: 3px solid #2cdd9b;*/
+}
+@media (max-width: 767px) {
+    .static-slider3 h1 {
+        line-height: 30px;
+        font-size: 24px;
+   }
+}

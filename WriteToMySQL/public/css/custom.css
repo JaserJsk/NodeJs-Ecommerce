@@ -1,0 +1,92 @@
+/*============================================================== 
+ You can write your style here.
+ ============================================================== */
+
+body {
+    background: #f4f8fa;
+}
+
+.sl-icon-options-vertical {
+    color: #2cdd9a;
+}
+
+.ti-menu {
+    color: #ffffff;
+}
+
+/* --------------------------------------------- */
+/* *** Header */
+.topbar.fixed-header {
+    background: #ffffff; 
+}
+
+@media (max-width: 1023px) {
+    .topbar {
+        background: #ffffff;
+    }
+}
+/* Header *** */
+
+/* --------------------------------------------- */
+/* *** Product Items */
+.card {
+    background-color: #f4f8fa;
+}
+/* Product Items *** */
+
+/* --------------------------------------------- */
+/* *** Pagination Items */
+.page-item.disabled .page-link {
+    background-color: #f4f8fa;
+}
+.page-link {
+    color: #2cdd9b ;
+    background-color: #f4f8fa;
+}
+.page-item.active .page-link {
+    color: #fff;
+    background-color: #2cdd9b;
+    border-color: #2cdd9b;
+}
+/* Pagination Items *** */
+
+/* --------------------------------------------- */
+/* *** Forms */
+.form-control {
+    background-color: #f4f8fa;
+}
+/* Forms *** */
+
+/* *** Checkbox */
+.custom-checkbox .custom-control-input:checked~.custom-control-label::before{
+    background-color: #2cdd9b;
+}
+/* Checkbox *** */
+
+/* --------------------------------------------- */
+/* *** Move To Top Btn */
+.btn-circle.btn-lg {
+    width: 50px;
+    height: 50px;
+    padding: 14px 15px;
+}
+/* Move To Top Btn *** */
+
+/* *** Delete Product */
+.btn-transparent {
+    background-color: Transparent;
+    background-repeat:no-repeat;
+    border: none;
+    cursor:pointer;
+    overflow: hidden;
+    outline:none;
+}
+/* Delete Product *** */
+
+/* *** Text Ellipsis */
+.text-ellipsis {
+    white-space: nowrap; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
+}
+/* Text Ellipsis *** */
