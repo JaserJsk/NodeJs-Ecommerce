@@ -1,0 +1,236 @@
+<%- include('../includes/ecommerce/head.ejs') %>
+<link rel="stylesheet" href="/css/shop.css">
+</head>
+
+<body>
+
+    <div id="main-wrapper">
+
+        <!-- ============================================================== -->
+        <!-- Top header -->
+        <div class="topbar">
+
+            <div class="header14 po-relative">
+
+                <%- include('../includes/ecommerce/header.ejs') %>
+
+                <%- include('../includes/ecommerce/navigation.ejs') %>
+
+            </div>
+
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- Page wrapper -->
+        <div class="page-wrapper">
+
+            <!-- ============================================================== -->
+            <!-- Container fluid -->
+            <div class="container-fluid">
+
+                <!-- ============================================================== -->
+                <!-- Slider or Banner -->
+
+                <div class="static-slider3">
+                    <div class="container">
+                        <div class="row justify-content-center ">
+                            <!-- Column -->
+                            <div class="col-md-8 align-self-center text-center" data-aos="fade-right" data-aos-duration="1200">
+                                <h1 class="title">
+                                    <b class="font-bold text-secondary">Orders</b> <br />
+                                    <span class="text-success-gradiant typewrite" data-period="2000" data-type='[ "This is your order list!" ]'>
+                                    </span>
+                                </h1>
+                            </div>
+                            <!-- Column -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============================================================== -->
+                <!-- Content -->
+
+                <div class="spacer">
+                    <div class="container">
+                        <div class="row m-t-30">
+
+                            <% if (orders.length <= 0) { %>
+
+                            <h3>Nothing there!</h3>
+
+                            <% } else { %>
+
+                            <!-- column  -->
+                            <div class="col-lg-6">
+
+                                <table class="table shop-table">
+
+                                    <thead>
+                                        <tr>
+                                            <th class="b-0 text-left">Title</th>
+                                            <th class="b-0 text-center">Quantity</th>
+                                            <th class="b-0 text-right">Price</th>
+                                        </tr>
+                                    </thead>
+
+                                    <% orders.forEach(order => { %>
+
+                                    <tbody>
+
+                                        <% order.products.forEach(product => { %>
+
+                                        <tr>
+
+                                            <td class="text-ellipsis">
+                                                <%= product.title %>
+                                            </td>
+
+                                            <td class="text-center">
+                                                <%= product.orderItem.quantity %>
+                                            </td>
+
+                                            <td class="text-right">
+                                                <h5 class="font-medium m-b-30">
+                                                    $
+                                                    <%= product.price * product.orderItem.quantity  %>
+                                                </h5>
+                                            </td>
+
+                                        </tr>
+
+                                        <% }); %>
+
+                                    </tbody>
+
+                                    <% }); %>
+
+                                    <tr>
+                                        <td colspan="3">
+                                            <div class="d-flex">
+                                                <span>Total</span>
+                                                <h5 class="font-medium m-b-30 ml-auto">$233</h5>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                    <tr>
+                                        <td colspan="3">
+                                            <div class="d-flex">
+                                                <span>Sub Total</span>
+                                                <h5 class="font-medium m-b-30 ml-auto">$233</h5>
+                                            </div>
+                                            <div class="d-flex">
+                                                <span>Shipping</span>
+                                                <h5 class="font-medium m-b-30 ml-auto">$0</h5>
+                                            </div>
+                                            <div class="d-flex">
+                                                <span>Tax</span>
+                                                <h5 class="font-medium ml-auto">-</h5>
+                                            </div>
+                                        </td>
+                                    </tr>
+
+                                </table>
+
+                            </div>
+
+                            <!-- column  -->
+                            <div class="col-lg-5 ml-auto">
+                                <form class="m-b-40">
+                                    <div class="form-group">
+                                        <h6 class="m-b-20 font-medium">CUSTOMER INFORMATION</h6>
+                                        <input type="text" class="form-control" value="Email Address">
+                                        <br />
+                                        <span class="help-block"><small>Already have an account? <a href="#" style="color: #2cdd9b;">Login
+                                                    Now</a></small></span>
+                                    </div>
+                                </form>
+                                <form class="m-t-40">
+                                    <h6 class="m-b-20 font-medium">SHIPPING INFORMATION</h6>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" value="First Name">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" value="Last Name">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" value="Postal Address">
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <select class="form-control custom-select">
+                                                <option>Country</option>
+                                                <option>Country name</option>
+                                                <option>Country name</option>
+                                                <option>Country name</option>
+                                                <option>Country name</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <select class="form-control custom-select">
+                                                <option>State</option>
+                                                <option>State name</option>
+                                                <option>State name</option>
+                                                <option>State name</option>
+                                                <option>State name</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <select class="form-control custom-select">
+                                                <option>City</option>
+                                                <option>City name</option>
+                                                <option>City name</option>
+                                                <option>City name</option>
+                                                <option>City name</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" value="Zip Code">
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <div class="form-group">
+                                        <div class="col-auto my-1">
+                                            <div class="custom-control custom-checkbox mr-sm-2">
+                                                <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
+                                                <label class="custom-control-label" for="customControlAutosizing">
+                                                    I agree with <a href="" style="color: #2cdd9b;">Terms &amp;
+                                                        Condition</a></label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                    <button type="submit" class="btn btn-success btn-md ">Checkout</button>
+                                </form>
+                            </div>
+
+                            <% } %>
+
+                        </div>
+
+                    </div>
+                    
+                </div>
+
+            </div>
+
+            <!-- ============================================================== -->
+            <!-- Back to top -->
+            <a class="bt-top btn btn-circle btn-lg btn-success" href="#top"><i class="fa fa-angle-double-up"
+                    aria-hidden="true"></i></a>
+
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- footer -->
+        <%- include('../includes/ecommerce/footer.ejs') %>
+
+    </div>
+
+    <%- include('../includes/ecommerce/end.ejs') %>
+
+    <script type="text/javascript" src="/js/type.js"></script>

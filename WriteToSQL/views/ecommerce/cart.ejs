@@ -70,35 +70,35 @@
                                         </tr>
                                     </thead>
 
-                                    <% products.forEach(p => { %>
+                                    <% products.forEach(pr => { %>
 
                                     <tbody>
 
                                         <tr>
 
                                             <td class="text-center">
-                                                <%= p.productData.title %>
+                                                <%= pr.title %>
                                             </td>
 
                                             <td class="text-center">
-                                                <img src="<%= p.productData.imageUrl %>" alt="<%= p.productData.title %>"
-                                                    width="200" height="188">
+                                                <img src="<%= pr.imageUrl %>" alt="<%= pr.title %>"
+                                                    width="100" height="100">
                                             </td>
 
                                             <td class="text-center">
-                                                <%= p.qty %>
+                                                <%= pr.cartItem.quantity %>
                                             </td>
 
                                             <td class="text-center">
                                                 <h5 class="font-medium m-b-30">
                                                     $
-                                                    <%= product.price %>
+                                                    <%= pr.price * pr.cartItem.quantity %>
                                                 </h5>
                                             </td>
 
                                             <form action="/cart-delete-item" method="POST">
                                                 <td class="text-center">
-                                                    <input type="hidden" value="<%= p.productData.id %>" name="productId">
+                                                    <input type="hidden" value="<%= pr.id %>" name="productId">
                                                     <button class="btn-transparent text-inverse" type="submit">
                                                         <i class="ti-trash"></i>
                                                     </button>
@@ -129,7 +129,9 @@
                                 <h3>No Products in Cart!</h3>
                                 <% } %>
 
-                                <button type="submit" class="btn btn-success btn-md m-t-20 pull-right">Chechout</button>
+                                <form action="/checkout-order" method="POST">
+                                    <button type="submit" class="btn btn-success btn-md m-t-20 pull-right">Chechout</button>
+                                </form>
 
                             </div>
                         </div>
