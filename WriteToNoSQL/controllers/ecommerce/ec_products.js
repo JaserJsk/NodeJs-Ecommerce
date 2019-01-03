@@ -198,7 +198,7 @@ exports.getOrders = (request, response, next) => {
     request.user
         .getOrders({include: ['products']})
         .then(orders => {
-            response.render('ecommerce/order', {
+            response.render('ecommerce/orders', {
                 pageTitle: 'Your Orders',
                 path: '/orders',
                 orders: orders
