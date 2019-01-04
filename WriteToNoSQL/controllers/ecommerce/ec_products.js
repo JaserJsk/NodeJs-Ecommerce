@@ -5,7 +5,7 @@ const Product = require('../../models/product');
  * Site index page!
  */
 exports.getIndex = (request, response, next) => {
-    Product.findAll()
+    Product.fetchAll()
         .then(
             products => {
                 response.render('ecommerce/index', {
@@ -24,7 +24,7 @@ exports.getIndex = (request, response, next) => {
  * Display products to customers!
  */
 exports.getProducts = (request, response, next) => {
-    Product.findAll()
+    Product.fetchAll()
         .then(products => {
             response.render('ecommerce/product_list', {
                 prods: products,
@@ -61,19 +61,14 @@ exports.getProductById = (request, response, next) => {
  * Display customer cart items!
  */
 exports.getCart = (request, response, next) => {
-    request.user.getCart()
-        .then(cart => {
-            return cart.getProducts()
-                .then(products => {
-                    response.render('ecommerce/cart', {
-                        path: '/cart',
-                        pageTitle: 'Your Cart',
-                        products: products
-                    });
-                })
-                .catch(err => {
-                    console.log(err)
-                });
+    request.user
+        .getCart()
+        .then(products => {
+            response.render('ecommerce/cart', {
+                path: '/cart',
+                pageTitle: 'Your Cart',
+                products: products
+            });
         })
         .catch(err => {
             console.log(err)
@@ -86,37 +81,12 @@ exports.getCart = (request, response, next) => {
  */
 exports.postToCart = (request, response, next) => {
     const prodId = request.body.productId;
-    let fetchedCart;
-    let newQuantity = 1;
-    request.user.getCart()
-        .then(cart => {
-            fetchedCart = cart;
-            return cart.getProducts({
-                where: {
-                    id: prodId
-                }
-            })
-        })
-        .then(products => {
-            let product
-            if (products.length > 0) {
-                product = products[0]
-            }
-            if (product) {
-                const oldQuantity = product.cartItem.quantity;
-                newQuantity = oldQuantity + 1;
-                return product;
-            }
-            return Product.findById(prodId);
-        })
+    Product.findById(prodId)
         .then(product => {
-            return fetchedCart.addProduct(product, {
-                through: {
-                    quantity: newQuantity
-                }
-            });
+            return request.user.addToCart(product);
         })
-        .then(() => {
+        .then(result => {
+            console.log(result);
             response.redirect('/cart');
         })
         .catch(err => {

@@ -32,17 +32,21 @@ exports.postAddProduct = (request, response, next) => {
     const price = request.body.price;
     const description = request.body.description;
     const imageUrl = request.body.imageUrl;
-    request.user.createProduct({
-        title: title,
-        price: price,
-        description: description,
-        imageUrl: imageUrl,
-    })
-    .then(result => {
-        console.log('Created Product')
-        response.redirect('/admin/products');
-    })
-    .catch(err => {console.log(err)});
+    const product = new Product(
+        title,
+        price,
+        description,
+        imageUrl,
+        null,
+        request.user._id);
+    product.save()
+        .then(result => {
+            console.log('Created Product')
+            response.redirect('/admin/products');
+        })
+        .catch(err => {
+            console.log(err)
+        });
 };
 
 /**
@@ -55,10 +59,8 @@ exports.getEditProduct = (request, response, next) => {
         return response.redirect('/admin/products');
     }
     const prodId = request.params.productId;
-    //Product.findById(prodId) - Old Way
-    request.user.getProducts({where: {id: prodId}}) // New Way
-        .then(products => {
-            const product = products[0];
+    Product.findById(prodId)
+        .then(product => {
             if (!product) {
                 return response.redirect('/admin/products');
             }
@@ -69,7 +71,9 @@ exports.getEditProduct = (request, response, next) => {
                 product: product
             });
         })
-        .catch(err => {console.log(err)});
+        .catch(err => {
+            console.log(err)
+        });
 };
 
 /**
@@ -82,20 +86,20 @@ exports.postEditProduct = (request, response, next) => {
     const updatedPrice = request.body.price;
     const updatedDesc = request.body.description;
     const updatedImageUrl = request.body.imageUrl;
-
-    Product.findById(prodId)
-        .then(product => {
-            product.title = updatedTitle;
-            product.price = updatedPrice;            
-            product.description = updatedDesc;
-            product.imageUrl = updatedImageUrl;
-            return product.save();
-        })
-        .then(result => {
+    const product = new Product(
+        updatedTitle,
+        updatedPrice,
+        updatedDesc,
+        updatedImageUrl,
+        prodId
+    );
+    product.save().then(result => {
             console.log('Updated Product');
             response.redirect('/admin/products');
         })
-        .catch(err => {console.log(err)});
+        .catch(err => {
+            console.log(err)
+        });
 };
 
 /**
@@ -103,9 +107,7 @@ exports.postEditProduct = (request, response, next) => {
  * Display list of all existing product!
  */
 exports.getProducts = (request, response, next) => {
-    //Product.findAll() - Old Way
-    request.user // New Way
-        .getProducts()
+    Product.fetchAll()
         .then(products => {
             response.render('admin/products', {
                 prods: products,
@@ -113,7 +115,9 @@ exports.getProducts = (request, response, next) => {
                 path: '/admin/products'
             });
         })
-        .catch(err => {console.log(err)});
+        .catch(err => {
+            console.log(err)
+        });
 };
 
 /**
@@ -122,13 +126,12 @@ exports.getProducts = (request, response, next) => {
  */
 exports.postDeleteProduct = (request, response, next) => {
     const prodId = request.body.productId;
-    Product.findById(prodId)
-        .then(product => {
-            return product.destroy();
-        })
-        .then(result => {
+    Product.deleteById(prodId)
+        .then(() => {
             console.log('Destroyed Product');
             response.redirect('/admin/products');
         })
-        .catch(err => {console.log(err)});
+        .catch(err => {
+            console.log(err)
+        });
 };

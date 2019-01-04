@@ -29,5 +29,4 @@ router.post('/edit-product', adminProductsController.postEditProduct);
  */
 router.post('/delete-product', adminProductsController.postDeleteProduct);
 
-
 module.exports = router;

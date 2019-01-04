@@ -103,12 +103,12 @@
                                             </td>
 
                                             <td>
-                                                <a href="/admin/edit-product=<%= product.id %>?edit=true" class="text-inverse p-r-10" >
+                                                <a href="/admin/edit-product=<%= product._id %>?edit=true" class="text-inverse p-r-10" >
                                                     <i class="ti-marker-alt"></i>
                                                 </a>
 
                                                 <form action="/admin/delete-product" method="POST" style="display: inline;">
-                                                    <input type="hidden" name="productId" value="<%= product.id %>">
+                                                    <input type="hidden" name="productId" value="<%= product._id %>">
                                                     <button class="btn-transparent text-inverse" type="submit">
                                                         <i class="ti-trash"></i>
                                                     </button>

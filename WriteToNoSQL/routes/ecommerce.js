@@ -18,11 +18,11 @@ router.get('/cart', shopProductsController.getCart);
 
 router.post('/cart', shopProductsController.postToCart);
 
-router.post('/cart-delete-item', shopProductsController.postCartDeleteProduct);
+/* router.post('/cart-delete-item', shopProductsController.postCartDeleteProduct);
 
 router.get('/orders', shopProductsController.getOrders);
 
-router.post('/place-order', shopProductsController.postOrder);
+router.post('/place-order', shopProductsController.postOrder); */
 
 //router.get('/checkout', shopProductsController.getCheckout);
 
