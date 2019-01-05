@@ -13,6 +13,26 @@ exports.getDashboard = (request, response, next) => {
 
 /**
  * *********************************************************** 
+ * Display list of all existing product!
+ */
+exports.getProducts = (request, response, next) => {
+    Product.find()
+        //.populate('userId')
+        .then(products => {
+            //console.log(products);
+            response.render('admin/products', {
+                prods: products,
+                pageTitle: 'Admin Products',
+                path: '/admin/products'
+            });
+        })
+        .catch(err => {
+            console.log(err)
+        });
+};
+
+/**
+ * *********************************************************** 
  * Fetch single existing product!
  */
 exports.getAddProduct = (request, response, next) => {
@@ -32,13 +52,13 @@ exports.postAddProduct = (request, response, next) => {
     const price = request.body.price;
     const description = request.body.description;
     const imageUrl = request.body.imageUrl;
-    const product = new Product(
-        title,
-        price,
-        description,
-        imageUrl,
-        null,
-        request.user._id);
+    const product = new Product({
+        title: title, 
+        price: price, 
+        description: description, 
+        imageUrl: imageUrl,
+        userId: request.user._id
+    });
     product.save()
         .then(result => {
             console.log('Created Product')
@@ -86,34 +106,18 @@ exports.postEditProduct = (request, response, next) => {
     const updatedPrice = request.body.price;
     const updatedDesc = request.body.description;
     const updatedImageUrl = request.body.imageUrl;
-    const product = new Product(
-        updatedTitle,
-        updatedPrice,
-        updatedDesc,
-        updatedImageUrl,
-        prodId
-    );
-    product.save().then(result => {
+
+    Product.findById(prodId)
+        .then(product => {
+            product.title = updatedTitle;
+            product.price = updatedPrice;
+            product.description = updatedDesc;
+            product.imageUrl = updatedImageUrl;
+            return product.save();
+        })
+        .then(result => {
             console.log('Updated Product');
             response.redirect('/admin/products');
-        })
-        .catch(err => {
-            console.log(err)
-        });
-};
-
-/**
- * *********************************************************** 
- * Display list of all existing product!
- */
-exports.getProducts = (request, response, next) => {
-    Product.fetchAll()
-        .then(products => {
-            response.render('admin/products', {
-                prods: products,
-                pageTitle: 'Admin Products',
-                path: '/admin/products'
-            });
         })
         .catch(err => {
             console.log(err)
@@ -126,7 +130,7 @@ exports.getProducts = (request, response, next) => {
  */
 exports.postDeleteProduct = (request, response, next) => {
     const prodId = request.body.productId;
-    Product.deleteById(prodId)
+    Product.findByIdAndRemove(prodId)
         .then(() => {
             console.log('Destroyed Product');
             response.redirect('/admin/products');

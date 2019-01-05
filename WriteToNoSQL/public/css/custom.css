@@ -90,3 +90,23 @@ body {
     text-overflow: ellipsis; 
 }
 /* Text Ellipsis *** */
+
+/* *** Table */
+table {
+    border-collapse: inherit;
+}
+.table td, .table th {
+    vertical-align: middle;
+    border-top: 1px solid transparent;
+}
+.product-id {
+    padding: 5px 0 !important;
+    border-bottom: 1px solid #dee2e6;
+}
+.product-id b {
+    font-weight: bold;
+}
+.shop-table {
+    margin-bottom: -16px;
+}
+/* Table *** */

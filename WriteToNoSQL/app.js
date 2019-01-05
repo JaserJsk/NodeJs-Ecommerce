@@ -2,7 +2,8 @@ const path = require('path');
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const mongoConnect = require('./helpers/database').mongoConnect;
+const mongoose = require('mongoose');
+
 const User = require('./models/user');
 
 const app = express();
@@ -18,11 +19,11 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use((request, response, next) => {
-    User.findById('5c2ed6a5126cde2a900b6451')
+    User.findById('5c3017fd51ea871c545fee6a')
     .then(user => {
-        request.user = new User(user.username, user.email, user.cart, user._id);
+        request.user = user;
         next();
-    })
+      })
     .catch(err => {console.log(err)});
 });
 
@@ -30,6 +31,24 @@ app.use('/admin', adminRoutes);
 app.use(ecommerceRoutes);
 app.use(notFoundRoutes);
 
-mongoConnect(() => {
-    app.listen(3000);
-});
+mongoose.connect('mongodb+srv://jonas:IEOd3MRoKhcvx7I1@githubcluster-jqh7o.mongodb.net/ecommerce?retryWrites=true')
+    .then(result => {
+        User.findOne().then(user => {
+            if (!user) {
+                const user = new User({
+                    firstName: 'Jonas',
+                    lastName: 'Jsk',
+                    email: 'jonas.jsk@outlook.com',
+                    photoUrl: 'https://archive.senseidev.com/assets/001.jpg',
+                    cart: {
+                        items: []
+                    }
+                });
+                user.save();
+            }
+        });
+        app.listen(3000);
+    })
+    .catch(err => {
+        console.log(err)
+    });

@@ -77,11 +77,11 @@
                                         <tr>
 
                                             <td class="text-center">
-                                                <%= pr.title %>
+                                                <%= pr.productId.title %>
                                             </td>
 
                                             <td class="text-center">
-                                                <img src="<%= pr.imageUrl %>" alt="<%= pr.title %>"
+                                                <img src="<%= pr.productId.imageUrl %>" alt="<%= pr.productId.title %>"
                                                     width="100" height="100">
                                             </td>
 
@@ -92,13 +92,13 @@
                                             <td class="text-center">
                                                 <h5 class="font-medium m-b-30">
                                                     $
-                                                    <%= pr.price * pr.quantity %>
+                                                    <%= pr.productId.price * pr.quantity %>
                                                 </h5>
                                             </td>
 
                                             <form action="/cart-delete-item" method="POST">
                                                 <td class="text-center">
-                                                    <input type="hidden" value="<%= pr._id %>" name="productId">
+                                                    <input type="hidden" value="<%= pr.productId._id %>" name="productId">
                                                     <button class="btn-transparent text-inverse" type="submit">
                                                         <i class="ti-trash"></i>
                                                     </button>

@@ -28,7 +28,7 @@ File: scss
 /*Normal Color*/
 /*Extra Variable*/
 /*Gradiant*/
-@import url(../animate.css);
+@import url(animate.css);
 @import url(../../fonts/font-awesome/css/font-awesome.min.css);
 @import url(../../fonts/simple-line-icons/css/simple-line-icons.css);
 @import url(../../fonts/weather-icons/css/weather-icons.min.css);
@@ -2522,7 +2522,7 @@ Breadcrumb
 Custom-select
 ******************/
 .custom-select {
-  background: url(../../assets/images/ui/custom-select.png) right 0.75rem center no-repeat;
+  background: url(../images/ui/custom-select.png) right 0.75rem center no-repeat;
   border: 2px solid rgba(120, 130, 140, 0.13);
   height: calc(2.25rem + 12px); }
 

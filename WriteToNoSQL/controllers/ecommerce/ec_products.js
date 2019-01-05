@@ -1,13 +1,13 @@
 const Product = require('../../models/product');
+const Order = require('../../models/order');
 
 /**
  * *********************************************************** 
  * Site index page!
  */
 exports.getIndex = (request, response, next) => {
-    Product.fetchAll()
-        .then(
-            products => {
+    Product.find()
+        .then(products => {
                 response.render('ecommerce/index', {
                     prods: products,
                     pageTitle: 'Ecomerce',
@@ -24,7 +24,7 @@ exports.getIndex = (request, response, next) => {
  * Display products to customers!
  */
 exports.getProducts = (request, response, next) => {
-    Product.fetchAll()
+    Product.find()
         .then(products => {
             response.render('ecommerce/product_list', {
                 prods: products,
@@ -62,8 +62,10 @@ exports.getProductById = (request, response, next) => {
  */
 exports.getCart = (request, response, next) => {
     request.user
-        .getCart()
-        .then(products => {
+        .populate('cart.items.productId')
+        .execPopulate()
+        .then(user => {
+            const products = user.cart.items;
             response.render('ecommerce/cart', {
                 path: '/cart',
                 pageTitle: 'Your Cart',
@@ -100,18 +102,8 @@ exports.postToCart = (request, response, next) => {
  */
 exports.postCartDeleteProduct = (request, response, next) => {
     const prodId = request.body.productId;
-    request.user.getCart()
-        .then(cart => {
-            return cart.getProducts({
-                where: {
-                    id: prodId
-                }
-            });
-        })
-        .then(products => {
-            const product = products[0];
-            return product.cartItem.destroy();
-        })
+    request.user
+        .removeFromCart(prodId)
         .then(result => {
             response.redirect('/cart');
         })
@@ -125,34 +117,26 @@ exports.postCartDeleteProduct = (request, response, next) => {
  * Move customer ordered items to checkout!
  */
 exports.postOrder = (request, response, next) => {
-    let fetchedCart;
     request.user
-        .getCart()
-        .then(cart => {
-            fetchedCart = cart;
-            return cart.getProducts();
-        })
-        .then(products => {
-            return request.user
-                .createOrder()
-                .then(order => {
-                    return order.addProducts(
-                        products.map(product => {
-                            product.orderItem = {
-                                quantity: product.cartItem.quantity
-                            };
-                            return product;
-                        })
-                    );
-                })
-                .catch(err => {
-                    console.log(err)
-                });
+        .populate('cart.items.productId')
+        .execPopulate()
+        .then(user => {
+            const products = user.cart.items.map(i => {
+                return {quantity: i.quantity, product: { ...i.productId._doc } }
+            });
+            const order = new Order({
+                user: {
+                    name: request.user.firstName,
+                    userId: request.user
+                },
+                products: products
+            });
+            return order.save();
         })
         .then(result => {
-            return fetchedCart.setProducts(null);
+            return request.user.clearCart();
         })
-        .then(result => {
+        .then(() => {
             response.redirect('/orders');
         })
         .catch(err => {
@@ -165,8 +149,7 @@ exports.postOrder = (request, response, next) => {
  * Display customer ordered items!
  */
 exports.getOrders = (request, response, next) => {
-    request.user
-        .getOrders({include: ['products']})
+    Order.find({ "user.userId": request.user._id })
         .then(orders => {
             response.render('ecommerce/orders', {
                 pageTitle: 'Your Orders',
