@@ -7,6 +7,7 @@
                 <span class="ti-menu"></span>
             </button>
             <div class="collapse navbar-collapse" id="header14">
+
                 <div class="hover-dropdown">
 
                     <ul class="navbar-nav">
@@ -15,17 +16,23 @@
                             <a class="nav-link <%= path === '/' ? 'active' : '' %> " href="/">Home</a>
                         </li>
                         
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">About</a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link <%= path === '/products' ? 'active' : '' %>" href="/products">Products</a>
+                        </li>
+
+                        <% if (isAuthenticated) { %>
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="h14-dropdown" data-toggle="dropdown"
                                 aria-haspopup="true" aria-expanded="false">
-                                Ecommerce <i class="fa fa-angle-down m-l-5"></i>
+                                Profile <i class="fa fa-angle-down m-l-5"></i>
                             </a>
 
                             <ul class="b-none dropdown-menu animated flipInY">
-
-                                <li>
-                                    <a class="dropdown-item <%= path === '/products' ? 'active' : '' %>" href="/products">Products</a>
-                                </li>
 
                                 <li>
                                     <a class="dropdown-item <%= path === '/cart' ? 'active' : '' %>" href="/cart">Cart</a>
@@ -45,15 +52,19 @@
 
                             </ul>
                         </li>
-                        <li class="nav-item"><a class="nav-link" href="https://docs.senseidev.com/" target="_blank">Documentation</a></li>
-                        <li class="nav-item"><a class="nav-link" href="https://github.com/JonasJsk/Node-Apps.git" target="_blank">Github</a></li>
+
+                        <% } %>
+                        
                     </ul>
                 </div>
 
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item search dropdown"><a class="nav-link dropdown-toggle" href="javascript:void(0)"
-                            id="h14-sdropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i
-                                class="fa fa-search"></i></a>
+
+                    <li class="nav-item search dropdown">
+                        <a class="nav-link dropdown-toggle" href="javascript:void(0)"
+                            id="h14-sdropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fa fa-search"></i>
+                        </a>
                         <div class="dropdown-menu b-none dropdown-menu-right animated fadeInDown" aria-labelledby="h14-sdropdown">
                             <input class="form-control" type="text" placeholder="Type & hit enter" />
                         </div>

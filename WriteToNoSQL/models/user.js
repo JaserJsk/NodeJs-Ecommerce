@@ -5,30 +5,38 @@ const Schema = mongoose.Schema;
 const userSchema = new Schema({
     firstName: {
         type: String,
-        required: true
+        required: false
     },
     lastName: {
         type: String,
-        required: true
+        required: false
     },
     email: {
         type: String,
         required: true
     },
-    photoUrl: {
+    password: {
         type: String,
         required: true
     },
+    photoUrl: {
+        type: String,
+        required: false
+    },
     cart: {
-        items: [{productId: {
-            type: Schema.Types.ObjectId,
-            ref: 'Product',
-            required: true
-        }, 
-        quantity: {
-            type: Number,
-            required: true
-        } }]
+        items: [
+            {
+                productId: {
+                    type: Schema.Types.ObjectId,
+                    ref: 'Product',
+                    required: true
+                }, 
+                quantity: {
+                    type: Number,
+                    required: true
+                } 
+            }
+        ]
     }
 });
 
@@ -71,105 +79,3 @@ userSchema.methods.clearCart = function() {
 }
 
 module.exports = mongoose.model('User', userSchema);
-
-/* const mongoDB = require('mongodb');
-const getDatabase = require('../helpers/database').getDatabase;
-
-const ObjectId = mongoDB.ObjectId;
-
-class User {
-    constructor(username, email, cart, id) {
-        this.name = username;
-        this.email = email;
-        this.cart = cart;
-        this._id = id;
-    }
-
-    save() {
-        const database = getDatabase();
-        return database.collection('users').insertOne(this);
-    }
-
-    addToCart(product) {
-        
-    }
-
-    getCart() {
-        const database = getDatabase();
-        const productIds = this.cart.items.map(i => {
-            return i.productId;
-        });
-        return database
-            .collection('products')
-            .find( { _id: { $in: productIds} } )
-            .toArray()
-            .then(products => {
-                return products.map(p => {
-                    return {
-                        ...p,
-                        quantity: this.cart.items.find(i => {
-                            return i.productId.toString() === p._id.toString();
-                        }).quantity
-                    };
-                });
-            });
-    }
-
-    deleteItemFromCart(productId) {
-        const updatedCartItems = this.cart.items.filter(item => {
-            return item.productId.toString() !== productId.toString();
-        });
-        const database = getDatabase();
-        return database
-            .collection('users')
-            .updateOne(
-                { _id: new ObjectId(this._id) },
-                { $set: { cart: { items: updatedCartItems } } }
-            );
-    }
-
-    addOrder() {
-        const database = getDatabase();
-        return this.getCart()
-            .then(products => {
-                const order = {
-                    items: products,
-                    user: { _id: new ObjectId(this._id), name: this.name}
-                };
-                return database.collection('orders').insertOne(order);
-          })
-            .then(result => {
-                this.cart = { items: [] };
-                return database
-                .collection('users')
-                .updateOne(
-                    { _id: new ObjectId(this._id) },
-                    { $set: { cart: { items: [] } } }
-                );
-            });
-    }
-
-    getOrders() {
-        const database = getDatabase();
-        return database
-            .collection('orders')
-            .find({ 'user._id': new ObjectId(this._id) })
-            .toArray();
-      }
-
-    static findById(userId) {
-        const database = getDatabase();
-        return database
-            .collection('users')
-            .findOne({ _id: new ObjectId(userId)})
-            .then(user => {
-                console.log(user);
-                return user;
-            })
-            .catch(err => {
-                console.log(err);
-            });
-    }
-}
-
-module.exports = User; */

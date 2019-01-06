@@ -3,8 +3,7 @@ const path = require('path');
 const express = require('express');
 
 const shopProductsController = require('../controllers/ecommerce/ec_products');
-
-const adminData = require('./admin');
+const isAuth = require('../middleware/is_auth');
 
 const router = express.Router();
 
@@ -22,15 +21,15 @@ router.get('/products/:productId', shopProductsController.getProductById);
 /**
  * Routes for customer cart.
  */
-router.get('/cart', shopProductsController.getCart);
-router.post('/cart', shopProductsController.postToCart); 
-router.post('/cart-delete-item', shopProductsController.postCartDeleteProduct);
+router.get('/cart', isAuth, shopProductsController.getCart);
+router.post('/cart', isAuth, shopProductsController.postToCart); 
+router.post('/cart-delete-item', isAuth, shopProductsController.postCartDeleteProduct);
 
 /**
  * Routes customer orders.
  */
-router.get('/orders', shopProductsController.getOrders);
-router.post('/place-order', shopProductsController.postOrder);
+router.get('/orders', isAuth, shopProductsController.getOrders);
+router.post('/place-order', isAuth, shopProductsController.postOrder);
 
 //router.get('/checkout', shopProductsController.getCheckout);
 

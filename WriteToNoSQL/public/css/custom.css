@@ -110,3 +110,9 @@ table {
     margin-bottom: -16px;
 }
 /* Table *** */
+
+/* *** Table */
+a.dev-link:hover, a.dev-link:focus {
+    color: #2cdd9a;
+}
+/* Table *** */

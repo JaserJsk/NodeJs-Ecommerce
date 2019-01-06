@@ -3,50 +3,61 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const session = require('express-session');
+const MongoDBStore = require('connect-mongodb-session')(session);
+const csrf = require('csurf');
 
 const User = require('./models/user');
 
+const MONGODB_URI = 'mongodb+srv://jonas:IEOd3MRoKhcvx7I1@githubcluster-jqh7o.mongodb.net/ecommerce?retryWrites=true';
+
 const app = express();
+const store = new MongoDBStore({
+    uri: MONGODB_URI,
+    collection: 'sessions'
+});
+
+//const csrfProtection = csrf()
 
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
+const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
 const ecommerceRoutes = require('./routes/ecommerce');
 const notFoundRoutes = require('./routes/404');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(
+    session({
+        secret: 'auth secret',
+        resave: false,
+        saveUninitialized: false,
+        store: store
+    })
+);
+//app.use(csrfProtection);
 
 app.use((request, response, next) => {
-    User.findById('5c3017fd51ea871c545fee6a')
-    .then(user => {
-        request.user = user;
-        next();
-      })
-    .catch(err => {console.log(err)});
+    if (!request.session.user) {
+        return next();
+    }
+    User.findById(request.session.user._id)
+        .then(user => {
+            request.user = user;
+            next();
+        })
+        .catch(err => {console.log(err)});
 });
 
+app.use('/auth', authRoutes);
 app.use('/admin', adminRoutes);
 app.use(ecommerceRoutes);
 app.use(notFoundRoutes);
 
-mongoose.connect('mongodb+srv://jonas:IEOd3MRoKhcvx7I1@githubcluster-jqh7o.mongodb.net/ecommerce?retryWrites=true')
+mongoose.connect(MONGODB_URI)
     .then(result => {
-        User.findOne().then(user => {
-            if (!user) {
-                const user = new User({
-                    firstName: 'Jonas',
-                    lastName: 'Jsk',
-                    email: 'jonas.jsk@outlook.com',
-                    photoUrl: 'https://archive.senseidev.com/assets/001.jpg',
-                    cart: {
-                        items: []
-                    }
-                });
-                user.save();
-            }
-        });
         app.listen(3000);
     })
     .catch(err => {

@@ -23,7 +23,8 @@ exports.getProducts = (request, response, next) => {
             response.render('admin/products', {
                 prods: products,
                 pageTitle: 'Admin Products',
-                path: '/admin/products'
+                path: '/admin/products',
+                isAuthenticated: request.session.isLoggedIn
             });
         })
         .catch(err => {
@@ -39,7 +40,8 @@ exports.getAddProduct = (request, response, next) => {
     response.render('admin/edit_product', {
         pageTitle: 'Add Product',
         path: '/admin/add_product',
-        editing: false
+        editing: false,
+        isAuthenticated: request.session.isLoggedIn
     });
 };
 
@@ -57,7 +59,7 @@ exports.postAddProduct = (request, response, next) => {
         price: price, 
         description: description, 
         imageUrl: imageUrl,
-        userId: request.user._id
+        userId: request.user
     });
     product.save()
         .then(result => {
@@ -88,7 +90,8 @@ exports.getEditProduct = (request, response, next) => {
                 pageTitle: 'Edit Product',
                 path: '/admin/edit_product',
                 editing: editMode,
-                product: product
+                product: product,
+                isAuthenticated: request.session.isLoggedIn
             });
         })
         .catch(err => {
