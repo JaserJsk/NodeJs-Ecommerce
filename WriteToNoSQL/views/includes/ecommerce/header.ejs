@@ -69,7 +69,7 @@
                     <% if (isAuthenticated) { %>
                         <li class="nav-item donate-btn">
                             <form action="/auth/logout" method="post">
-                                
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                 <button type="submit" class="btn btn-outline-success">Logout</button>
                             </form>
                         </li>

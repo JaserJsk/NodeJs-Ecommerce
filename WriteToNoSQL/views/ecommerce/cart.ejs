@@ -98,6 +98,7 @@
 
                                             <form action="/cart-delete-item" method="POST">
                                                 <td class="text-center">
+                                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                                     <input type="hidden" value="<%= pr.productId._id %>" name="productId">
                                                     <button class="btn-transparent text-inverse" type="submit">
                                                         <i class="ti-trash"></i>
@@ -126,6 +127,7 @@
                                 </table>
 
                                 <form action="/place-order" method="POST">
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                                     <button type="submit" class="btn btn-success btn-md m-t-20 pull-right">Place Order</button>
                                 </form>
 

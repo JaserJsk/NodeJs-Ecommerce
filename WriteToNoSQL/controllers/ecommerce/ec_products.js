@@ -12,8 +12,6 @@ exports.getIndex = (request, response, next) => {
                     prods: products,
                     pageTitle: 'Ecomerce',
                     path: '/',
-                    isAuthenticated: request.session.isLoggedIn,
-                    //csrfToken: request.csrfToken()
                 });
             })
         .catch(err => {
@@ -31,8 +29,7 @@ exports.getProducts = (request, response, next) => {
             response.render('ecommerce/product_list', {
                 prods: products,
                 pageTitle: 'All Products',
-                path: '/products',
-                isAuthenticated: request.session.isLoggedIn
+                path: '/products'
             });
         })
         .catch(err => {
@@ -51,8 +48,7 @@ exports.getProductById = (request, response, next) => {
             response.render('ecommerce/product_detail', {
                 product: product,
                 pageTitle: product.title,
-                path: '/products',
-                isAuthenticated: request.session.isLoggedIn
+                path: '/products'
             });
         })
         .catch(err => {
@@ -73,8 +69,7 @@ exports.getCart = (request, response, next) => {
             response.render('ecommerce/cart', {
                 path: '/cart',
                 pageTitle: 'Your Cart',
-                products: products,
-                isAuthenticated: request.session.isLoggedIn
+                products: products
             });
         })
         .catch(err => {
@@ -131,7 +126,7 @@ exports.postOrder = (request, response, next) => {
             });
             const order = new Order({
                 user: {
-                    name: request.user.email,
+                    email: request.user.email,
                     userId: request.user
                 },
                 products: products
@@ -159,8 +154,7 @@ exports.getOrders = (request, response, next) => {
             response.render('ecommerce/orders', {
                 pageTitle: 'Your Orders',
                 path: '/orders',
-                orders: orders,
-                isAuthenticated: request.session.isLoggedIn
+                orders: orders
             });
         })
         .catch(err => {
