@@ -1,3 +1,4 @@
+const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
 const nodemailer = require('nodemailer');
 const sendgridTransport = require('nodemailer-sendgrid-transport');
@@ -6,7 +7,7 @@ const User = require('../models/user');
 
 const transporter = nodemailer.createTransport(sendgridTransport({
     auth: {
-        api_key: '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'
+        api_key: ''
     }
 }));
 
@@ -116,5 +117,54 @@ exports.postLogout = (request, response, next) => {
     request.session.destroy(err => {
         console.log(err);
         response.redirect('/');
+    });
+};
+
+exports.getReset = (request, response, next) => {
+    let message = request.flash('error');
+    if (message.length > 0) {
+        message = message[0];
+    } else {
+        message = null;
+    }
+    response.render('auth/reset', {
+        pageTitle: 'Reset Password',
+        path: '/auth/reset',
+        errorMessage: message
+    });
+};
+
+exports.postReset = (request, response, next) => {
+    crypto.randomBytes(32, (err, buffer) => {
+        if (err) {
+            console.log(err);
+            return response.redirect('/auth/reset');
+        }
+        const token = buffer.toString('hex');
+        User.findOne({ email: request.body.email })
+            .then(user => {
+                if (!user) {
+                    request.flash('error', 'No account with that email found!');
+                    response.redirect('/auth/reset');
+                }
+                user.resetToken = token;
+                user.resetTokenExpiration = Date.now() + 3600000;
+                return user.save();
+            })
+            .then(result => {
+                response.redirect('/auth/login');
+                transporter.sendMail({
+                    to: request.body.email,
+                    from: 'support@senseidev.com',
+                    subject: 'Password Reset!',
+                    html: `
+                        <p>You have requested a password reset</p>
+                        <p>Click this <a href="http://localhost:3000/reset/${token}">Link</a> to set a new password</p>
+                    `
+                });
+            })
+            .catch(err => {
+                console.log(err);
+            });
     });
 };
