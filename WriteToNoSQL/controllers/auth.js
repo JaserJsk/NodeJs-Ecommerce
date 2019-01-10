@@ -1,16 +1,12 @@
 const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
-const nodemailer = require('nodemailer');
-const sendgridTransport = require('nodemailer-sendgrid-transport');
+const sgMail = require('@sendgrid/mail');
 
 const keys = require('../../../../Credentials/keys');
-const User = require('../models/user');
 
-const transporter = nodemailer.createTransport(sendgridTransport({
-    auth: {
-        api_key: keys.SENDGRID_API_KEY
-    }
-}));
+sgMail.setApiKey(keys.SENDGRID_API_KEY);
+
+const User = require('../models/user');
 
 /**
  * *********************************************************** 
@@ -98,12 +94,15 @@ exports.postSignup = (request, response, next) => {
                 })
                 .then(result => {
                     response.redirect('/auth/login');
-                    return transporter.sendMail({
+                    const signup = {
                         to: email,
                         from: 'support@senseidev.com',
-                        subject: 'Signup Succeeded!',
-                        html: '<h2>You have signed up successfully!</h2>'
-                    });
+                        templateId: keys.SIGNUP_TEMPLATE_ID,
+                        dynamic_template_data: {
+                            subject: 'Signup succeeded successfully!',
+                        },
+                    };
+                    sgMail.send(signup);
                 })
                 .catch(err => {
                     console.log(err);
@@ -154,18 +153,71 @@ exports.postReset = (request, response, next) => {
             })
             .then(result => {
                 response.redirect('/auth/login');
-                transporter.sendMail({
+                const reset = {
                     to: request.body.email,
                     from: 'support@senseidev.com',
-                    subject: 'Password Reset!',
-                    html: `
-                        <p>You have requested a password reset</p>
-                        <p>Click this <a href="http://localhost:3000/reset/${token}">Link</a> to set a new password</p>
-                    `
-                });
+                    templateId: keys.RESET_TEMPLATE_ID,
+                    dynamic_template_data: {
+                        subject: 'Reset your password!',
+                        reset: `
+                            <p>You have requested a password reset</p>
+                            <p>Click this <a href="http://localhost:3000/auth/reset/${token}">Link</a> to set a new password</p>
+                        `
+                    },
+                };
+                sgMail.send(reset);
             })
             .catch(err => {
                 console.log(err);
             });
     });
+};
+
+exports.getNewPassword = (request, response, next) => {
+    const token = request.params.token;
+    User.findOne({ resetToken: token, resetTokenExpiration: {$gt: Date.now()} })
+        .then(user => {
+            let message = request.flash('error');
+            if (message.length > 0) {
+                 message = message[0];
+            } else {
+                message = null;
+            }
+            response.render('auth/new_password', {
+                pageTitle: 'New Password',
+                path: '/auth/new_password',
+                errorMessage: message,
+                userId: user._id.toString(),
+                passwordToken: token
+            });
+        })
+        .catch(err => {
+            console.log(err);
+        });
+};
+
+exports.postNewPassword = (request, response, next) => {
+    const newPassword = request.body.password;
+    const userId = request.body.userId;
+    const passwordToken = request.body.passwordToken;
+    let resetUser;
+
+    User.findOne({ resetToken: passwordToken, resetTokenExpiration: {$gt: Date.now()},
+        _id: userId })
+        .then(user => {
+            resetUser = user;
+            return bcrypt.hash(newPassword, 12)
+        })
+        .then(hashedPassword => {
+            resetUser.password = hashedPassword;
+            resetUser.resetToken = undefined;
+            resetUser.resetTokenExpiration = undefined;
+            return resetUser.save();
+        })
+        .then(result => {
+            response.redirect('/auth/login');
+        })
+        .catch(err => {
+            console.log(err);
+        });
 };
