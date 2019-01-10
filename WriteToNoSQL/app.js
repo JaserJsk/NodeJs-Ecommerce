@@ -8,13 +8,12 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
 
+const keys = require('../../../Credentials/keys');
 const User = require('./models/user');
-
-const MONGODB_URI = 'mongodb+srv://jonas:IEOd3MRoKhcvx7I1@githubcluster-jqh7o.mongodb.net/ecommerce?retryWrites=true';
 
 const app = express();
 const store = new MongoDBStore({
-    uri: MONGODB_URI,
+    uri: keys.MONGODB_URI,
     collection: 'sessions'
 });
 
@@ -64,7 +63,7 @@ app.use('/admin', adminRoutes);
 app.use(ecommerceRoutes);
 app.use(notFoundRoutes);
 
-mongoose.connect(MONGODB_URI)
+mongoose.connect(keys.MONGODB_URI)
     .then(result => {
         app.listen(3000);
     })
