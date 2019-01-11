@@ -70,12 +70,12 @@
                         <li class="nav-item donate-btn">
                             <form action="/auth/logout" method="post">
                                 <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                                <button type="submit" class="btn btn-outline-success">Logout</button>
+                                <button type="submit" class="btn btn-outline-info">Logout</button>
                             </form>
                         </li>
                     <% } else { %>
                         <li class="nav-item donate-btn">
-                            <a href="/auth/login" class="btn btn-outline-success">
+                            <a href="/auth/login" class="btn btn-outline-info">
                                 Login
                             </a>
                         </li>

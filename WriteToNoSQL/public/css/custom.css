@@ -7,7 +7,7 @@ body {
 }
 
 .sl-icon-options-vertical {
-    color: #2cdd9a;
+    color: #188ef4;
 }
 
 .ti-menu {
@@ -32,6 +32,10 @@ body {
 .card {
     background-color: #f4f8fa;
 }
+
+.owl-theme .owl-dots .owl-dot.active span, .owl-theme .owl-dots .owl-dot:hover span {
+    background: #188ef4 !important;
+}
 /* Product Items *** */
 
 /* --------------------------------------------- */
@@ -40,13 +44,13 @@ body {
     background-color: #f4f8fa;
 }
 .page-link {
-    color: #2cdd9b ;
+    color: #188ef4 ;
     background-color: #f4f8fa;
 }
 .page-item.active .page-link {
     color: #fff;
-    background-color: #2cdd9b;
-    border-color: #2cdd9b;
+    background-color: #188ef4;
+    border-color: #188ef4;
 }
 /* Pagination Items *** */
 
@@ -59,7 +63,7 @@ body {
 
 /* *** Checkbox */
 .custom-checkbox .custom-control-input:checked~.custom-control-label::before{
-    background-color: #2cdd9b;
+    background-color: #188ef4;
 }
 /* Checkbox *** */
 
@@ -113,6 +117,6 @@ table {
 
 /* *** Table */
 a.dev-link:hover, a.dev-link:focus {
-    color: #2cdd9a;
+    color: #188ef4;
 }
 /* Table *** */
