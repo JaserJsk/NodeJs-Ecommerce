@@ -2,7 +2,7 @@ const path = require('path');
 
 const express = require('express');
 
-const shopProductsController = require('../controllers/ecommerce/ec_products');
+const shopProductsController = require('../controllers/ecommerce');
 const isAuth = require('../middleware/is_auth');
 
 const router = express.Router();
@@ -30,6 +30,24 @@ router.post('/cart-delete-item', isAuth, shopProductsController.postCartDeletePr
  */
 router.get('/orders', isAuth, shopProductsController.getOrders);
 router.post('/place-order', isAuth, shopProductsController.postOrder);
+
+
+
+
+
+/**
+ * Routes for Adding profile.
+ */
+router.get('/profile', isAuth, shopProductsController.getAddProfile);
+router.post('/add-profile', isAuth, shopProductsController.postAddProfile);
+
+/**
+ * Routes for Editing profile.
+ */
+//router.get('/edit-profile=:userId', isAuth, shopProductsController.getEditProfile);
+router.post('/edit-profile', isAuth, shopProductsController.postEditProfile);
+
+
 
 //router.get('/checkout', shopProductsController.getCheckout);
 

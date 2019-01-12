@@ -2,7 +2,7 @@ const path = require('path');
 
 const express = require('express');
 
-const adminProductsController = require('../controllers/admin/ad_products');
+const adminProductsController = require('../controllers/admin');
 const isAuth = require('../middleware/is_auth');
 
 const router = express.Router();

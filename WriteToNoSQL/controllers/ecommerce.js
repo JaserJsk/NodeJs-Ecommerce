@@ -1,5 +1,6 @@
-const Product = require('../../models/product');
-const Order = require('../../models/order');
+const Product = require('../models/product');
+const Order = require('../models/order');
+const User = require('../models/user');
 
 /**
  * *********************************************************** 
@@ -161,6 +162,94 @@ exports.getOrders = (request, response, next) => {
             console.log(err)
         });
 };
+
+/**
+ * ***********************************************************
+ * ***********************************************************
+ * ***********************************************************
+ * ***********************************************************
+ * ***********************************************************
+ * ***********************************************************
+ * ***********************************************************
+ * ***********************************************************
+ * ***********************************************************
+ * ***********************************************************
+ * Display customer profile page!
+ */
+exports.getAddProfile = (request, response, next) => {
+    response.render('ecommerce/edit_profile', {
+        pageTitle: 'Add Profile',
+        path: '/add_profile',
+        editing: false
+    });
+};
+
+exports.postAddProfile = (request, response, next) => {
+    const firstName = request.body.firstName;
+    const lastName = request.body.lastName;
+    const photoUrl = request.body.photoUrl;
+
+    User.findOne({ userId: request.user.userId })
+        .then(user => {
+            user.firstName = firstName;
+            user.lastName = lastName;
+            user.photoUrl = photoUrl;
+            return user.save();
+        })
+        .then(result => {
+            console.log('Added Profile Info');
+            response.redirect('/');
+        })
+        .catch(err => {
+            console.log(err)
+        });
+};
+
+exports.getEditProfile = (request, response, next) => {
+    const editMode = request.query.edit;
+    if (!editMode) {
+        return response.redirect('/');
+    }
+    const userId = request.params.userId;
+    User.findById(userId)
+        .then(user => {
+            if (!user) {
+                return response.redirect('/');
+            }
+            response.render('/edit_profile', {
+                pageTitle: 'Edit Profile',
+                path: '/edit_profile',
+                editing: editMode,
+                user: user
+            });
+        })
+        .catch(err => {
+            console.log(err)
+        });
+};
+
+exports.postEditProfile = (request, response, next) => {
+    const userId = request.body.userId;
+    const updatedFirstName = request.body.firstName;
+    const updatedLastName = request.body.lastName;
+    const updatedPhotoUrl = request.body.photoUrl;
+
+    User.findById(userId)
+        .then(user => {
+            user.firstName = updatedFirstName;
+            user.lastName = updatedLastName;
+            user.photoUrl = updatedPhotoUrl;
+            return user.save();
+        })
+        .then(result => {
+            console.log('Updated User');
+            response.redirect('/');
+        })
+        .catch(err => {
+            console.log(err)
+        });
+}
+
 
 // GET CECKOUT PAGE
 /*

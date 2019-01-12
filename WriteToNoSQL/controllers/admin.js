@@ -1,4 +1,4 @@
-const Product = require('../../models/product');
+const Product = require('../models/product');
 
 /**
  * *********************************************************** 
@@ -61,7 +61,7 @@ exports.postAddProduct = (request, response, next) => {
     });
     product.save()
         .then(result => {
-            console.log('Created Product')
+            console.log('Created Product');
             response.redirect('/admin/products');
         })
         .catch(err => {
