@@ -177,23 +177,32 @@ exports.getOrders = (request, response, next) => {
  * Display customer profile page!
  */
 exports.getAddProfile = (request, response, next) => {
-    response.render('ecommerce/edit_profile', {
-        pageTitle: 'Add Profile',
-        path: '/add_profile',
-        editing: false
-    });
+    const editMode = request.query.edit;
+    const userId = request.user._id;
+    User.findById(userId)
+        .then(user => {
+            response.render('ecommerce/edit_profile', {
+                pageTitle: 'Edit Profile',
+                path: '/edit_profile',
+                user: user
+            });
+        })
+        .catch(err => {
+            console.log(err)
+        });
+
 };
 
 exports.postAddProfile = (request, response, next) => {
     const firstName = request.body.firstName;
     const lastName = request.body.lastName;
     const photoUrl = request.body.photoUrl;
-
-    User.findOne({ userId: request.user.userId })
+    const UserId = request.user._id;
+    User.findOne(UserId)
         .then(user => {
-            user.firstName = firstName;
-            user.lastName = lastName;
-            user.photoUrl = photoUrl;
+            user.firstName = firstName ? firstName : user.firstName;
+            user.lastName = lastName ? lastName : user.lastName;
+            user.photoUrl = photoUrl ? photoUrl : user.photoUrl;
             return user.save();
         })
         .then(result => {
@@ -204,52 +213,6 @@ exports.postAddProfile = (request, response, next) => {
             console.log(err)
         });
 };
-
-exports.getEditProfile = (request, response, next) => {
-    const editMode = request.query.edit;
-    if (!editMode) {
-        return response.redirect('/');
-    }
-    const userId = request.params.userId;
-    User.findById(userId)
-        .then(user => {
-            if (!user) {
-                return response.redirect('/');
-            }
-            response.render('/edit_profile', {
-                pageTitle: 'Edit Profile',
-                path: '/edit_profile',
-                editing: editMode,
-                user: user
-            });
-        })
-        .catch(err => {
-            console.log(err)
-        });
-};
-
-exports.postEditProfile = (request, response, next) => {
-    const userId = request.body.userId;
-    const updatedFirstName = request.body.firstName;
-    const updatedLastName = request.body.lastName;
-    const updatedPhotoUrl = request.body.photoUrl;
-
-    User.findById(userId)
-        .then(user => {
-            user.firstName = updatedFirstName;
-            user.lastName = updatedLastName;
-            user.photoUrl = updatedPhotoUrl;
-            return user.save();
-        })
-        .then(result => {
-            console.log('Updated User');
-            response.redirect('/');
-        })
-        .catch(err => {
-            console.log(err)
-        });
-}
-
 
 // GET CECKOUT PAGE
 /*

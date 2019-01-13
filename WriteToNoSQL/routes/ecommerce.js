@@ -31,23 +31,11 @@ router.post('/cart-delete-item', isAuth, shopProductsController.postCartDeletePr
 router.get('/orders', isAuth, shopProductsController.getOrders);
 router.post('/place-order', isAuth, shopProductsController.postOrder);
 
-
-
-
-
-/**
- * Routes for Adding profile.
- */
-router.get('/profile', isAuth, shopProductsController.getAddProfile);
-router.post('/add-profile', isAuth, shopProductsController.postAddProfile);
-
 /**
  * Routes for Editing profile.
  */
-//router.get('/edit-profile=:userId', isAuth, shopProductsController.getEditProfile);
-router.post('/edit-profile', isAuth, shopProductsController.postEditProfile);
-
-
+router.get('/edit-profile', isAuth, shopProductsController.getAddProfile);
+router.post('/edit-profile', isAuth, shopProductsController.postAddProfile);
 
 //router.get('/checkout', shopProductsController.getCheckout);
 
