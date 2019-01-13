@@ -34,8 +34,8 @@ router.post('/place-order', isAuth, shopProductsController.postOrder);
 /**
  * Routes for Editing profile.
  */
-router.get('/edit-profile', isAuth, shopProductsController.getAddProfile);
-router.post('/edit-profile', isAuth, shopProductsController.postAddProfile);
+router.get('/edit-profile', isAuth, shopProductsController.getEditProfile);
+router.post('/edit-profile', isAuth, shopProductsController.postEditProfile);
 
 //router.get('/checkout', shopProductsController.getCheckout);
 

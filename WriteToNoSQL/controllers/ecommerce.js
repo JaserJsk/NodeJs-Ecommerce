@@ -21,6 +21,48 @@ exports.getIndex = (request, response, next) => {
 };
 
 /**
+ * ***********************************************************
+ * Display customer profile page!
+ */
+exports.getEditProfile = (request, response, next) => {
+    const editMode = request.query.edit;
+    const userId = request.user._id;
+    User.findById(userId)
+        .then(user => {
+            response.render('ecommerce/edit_profile', {
+                pageTitle: 'Edit Profile',
+                path: '/edit_profile',
+                user: user
+            });
+        })
+        .catch(err => {
+            console.log(err)
+        });
+
+};
+
+exports.postEditProfile = (request, response, next) => {
+    const firstName = request.body.firstName;
+    const lastName = request.body.lastName;
+    const photoUrl = request.body.photoUrl;
+    const UserId = request.user._id;
+    User.findOne(UserId)
+        .then(user => {
+            user.firstName = firstName ? firstName : user.firstName;
+            user.lastName = lastName ? lastName : user.lastName;
+            user.photoUrl = photoUrl ? photoUrl : user.photoUrl;
+            return user.save();
+        })
+        .then(result => {
+            console.log('Updated Profile Info');
+            response.redirect('/');
+        })
+        .catch(err => {
+            console.log(err)
+        });
+};
+
+/**
  * *********************************************************** 
  * Display products to customers!
  */
@@ -157,57 +199,6 @@ exports.getOrders = (request, response, next) => {
                 path: '/orders',
                 orders: orders
             });
-        })
-        .catch(err => {
-            console.log(err)
-        });
-};
-
-/**
- * ***********************************************************
- * ***********************************************************
- * ***********************************************************
- * ***********************************************************
- * ***********************************************************
- * ***********************************************************
- * ***********************************************************
- * ***********************************************************
- * ***********************************************************
- * ***********************************************************
- * Display customer profile page!
- */
-exports.getAddProfile = (request, response, next) => {
-    const editMode = request.query.edit;
-    const userId = request.user._id;
-    User.findById(userId)
-        .then(user => {
-            response.render('ecommerce/edit_profile', {
-                pageTitle: 'Edit Profile',
-                path: '/edit_profile',
-                user: user
-            });
-        })
-        .catch(err => {
-            console.log(err)
-        });
-
-};
-
-exports.postAddProfile = (request, response, next) => {
-    const firstName = request.body.firstName;
-    const lastName = request.body.lastName;
-    const photoUrl = request.body.photoUrl;
-    const UserId = request.user._id;
-    User.findOne(UserId)
-        .then(user => {
-            user.firstName = firstName ? firstName : user.firstName;
-            user.lastName = lastName ? lastName : user.lastName;
-            user.photoUrl = photoUrl ? photoUrl : user.photoUrl;
-            return user.save();
-        })
-        .then(result => {
-            console.log('Added Profile Info');
-            response.redirect('/');
         })
         .catch(err => {
             console.log(err)
