@@ -25,7 +25,6 @@ exports.getIndex = (request, response, next) => {
  * Display customer profile page!
  */
 exports.getEditProfile = (request, response, next) => {
-    const editMode = request.query.edit;
     const userId = request.user._id;
     User.findById(userId)
         .then(user => {

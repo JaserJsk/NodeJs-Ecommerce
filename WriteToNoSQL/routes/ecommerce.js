@@ -13,6 +13,12 @@ const router = express.Router();
 router.get('/', shopProductsController.getIndex);
 
 /**
+ * Routes for Editing profile.
+ */
+router.get('/edit-profile', isAuth, shopProductsController.getEditProfile);
+router.post('/edit-profile', isAuth, shopProductsController.postEditProfile);
+
+/**
  * Routes customer products.
  */
 router.get('/products', shopProductsController.getProducts);
@@ -30,12 +36,6 @@ router.post('/cart-delete-item', isAuth, shopProductsController.postCartDeletePr
  */
 router.get('/orders', isAuth, shopProductsController.getOrders);
 router.post('/place-order', isAuth, shopProductsController.postOrder);
-
-/**
- * Routes for Editing profile.
- */
-router.get('/edit-profile', isAuth, shopProductsController.getEditProfile);
-router.post('/edit-profile', isAuth, shopProductsController.postEditProfile);
 
 //router.get('/checkout', shopProductsController.getCheckout);
 
