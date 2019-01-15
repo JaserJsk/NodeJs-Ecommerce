@@ -1,3 +1,5 @@
+const { validationResult } = require('express-validator/check');
+
 const Product = require('../models/product');
 
 /**
@@ -39,7 +41,9 @@ exports.getAddProduct = (request, response, next) => {
     response.render('admin/edit_product', {
         pageTitle: 'Add Product',
         path: '/admin/add_product',
-        editing: false
+        editing: false,
+        hasError: false,
+        errorMessage: null,
     });
 };
 
@@ -52,6 +56,24 @@ exports.postAddProduct = (request, response, next) => {
     const price = request.body.price;
     const description = request.body.description;
     const imageUrl = request.body.imageUrl;
+
+    const errors = validationResult(request);
+    if (!errors.isEmpty()) {
+        return response.status(422).render('admin/edit_product', {
+            pageTitle: 'Add Product',
+            path: '/admin/edit_product',
+            editing: false,
+            hasError: true,
+            product: {
+                title: title,
+                price: price,
+                description: description,
+                imageUrl: imageUrl
+            },
+            errorMessage: errors.array()[0].msg,
+        });
+    }
+
     const product = new Product({
         title: title, 
         price: price, 
@@ -88,7 +110,9 @@ exports.getEditProduct = (request, response, next) => {
                 pageTitle: 'Edit Product',
                 path: '/admin/edit_product',
                 editing: editMode,
-                product: product
+                product: product,
+                hasError: false,
+                errorMessage: null,
             });
         })
         .catch(err => {
@@ -107,17 +131,38 @@ exports.postEditProduct = (request, response, next) => {
     const updatedDesc = request.body.description;
     const updatedImageUrl = request.body.imageUrl;
 
+    const errors = validationResult(request);
+    if (!errors.isEmpty()) {
+        return response.status(422).render('admin/edit_product', {
+            pageTitle: 'Edit Product',
+            path: '/admin/edit_product',
+            editing: true,
+            hasError: true,
+            product: {
+                title: updatedTitle,
+                price: updatedPrice,
+                description: updatedDesc,
+                imageUrl: updatedImageUrl,
+                _id: prodId
+            },
+            errorMessage: errors.array()[0].msg,
+        });
+    }
+
     Product.findById(prodId)
         .then(product => {
+            if (product.userId.toString() !== request.user._id.toString()) {
+                return response.redirect('/admin/products');
+            }
             product.title = updatedTitle;
             product.price = updatedPrice;
             product.description = updatedDesc;
             product.imageUrl = updatedImageUrl;
-            return product.save();
-        })
-        .then(result => {
-            console.log('Updated Product');
-            response.redirect('/admin/products');
+            return product.save()
+            .then(result => {
+                console.log('Updated Product');
+                response.redirect('/admin/products');
+            });
         })
         .catch(err => {
             console.log(err)
@@ -130,7 +175,7 @@ exports.postEditProduct = (request, response, next) => {
  */
 exports.postDeleteProduct = (request, response, next) => {
     const prodId = request.body.productId;
-    Product.findByIdAndRemove(prodId)
+    Product.deleteOne({ _id: prodId, userId: request.user._id })
         .then(() => {
             console.log('Destroyed Product');
             response.redirect('/admin/products');

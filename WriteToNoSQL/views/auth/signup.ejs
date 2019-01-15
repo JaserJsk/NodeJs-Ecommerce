@@ -23,7 +23,9 @@
                             <input class="form-control" 
                                 type="email" 
                                 name="email" 
-                                placeholder="Email" required>
+                                id="email"
+                                value="<%= oldInput.email %>"
+                                placeholder="Email" required >
                         </div>
                     </div>
                     <div class="form-group ">
@@ -31,6 +33,8 @@
                             <input class="form-control" 
                                 type="password" 
                                 name="password" 
+                                id="password"
+                                value="<%= oldInput.password %>"
                                 placeholder="Password" required>
                         </div>
                     </div>
@@ -40,6 +44,7 @@
                                 type="password" 
                                 name="confirmPassword" 
                                 id="confirmPassword" 
+                                value="<%= oldInput.confirmPassword %>"
                                 placeholder="Confirm Password" required>
                         </div>
                     </div>

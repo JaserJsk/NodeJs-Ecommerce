@@ -2,10 +2,11 @@ const crypto = require('crypto');
 const bcrypt = require('bcryptjs');
 const sgMail = require('@sendgrid/mail');
 
+const { validationResult } = require('express-validator/check');
+
+sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
 const keys = require('../../../../Credentials/keys');
-
-sgMail.setApiKey(keys.SENDGRID_API_KEY);
-
 const User = require('../models/user');
 
 /**
@@ -22,7 +23,11 @@ exports.getLogin = (request, response, next) => {
     response.render('auth/login', {
         pageTitle: 'Login',
         path: '/auth/login',
-        errorMessage: message
+        errorMessage: message,
+        oldInput: {
+            email: '',
+            password: ''
+        }
     });
 };
 
@@ -36,18 +41,45 @@ exports.getSignup = (request, response, next) => {
     response.render('auth/signup', {
         pageTitle: 'Signup',
         path: '/auth/signup',
-        errorMessage: message
+        errorMessage: message,
+        oldInput: { 
+            email: '', 
+            password: '', 
+            confirmPassword: '' 
+        }
     });
 };
 
 exports.postLogin = (request, response, next) => {
     const email = request.body.email;
     const password = request.body.password;
+
+    const errors = validationResult(request);
+    if (!errors.isEmpty()) {
+        console.log(errors.array());
+        return response.status(422).render('auth/login', {
+            pageTitle: 'Login',
+            path: '/auth/login',
+            errorMessage: errors.array()[0].msg,
+            oldInput: {
+                email: email,
+                password: password
+            }
+        });
+    }
+
     User.findOne({ email: email })
         .then(user => {
             if (!user) {
-                request.flash('error', 'Invalid email or password!');
-                return response.redirect('/auth/login');
+                return response.status(422).render('auth/login', {
+                    pageTitle: 'Login',
+                    path: '/auth/login',
+                    errorMessage: 'Invalid email or password!',
+                    oldInput: {
+                        email: email,
+                        password: password
+                    }
+                });
             }
             bcrypt.compare(password, user.password)
                 .then(doMatch => {
@@ -55,13 +87,19 @@ exports.postLogin = (request, response, next) => {
                         request.session.isLoggedIn = true;
                         request.session.user = user;
                         return request.session.save(err => {
-                                console.log(err);
-                                console.log('User Found');
-                                response.redirect('/');
-                            });
+                            console.log(err);
+                            response.redirect('/');
+                        });
                     }
-                    request.flash('error', 'Invalid email or password!');
-                    response.redirect('/auth/login');
+                    return response.status(422).render('auth/login', {
+                        pageTitle: 'Login',
+                        path: '/auth/login',
+                        errorMessage: 'Invalid email or password!',
+                        oldInput: {
+                            email: email,
+                            password: password
+                        }
+                    });
                 })
                 .catch(err => {
                     console.log(err)
@@ -76,40 +114,47 @@ exports.postLogin = (request, response, next) => {
 exports.postSignup = (request, response, next) => {
     const email = request.body.email;
     const password = request.body.password;
-    const fonfirmPassword = request.body.confirmPassword;
-    User.findOne({ email: email })
-        .then(userDoc => {
-            if (userDoc) {
-                request.flash('error', 'Email already exists, please pick another!')
-                return response.redirect('/auth/signup');
+
+    const errors = validationResult(request);
+    if (!errors.isEmpty()) {
+        console.log(errors.array());
+        return response.status(422).render('auth/signup', {
+            pageTitle: 'Signup',
+            path: '/auth/signup',
+            errorMessage: errors.array()[0].msg,
+            oldInput: { 
+                email: email, 
+                password: password, 
+                confirmPassword: request.body.confirmPassword 
             }
-            return bcrypt.hash(password, 12)
-                .then(hashedPassword => {
-                    const user = new User({
-                        firstName: '',
-                        lastName: '',
-                        email: email,
-                        photoUrl: '',
-                        password: hashedPassword,
-                        cart: { items: [] }
-                    })
-                    return user.save();
-                })
-                .then(result => {
-                    response.redirect('/auth/login');
-                    const signup = {
-                        to: email,
-                        from: 'support@senseidev.com',
-                        templateId: keys.SIGNUP_TEMPLATE_ID,
-                        dynamic_template_data: {
-                            subject: 'Signup succeeded successfully!',
-                        },
-                    };
-                    sgMail.send(signup);
-                })
-                .catch(err => {
-                    console.log(err);
-                });
+        });
+    }
+
+    bcrypt.hash(password, 12)
+        .then(hashedPassword => {
+            const user = new User({
+                firstName: '',
+                lastName: '',
+                email: email,
+                photoUrl: '',
+                password: hashedPassword,
+                cart: { items: [] }
+            })
+            return user.save();
+        })
+        .then(result => {
+            response.redirect('/auth/login');
+            const signup = {
+                to: email,
+                from: 'support@senseidev.com',
+                subject: 'Signup succeeded successfully!',
+                html: '<h2>You successfully signed up!</h2>',
+                templateId: keys.SIGNUP_TEMPLATE_ID,
+                dynamic_template_data: {
+                    subject: 'Signup succeeded successfully!',
+                },
+            };
+            sgMail.send(signup);
         })
         .catch(err => {
             console.log(err);
@@ -159,6 +204,11 @@ exports.postReset = (request, response, next) => {
                 const reset = {
                     to: request.body.email,
                     from: 'support@senseidev.com',
+                    subject: 'Reset your password!',
+                    html: `
+                        <p>You have requested a password reset</p>
+                        <p>Click this <a href="http://localhost:3000/auth/reset/${token}">Link</a> to set a new password</p>
+                    `,
                     templateId: keys.RESET_TEMPLATE_ID,
                     dynamic_template_data: {
                         subject: 'Reset your password!',
@@ -178,11 +228,11 @@ exports.postReset = (request, response, next) => {
 
 exports.getNewPassword = (request, response, next) => {
     const token = request.params.token;
-    User.findOne({ resetToken: token, resetTokenExpiration: {$gt: Date.now()} })
+    User.findOne({ resetToken: token, resetTokenExpiration: { $gt: Date.now() } })
         .then(user => {
             let message = request.flash('error');
             if (message.length > 0) {
-                 message = message[0];
+                message = message[0];
             } else {
                 message = null;
             }
@@ -205,8 +255,10 @@ exports.postNewPassword = (request, response, next) => {
     const passwordToken = request.body.passwordToken;
     let resetUser;
 
-    User.findOne({ resetToken: passwordToken, resetTokenExpiration: {$gt: Date.now()},
-        _id: userId })
+    User.findOne({
+        resetToken: passwordToken, resetTokenExpiration: { $gt: Date.now() },
+        _id: userId
+    })
         .then(user => {
             resetUser = user;
             return bcrypt.hash(newPassword, 12)
