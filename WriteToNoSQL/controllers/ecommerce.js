@@ -65,6 +65,7 @@ exports.postEditProfile = (request, response, next) => {
             user: {
                 firstName: firstName,
                 lastName: lastName,
+                email: request.user.email,
                 photoUrl: photoUrl
             },
             errorMessage: errors.array()[0].msg,
@@ -81,7 +82,7 @@ exports.postEditProfile = (request, response, next) => {
         })
         .then(result => {
             console.log('Updated Profile Info');
-            response.redirect('/');
+            response.redirect('/edit-profile');
         })
         .catch(err => {
             console.log(err)
