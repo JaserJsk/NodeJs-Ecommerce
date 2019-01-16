@@ -27,7 +27,8 @@ exports.getLogin = (request, response, next) => {
         oldInput: {
             email: '',
             password: ''
-        }
+        },
+        validationErrors: []
     });
 };
 
@@ -46,7 +47,8 @@ exports.getSignup = (request, response, next) => {
             email: '', 
             password: '', 
             confirmPassword: '' 
-        }
+        },
+        validationErrors: []
     });
 };
 
@@ -64,7 +66,8 @@ exports.postLogin = (request, response, next) => {
             oldInput: {
                 email: email,
                 password: password
-            }
+            },
+            validationErrors: errors.array()
         });
     }
 
@@ -78,7 +81,8 @@ exports.postLogin = (request, response, next) => {
                     oldInput: {
                         email: email,
                         password: password
-                    }
+                    },
+                    validationErrors: []
                 });
             }
             bcrypt.compare(password, user.password)
@@ -98,7 +102,8 @@ exports.postLogin = (request, response, next) => {
                         oldInput: {
                             email: email,
                             password: password
-                        }
+                        },
+                        validationErrors: []
                     });
                 })
                 .catch(err => {
@@ -126,7 +131,8 @@ exports.postSignup = (request, response, next) => {
                 email: email, 
                 password: password, 
                 confirmPassword: request.body.confirmPassword 
-            }
+            },
+            validationErrors: errors.array()
         });
     }
 

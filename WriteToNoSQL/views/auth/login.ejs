@@ -2,6 +2,12 @@
 <link rel="stylesheet" type="text/css" href="/admin/plugins/toast-master/css/jquery.toast.css">
 </head>
 
+<style type="text/css" media="screen">
+    .form-control.is-invalid {
+        border-left: 2px solid #dc3545;
+    }
+</style>
+
 <body>
 
     <%- include('../includes/admin/preloader.ejs') %>
@@ -20,7 +26,7 @@
 
                     <div class="form-group m-t-40">
                         <div class="col-xs-12">
-                            <input class="form-control" 
+                            <input class="form-control <%= validationErrors.find(e => e.param === 'email') ? 'is-invalid' : '' %>" 
                                 type="email" 
                                 name="email" 
                                 id="email"
@@ -31,7 +37,7 @@
 
                     <div class="form-group">
                         <div class="col-xs-12">
-                            <input class="form-control" 
+                            <input class="form-control <%= validationErrors.find(e => e.param === 'password') ? 'is-invalid' : '' %>" 
                                 type="password" 
                                 name="password" 
                                 id="password"

@@ -44,6 +44,7 @@ exports.getAddProduct = (request, response, next) => {
         editing: false,
         hasError: false,
         errorMessage: null,
+        validationErrors: []
     });
 };
 
@@ -71,6 +72,7 @@ exports.postAddProduct = (request, response, next) => {
                 imageUrl: imageUrl
             },
             errorMessage: errors.array()[0].msg,
+            validationErrors: errors.array()
         });
     }
 
@@ -113,6 +115,7 @@ exports.getEditProduct = (request, response, next) => {
                 product: product,
                 hasError: false,
                 errorMessage: null,
+                validationErrors: []
             });
         })
         .catch(err => {
@@ -146,6 +149,7 @@ exports.postEditProduct = (request, response, next) => {
                 _id: prodId
             },
             errorMessage: errors.array()[0].msg,
+            validationErrors: errors.array()
         });
     }
 

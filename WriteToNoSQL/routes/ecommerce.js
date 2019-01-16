@@ -1,5 +1,7 @@
 const express = require('express');
 
+const { body } = require('express-validator/check');
+
 const shopProductsController = require('../controllers/ecommerce');
 
 const isAuth = require('../middleware/is_auth');
@@ -15,7 +17,11 @@ router.get('/', shopProductsController.getIndex);
  * Routes for Editing profile.
  */
 router.get('/edit-profile', isAuth, shopProductsController.getEditProfile);
-router.post('/edit-profile', isAuth, shopProductsController.postEditProfile);
+router.post('/edit-profile', [
+    body('firstName').isAlphanumeric().withMessage('Enter your first name.').trim(),
+    body('lastName').isAlphanumeric().withMessage('Enter your last name.').trim(),
+    body('photoUrl').isURL().withMessage('PhotoUrl must contain a valid URL.')
+], isAuth, shopProductsController.postEditProfile);
 
 /**
  * Routes customer products.

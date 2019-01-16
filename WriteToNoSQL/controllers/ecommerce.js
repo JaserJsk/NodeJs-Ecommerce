@@ -1,3 +1,5 @@
+const { validationResult } = require('express-validator/check');
+
 const Product = require('../models/product');
 const Order = require('../models/order');
 const User = require('../models/user');
@@ -25,13 +27,22 @@ exports.getIndex = (request, response, next) => {
  * Display customer profile page!
  */
 exports.getEditProfile = (request, response, next) => {
+    let message = request.flash('error');
+    if (message.length > 0) {
+        message = message[0];
+    } else {
+        message = null;
+    }
+
     const userId = request.user._id;
     User.findById(userId)
         .then(user => {
             response.render('ecommerce/edit_profile', {
                 pageTitle: 'Edit Profile',
                 path: '/edit_profile',
-                user: user
+                user: user,
+                errorMessage: message,
+                validationErrors: []
             });
         })
         .catch(err => {
@@ -45,6 +56,22 @@ exports.postEditProfile = (request, response, next) => {
     const lastName = request.body.lastName;
     const photoUrl = request.body.photoUrl;
     const UserId = request.user._id;
+
+    const errors = validationResult(request);
+    if (!errors.isEmpty()) {
+        return response.status(422).render('ecommerce/edit_profile', {
+            pageTitle: 'Edit Profile',
+            path: '/ecommerce/edit_profile',
+            user: {
+                firstName: firstName,
+                lastName: lastName,
+                photoUrl: photoUrl
+            },
+            errorMessage: errors.array()[0].msg,
+            validationErrors: errors.array()
+        });
+    }
+
     User.findOne(UserId)
         .then(user => {
             user.firstName = firstName ? firstName : user.firstName;

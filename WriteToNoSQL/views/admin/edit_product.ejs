@@ -79,7 +79,7 @@
                                 <div class="form-group">
                                     <label for="title">Title </label>
                                     <input 
-                                        class="form-control"
+                                        class="form-control <%= validationErrors.find(e => e.param === 'title') ? 'is-invalid' : '' %>"
                                         type="text" 
                                         id="title" 
                                         name="title"  
@@ -90,7 +90,7 @@
                                 <div class="form-group">
                                     <label for="price">Price </label>
                                     <input 
-                                        class="form-control"
+                                        class="form-control <%= validationErrors.find(e => e.param === 'price') ? 'is-invalid' : '' %>"
                                         type="number" 
                                         id="price" 
                                         name="price"  
@@ -113,7 +113,7 @@
 
                                 <div class="form-group">
                                     <label for="description">Description</label>
-                                    <textarea class="form-control"
+                                    <textarea class="form-control <%= validationErrors.find(e => e.param === 'description') ? 'is-invalid' : '' %>"
                                         id="description" name="description" rows="5" placeholder="Description..." ><%if(editing || hasError){%><%=product.description%><%}%>
                                     </textarea>
                                 </div>
@@ -122,7 +122,7 @@
                                 <div class="form-group">
                                     <label for="imageUrl">Image Url </label>
                                     <input 
-                                        class="form-control"
+                                        class="form-control <%= validationErrors.find(e => e.param === 'imageUrl') ? 'is-invalid' : '' %>"
                                         type="text" 
                                         id="imageUrl" 
                                         name="imageUrl"
