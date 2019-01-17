@@ -1,0 +1,160 @@
+<%- include('../includes/site/head.ejs') %>
+</head>
+
+<body>
+
+    <div id="main-wrapper">
+
+        <!-- ============================================================== -->
+        <!-- Top header -->
+        <div class="topbar">
+
+            <div class="header14 po-relative">
+
+                <%- include('../includes/site/header.ejs') %>
+
+                <%- include('../includes/site/navigation.ejs') %>
+
+            </div>
+
+        </div>
+
+        <!-- ============================================================== -->
+        <!-- Page wrapper -->
+        <div class="page-wrapper">
+
+            <!-- ============================================================== -->
+            <!-- Container fluid -->
+            <div class="container-fluid">
+
+                <!-- ============================================================== -->
+                <!-- Slider or Banner -->
+                <%- include('../includes/site/banner.ejs') %>
+
+                <!-- ============================================================== -->
+                <!-- Content -->
+
+                <div class="spacer">
+                    <div class="container">
+                        <!-- Row  -->
+                        <div class="row justify-content-center">
+                            <div class="col-md-7 text-center">
+                                <h2 class="title">Lorem ipsum dolor sit amet</h2>
+                                <h6 class="subtitle">Pellentesque eu risus consectetur, fringilla velit eu,
+                                    pellentesque felis.
+                                    Donec vulputate eros sit amet est rhoncus iaculis.</h6>
+                            </div>
+                        </div>
+
+                        <!-- Row  -->
+                        <div class="row m-t-40">
+                            <!-- Column -->
+                            <div class="col-md-4 wrap-feature1-box">
+                                <div class="card card-shadow" data-aos="fade-right" data-aos-duration="1200">
+                                    <div class="card-body text-center">
+                                        <div class="icon-space"><i class="display-4 icon-Target-Market"></i></div>
+                                        <h5 class="font-medium">Proin facilisis</h5>
+                                        <p class="m-t-20">
+                                            Mauris vestibulum dui dapibus orci aliquet pellentesque.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Column -->
+                            <div class="col-md-4 wrap-feature1-box">
+                                <div class="card card-shadow" data-aos="fade-up" data-aos-duration="1200">
+                                    <div class="card-body text-center">
+                                        <div class="icon-space"><i class="display-4 icon-Window-2"></i></div>
+                                        <h5 class="font-medium">Quisque lobortis</h5>
+                                        <p class="m-t-20">
+                                            Donec lobortis aliquam varius. Nam id felis in massa mollis tempor id nec.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Column -->
+                            <div class="col-md-4 wrap-feature1-box">
+                                <div class="card card-shadow" data-aos="fade-left" data-aos-duration="1200">
+                                    <div class="card-body text-center">
+                                        <div class="icon-space"><i class="display-4 icon-Sunglasses-Smiley"></i></div>
+                                        <h5 class="font-medium">Duis scelerisque</h5>
+                                        <p class="m-t-20">
+                                            Integer volutpat ipsum eget euismod ultricies. Fusce interdum quis
+                                            faucibus.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Row -->
+                        <div class="row client-box m-t-40">
+                            <!-- column  -->
+                            <div class="col-lg-3 col-md-6">
+                                <div class="d-flex no-block">
+                                    <div class="display-5"><i class="icon-Eyeglasses-Smiley"></i></div>
+                                    <div class="m-l-20">
+                                        <h1 class="font-light counter m-b-0">5000</h1>
+                                        <h6 class="text-muted font-13 text-uppercase">Arcu</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- column  -->
+                            <div class="col-lg-3 col-md-6">
+                                <div class="d-flex no-block">
+                                    <div class="display-5"><i class="icon-Coffee"></i></div>
+                                    <div class="m-l-20">
+                                        <h1 class="font-light counter m-b-0">2300</h1>
+                                        <h6 class="text-muted font-13 text-uppercase">Venenatis</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- column  -->
+                            <div class="col-lg-3 col-md-6">
+                                <div class="d-flex no-block">
+                                    <div class="display-5"><i class="icon-Business-ManWoman"></i></div>
+                                    <div class="m-l-20">
+                                        <h1 class="font-light counter m-b-0">200</h1>
+                                        <h6 class="text-muted font-13 text-uppercase">Ipsum Dolor</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- column  -->
+                            <div class="col-lg-3 col-md-6">
+                                <div class="d-flex no-block">
+                                    <div class="display-5"><i class="icon-Trophy"></i></div>
+                                    <div class="m-l-20">
+                                        <h1 class="font-light counter m-b-0">20</h1>
+                                        <h6 class="text-muted font-13 text-uppercase">Nullam Iaculis</h6>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- column  -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ============================================================== -->
+                <!-- Back to top -->
+                <%- include('../includes/site/back_to_top.ejs') %>
+
+            </div>
+
+            <!-- ============================================================== -->
+            <!-- footer -->
+            <%- include('../includes/site/footer.ejs') %>
+
+        </div>
+
+        <%- include('../includes/site/end.ejs') %>
+
+        <script type="text/javascript" src="/js/type.js"></script>
+        <script type="text/javascript" src="/js/jquery.waypoints.min.js"></script>
+        <script type="text/javascript" src="/js/jquery.counterup.min.js"></script>
+
+        <script>
+            //Counter
+            $('.counter').counterUp({
+                delay: 20
+            });
+        </script>

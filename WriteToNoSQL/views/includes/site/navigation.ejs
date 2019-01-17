@@ -17,11 +17,24 @@
                         </li>
                         
                         <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
+                            <a class="nav-link <%= path === '/about' ? 'active' : '' %>" 
+                                href="/about">
+                                About
+                            </a>
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-link <%= path === '/products' ? 'active' : '' %>" href="/products">Products</a>
+                            <a class="nav-link <%= path === '/products' ? 'active' : '' %>" 
+                                href="/products">
+                                Products
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link <%= path === '/contact' ? 'active' : '' %>" 
+                                href="/contact">
+                                Contact
+                            </a>
                         </li>
 
                         <% if (isAuthenticated) { %>
@@ -42,11 +55,17 @@
                                 </li>
 
                                 <li>
-                                    <a class="dropdown-item <%= path === '/cart' ? 'active' : '' %>" href="/cart">Cart</a>
+                                    <a class="dropdown-item <%= path === '/cart' ? 'active' : '' %>" 
+                                        href="/cart">
+                                        Cart
+                                    </a>
                                 </li>
                 
                                 <li>
-                                    <a class="dropdown-item <%= path === '/orders' ? 'active' : '' %>" href="/orders">Orders</a>
+                                    <a class="dropdown-item <%= path === '/orders' ? 'active' : '' %>" 
+                                        href="/orders"
+                                        >Orders
+                                    </a>
                                 </li>
 
                                 <!--

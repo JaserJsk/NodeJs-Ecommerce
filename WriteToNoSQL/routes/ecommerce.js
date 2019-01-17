@@ -1,47 +1,30 @@
 const express = require('express');
 
-const { body } = require('express-validator/check');
-
-const shopProductsController = require('../controllers/ecommerce');
+const ecommerceController = require('../controllers/ecommerce');
 
 const isAuth = require('../middleware/is_auth');
 
 const router = express.Router();
 
 /**
- * Site index page.
- */
-router.get('/', shopProductsController.getIndex);
-
-/**
- * Routes for Editing profile.
- */
-router.get('/edit-profile', isAuth, shopProductsController.getEditProfile);
-router.post('/edit-profile', [
-    body('firstName').isAlphanumeric().withMessage('Enter your first name.').trim(),
-    body('lastName').isAlphanumeric().withMessage('Enter your last name.').trim(),
-    body('photoUrl').isURL().withMessage('PhotoUrl must contain a valid URL.')
-], isAuth, shopProductsController.postEditProfile);
-
-/**
  * Routes customer products.
  */
-router.get('/products', shopProductsController.getProducts);
-router.get('/products/:productId', shopProductsController.getProductById);
+router.get('/products', ecommerceController.getProducts);
+router.get('/products/:productId', ecommerceController.getProductById);
 
 /**
  * Routes for customer cart.
  */
-router.get('/cart', isAuth, shopProductsController.getCart);
-router.post('/cart', isAuth, shopProductsController.postToCart); 
-router.post('/cart-delete-item', isAuth, shopProductsController.postCartDeleteProduct);
+router.get('/cart', isAuth, ecommerceController.getCart);
+router.post('/cart', isAuth, ecommerceController.postToCart); 
+router.post('/cart-delete-item', isAuth, ecommerceController.postCartDeleteProduct);
 
 /**
  * Routes customer orders.
  */
-router.get('/orders', isAuth, shopProductsController.getOrders);
-router.post('/place-order', isAuth, shopProductsController.postOrder);
+router.get('/orders', isAuth, ecommerceController.getOrders);
+router.post('/place-order', isAuth, ecommerceController.postOrder);
 
-//router.get('/checkout', shopProductsController.getCheckout);
+//router.get('/checkout', ecommerceController.getCheckout);
 
 module.exports = router;

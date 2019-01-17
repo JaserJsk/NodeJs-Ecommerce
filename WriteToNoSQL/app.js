@@ -7,7 +7,6 @@ const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
-
 const keys = require('../../../Credentials/keys');
 const User = require('./models/user');
 
@@ -22,10 +21,11 @@ const csrfProtection = csrf();
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
+const siteRoutes = require('./routes/site');
 const authRoutes = require('./routes/auth');
 const adminRoutes = require('./routes/admin');
 const ecommerceRoutes = require('./routes/ecommerce');
-const notFoundRoutes = require('./routes/404');
+const errorRoutes = require('./routes/errors');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
@@ -58,10 +58,11 @@ app.use((request, response, next) => {
     next();
 });
 
+app.use(siteRoutes);
 app.use('/auth', authRoutes);
 app.use('/admin', adminRoutes);
 app.use(ecommerceRoutes);
-app.use(notFoundRoutes);
+app.use(errorRoutes);
 
 mongoose.connect(keys.MONGODB_URI)
     .then(result => {
