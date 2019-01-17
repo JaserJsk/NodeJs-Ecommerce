@@ -1,17 +1,6 @@
 const { validationResult } = require('express-validator/check');
 
-const Product = require('../models/product');
-
-/**
- * *********************************************************** 
- * Admin dashboard section!
- */
-exports.getDashboard = (request, response, next) => {
-    response.render('admin/dashboard', {
-        pageTitle: 'Dashboard',
-        path: '/admin/dashboard'
-    });
-};
+const Product = require('../../models/product');
 
 /**
  * *********************************************************** 
@@ -22,9 +11,9 @@ exports.getProducts = (request, response, next) => {
         //.populate('userId')
         .then(products => {
             //console.log(products);
-            response.render('admin/products', {
+            response.render('admin/manager/products', {
                 prods: products,
-                pageTitle: 'Admin Products',
+                pageTitle: 'Manage Products',
                 path: '/admin/products'
             });
         })
@@ -38,7 +27,7 @@ exports.getProducts = (request, response, next) => {
  * Fetch single existing product!
  */
 exports.getAddProduct = (request, response, next) => {
-    response.render('admin/edit_product', {
+    response.render('admin/manager/edit_product', {
         pageTitle: 'Add Product',
         path: '/admin/add_product',
         editing: false,
@@ -60,7 +49,7 @@ exports.postAddProduct = (request, response, next) => {
 
     const errors = validationResult(request);
     if (!errors.isEmpty()) {
-        return response.status(422).render('admin/edit_product', {
+        return response.status(422).render('admin/manager/edit_product', {
             pageTitle: 'Add Product',
             path: '/admin/edit_product',
             editing: false,
@@ -108,7 +97,7 @@ exports.getEditProduct = (request, response, next) => {
             if (!product) {
                 return response.redirect('/admin/products');
             }
-            response.render('admin/edit_product', {
+            response.render('admin/manager/edit_product', {
                 pageTitle: 'Edit Product',
                 path: '/admin/edit_product',
                 editing: editMode,
@@ -136,7 +125,7 @@ exports.postEditProduct = (request, response, next) => {
 
     const errors = validationResult(request);
     if (!errors.isEmpty()) {
-        return response.status(422).render('admin/edit_product', {
+        return response.status(422).render('admin/manager/edit_product', {
             pageTitle: 'Edit Product',
             path: '/admin/edit_product',
             editing: true,

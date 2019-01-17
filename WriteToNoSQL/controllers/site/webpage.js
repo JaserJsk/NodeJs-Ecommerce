@@ -1,6 +1,6 @@
 const { validationResult } = require('express-validator/check');
 
-const User = require('../models/user');
+const User = require('../../models/user');
 
 /**
  * *********************************************************** 
@@ -63,7 +63,7 @@ exports.postEditProfile = (request, response, next) => {
     if (!errors.isEmpty()) {
         return response.status(422).render('site/edit_profile', {
             pageTitle: 'Edit Profile',
-            path: '/site/edit_profile',
+            path: '/edit_profile',
             user: {
                 firstName: firstName,
                 lastName: lastName,

@@ -1,8 +1,8 @@
 const express = require('express');
 
-const ecommerceController = require('../controllers/ecommerce');
+const ecommerceController = require('../../controllers/site/ecommerce');
 
-const isAuth = require('../middleware/is_auth');
+const isAuth = require('../../middleware/is_auth');
 
 const router = express.Router();
 

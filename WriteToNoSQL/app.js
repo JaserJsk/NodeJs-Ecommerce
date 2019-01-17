@@ -21,10 +21,19 @@ const csrfProtection = csrf();
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
-const siteRoutes = require('./routes/site');
+
+/* Auth */
 const authRoutes = require('./routes/auth');
-const adminRoutes = require('./routes/admin');
-const ecommerceRoutes = require('./routes/ecommerce');
+
+/* Admin */
+const adminRoutes = require('./routes/admin/webmaster');
+const managerRoutes = require('./routes/admin/manager');
+
+/* Site */
+const siteRoutes = require('./routes/site/webpage');
+const ecommerceRoutes = require('./routes/site/ecommerce');
+
+/* Errors */
 const errorRoutes = require('./routes/errors');
 
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -58,9 +67,10 @@ app.use((request, response, next) => {
     next();
 });
 
-app.use(siteRoutes);
 app.use('/auth', authRoutes);
 app.use('/admin', adminRoutes);
+app.use('/admin', managerRoutes);
+app.use(siteRoutes);
 app.use(ecommerceRoutes);
 app.use(errorRoutes);
 

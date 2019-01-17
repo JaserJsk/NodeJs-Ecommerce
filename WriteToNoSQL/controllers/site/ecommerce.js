@@ -1,5 +1,5 @@
-const Product = require('../models/product');
-const Order = require('../models/order');
+const Product = require('../../models/product');
+const Order = require('../../models/order');
 
 /**
  * *********************************************************** 
@@ -8,7 +8,7 @@ const Order = require('../models/order');
 exports.getProducts = (request, response, next) => {
     Product.find()
         .then(products => {
-            response.render('ecommerce/product_list', {
+            response.render('site/ecommerce/product_list', {
                 prods: products,
                 pageTitle: 'All Products',
                 path: '/products'
@@ -27,7 +27,7 @@ exports.getProductById = (request, response, next) => {
     const prodId = request.params.productId;
     Product.findById(prodId)
         .then(product => {
-            response.render('ecommerce/product_detail', {
+            response.render('site/ecommerce/product_detail', {
                 product: product,
                 pageTitle: product.title,
                 path: '/products'
@@ -48,7 +48,7 @@ exports.getCart = (request, response, next) => {
         .execPopulate()
         .then(user => {
             const products = user.cart.items;
-            response.render('ecommerce/cart', {
+            response.render('site/ecommerce/cart', {
                 path: '/cart',
                 pageTitle: 'Your Cart',
                 products: products
@@ -133,7 +133,7 @@ exports.postOrder = (request, response, next) => {
 exports.getOrders = (request, response, next) => {
     Order.find({ "user.userId": request.user._id })
         .then(orders => {
-            response.render('ecommerce/orders', {
+            response.render('site/ecommerce/orders', {
                 pageTitle: 'Your Orders',
                 path: '/orders',
                 orders: orders
