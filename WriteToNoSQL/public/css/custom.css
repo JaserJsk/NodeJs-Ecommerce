@@ -122,7 +122,7 @@ a.dev-link:hover, a.dev-link:focus {
 /* Table *** */
 
 /* *** User Profile */
-.photo {
+.photo-placeholder {
     width: 200px;
     height: 200px;
     background: url('../images/placeholders/user_img.png');

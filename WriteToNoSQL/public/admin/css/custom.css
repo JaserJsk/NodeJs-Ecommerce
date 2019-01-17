@@ -29,3 +29,26 @@
     outline:none;
 }
 /* Transparent Product *** */
+
+/* *** User Profile */
+.photo-placeholder {
+    height: 50px;
+    background: url('../images/placeholders/user1.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 50px 50px;
+}
+.photo-placeholder-sm img {
+    min-width: 30px;
+    min-height: 30px;
+    background: url('../images/placeholders/user1.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 30px 30px;
+    vertical-align: middle;
+}
+/* User Profile *** */
+
+.topbar ul.dropdown-user {
+    width: 320px;
+}

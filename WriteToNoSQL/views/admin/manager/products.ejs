@@ -1,4 +1,4 @@
-<%- include('../../includes/admin/ad_head.ejs') %>
+<%- include('../../includes/admin/head.ejs') %>
 </head>
 
 <body class="fix-header fix-sidebar card-no-border">
@@ -7,8 +7,10 @@
 
     <div id="main-wrapper">
 
-        <%- include('../../includes/admin/ad_header.ejs') %>
-        <%- include('../../includes/admin/ad_aside.ejs') %>
+            <%- include('../../includes/admin/header.ejs', {userFirstName: user.firstName, 
+                userLastName: user.lastName, userEmail: user.email, userImg: user.photoUrl} ) %>
+    
+            <%- include('../../includes/admin/aside.ejs' , { userImg: user.photoUrl } ) %>
 
         <div class="page-wrapper">
 
@@ -142,18 +144,18 @@
                 <!-- Right sidebar -->
                 <!-- ============================================================== -->
                 <!-- .right-sidebar -->
-                <%- include('../../includes/admin/ad_switcher.ejs') %>
+                <%- include('../../includes/admin/switcher.ejs') %>
 
                 <!-- ============================================================== -->
                 <!-- End Right sidebar -->
                 <!-- ============================================================== -->
             </div>
 
-            <%- include('../../includes/admin/ad_footer.ejs') %>
+            <%- include('../../includes/admin/footer.ejs') %>
 
         </div>
 
     </div>
 
-    <%- include('../../includes/admin/ad_end.ejs') %>
+    <%- include('../../includes/admin/end.ejs') %>
     

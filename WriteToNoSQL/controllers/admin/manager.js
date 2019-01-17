@@ -8,13 +8,12 @@ const Product = require('../../models/product');
  */
 exports.getProducts = (request, response, next) => {
     Product.find()
-        //.populate('userId')
         .then(products => {
-            //console.log(products);
             response.render('admin/manager/products', {
-                prods: products,
                 pageTitle: 'Manage Products',
-                path: '/admin/products'
+                path: '/admin/products',
+                prods: products,
+                user: request.user
             });
         })
         .catch(err => {
@@ -30,6 +29,7 @@ exports.getAddProduct = (request, response, next) => {
     response.render('admin/manager/edit_product', {
         pageTitle: 'Add Product',
         path: '/admin/add_product',
+        user: request.user,
         editing: false,
         hasError: false,
         errorMessage: null,
@@ -100,6 +100,7 @@ exports.getEditProduct = (request, response, next) => {
             response.render('admin/manager/edit_product', {
                 pageTitle: 'Edit Product',
                 path: '/admin/edit_product',
+                user: request.user,
                 editing: editMode,
                 product: product,
                 hasError: false,

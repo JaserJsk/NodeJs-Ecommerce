@@ -127,17 +127,23 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown"
                         aria-haspopup="true" aria-expanded="false">
-                        <img src="/admin/images/users/user1.png"
-                            alt="user" class="profile-pic" /></a>
+                        
+                        <div class="photo-placeholder-sm">
+                            <img src="<%= userImg %>" alt="" class="profile-pic" width="30" height="30" /> 
+                        </div>
+                    </a>
+
                     <div class="dropdown-menu dropdown-menu-right scale-up">
                         <ul class="dropdown-user">
                             <li>
                                 <div class="dw-user-box">
-                                    <div class="u-img"><img src="/admin/images/users/user1.png" alt="user"></div>
+                                    <div class="u-img"><img src="<%= userImg %>" alt=""></div>
                                     <div class="u-text">
-                                        <h4>Jonas Jsk</h4>
-                                        <p class="text-muted">info@senseidev.com</p><a href="#" class="btn btn-rounded btn-danger btn-sm">View
-                                            Profile</a>
+                                        <h4><%= userFirstName %> <%= userLastName %></h4>
+                                        <p class="text-muted"><%= userEmail %></p>
+                                        <a href="#" class="btn btn-rounded btn-danger btn-sm">
+                                            View Profile
+                                        </a>
                                     </div>
                                 </div>
                             </li>
@@ -147,8 +153,6 @@
                             <li><a href="#"><i class="ti-email"></i> Inbox</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a href="#"><i class="ti-settings"></i> Account Setting</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#"><i class="fa fa-power-off"></i> Logout</a></li>
                         </ul>
                     </div>
                 </li>
