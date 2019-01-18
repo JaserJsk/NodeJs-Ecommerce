@@ -3,11 +3,11 @@
     <div class="scroll-sidebar">
         <!-- User profile -->
         <div class="user-profile" style="background: url(/admin/images/backgrounds/user-info.jpg) no-repeat;">
-            
+
             <!-- User profile image -->
             <div class="profile-img">
-                <div class="photo-placeholder">
-                    <img src="<%= userImg %>" alt="" width="50" height="50" /> 
+                <div class="photo-placeholder-md">
+                    <img src="<%= userImg %>" alt="" width="50" height="50" />
                 </div>
             </div>
 
@@ -15,7 +15,10 @@
             <div class="profile-text"> <a href="#" class="dropdown-toggle link u-dropdown" data-toggle="dropdown" role="button"
                     aria-haspopup="true" aria-expanded="true">Administrator <span class="caret"></span></a>
                 <div class="dropdown-menu animated flipInY">
-                    <a href="#" class="dropdown-item"><i class="ti ti-user"></i> Profile</a>
+                    <a href="/admin/edit-merchant" class="dropdown-item">
+                        <i class="ti ti-user"></i>
+                        Profile
+                    </a>
                     <a href="#" class="dropdown-item"><i class="ti ti-wallet"></i> Balance</a>
                     <a href="#" class="dropdown-item"><i class="ti  ti-email"></i> Inbox</a>
                     <div class="dropdown-divider"></div> <a href="#" class="dropdown-item"><i class="ti ti-settings"></i>
@@ -27,6 +30,16 @@
         <!-- Sidebar navigation-->
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
+
+                <li>
+                    <a href="/" aria-expanded="false">
+                        <i class="fas fa-arrow-right"></i>
+                        <span class="hide-menu">
+                            Wiew Website
+                        </span>
+                    </a>
+                </li>
+
                 <li class="nav-small-cap">Personal</li>
                 <li>
                     <a href="/admin/dashboard" aria-expanded="false">
@@ -36,6 +49,7 @@
                         </span>
                     </a>
                 </li>
+
                 <li class="nav-small-cap">Ecommerce</li>
 
                 <li>
@@ -65,6 +79,7 @@
                         </li>
                     </ul>
                 </li>
+
             </ul>
         </nav>
         <!-- End Sidebar navigation -->
@@ -86,7 +101,7 @@
                 </span>
             </button>
         </form>
-        
+
     </div>
     <!-- End Bottom points-->
 </aside>

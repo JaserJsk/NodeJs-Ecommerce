@@ -19,7 +19,14 @@
 }
 /* Dropzone Images *** */
 
-/* *** Transparent Product */
+/* ********************************************************* */
+/* CSS USED FOR FORMS ELEMENTS */
+.form-control.is-invalid {
+    border-left: 2px solid #dc3545;
+}
+
+/* ********************************************************* */
+/* CSS USED FOR UI BUTTONS */
 .btn-transparent {
     background-color: Transparent;
     background-repeat:no-repeat;
@@ -28,27 +35,45 @@
     overflow: hidden;
     outline:none;
 }
-/* Transparent Product *** */
 
-/* *** User Profile */
-.photo-placeholder {
-    height: 50px;
-    background: url('../images/placeholders/user1.png');
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 50px 50px;
-}
-.photo-placeholder-sm img {
+/* ********************************************************* */
+/* CSS USED FOR PLACEHOLDER IMAGES */
+.photo-placeholder-sm /* img */ {
     min-width: 30px;
     min-height: 30px;
     background: url('../images/placeholders/user1.png');
     background-position: center;
     background-repeat: no-repeat;
     background-size: 30px 30px;
-    vertical-align: middle;
+    /* vertical-align: middle; */
 }
-/* User Profile *** */
+.photo-placeholder-md {
+    min-width: 50px;
+    min-height: 50px;
+    background: url('../images/placeholders/user1.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 50px 50px;
+}
+.photo-placeholder-xl {
+    min-width: 150px;
+    min-height: 150px;
+    background: url('../images/placeholders/user1.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 150px 150px;
+}
+.u-img {
+    min-width: 80px;
+    min-height: 80px;
+    background: url('../images/placeholders/user1.png');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 80px 80px;
+}
 
+/* ********************************************************* */
+/* CSS USED FOR DROPDOWN MENU */
 .topbar ul.dropdown-user {
     width: 320px;
 }

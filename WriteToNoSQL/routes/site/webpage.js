@@ -21,12 +21,12 @@ router.get('/about', siteController.getAbout);
 /**
  * Routes for Editing profile.
  */
-router.get('/edit-profile', isAuth, siteController.getEditProfile);
-router.post('/edit-profile', [
+router.get('/edit-customer', isAuth, siteController.getEditCustomerProfile);
+router.post('/edit-customer', [
     body('firstName').isAlphanumeric().withMessage('Enter your first name.').trim(),
     body('lastName').isAlphanumeric().withMessage('Enter your last name.').trim(),
     body('photoUrl').isURL().withMessage('PhotoUrl must contain a valid URL.')
-], isAuth, siteController.postEditProfile);
+], isAuth, siteController.postEditCustomerProfile);
 
 /**
  * Site contact page.

@@ -28,7 +28,7 @@ exports.getAbout = (request, response, next) => {
  * ***********************************************************
  * Display customer profile page!
  */
-exports.getEditProfile = (request, response, next) => {
+exports.getEditCustomerProfile = (request, response, next) => {
     let message = request.flash('error');
     if (message.length > 0) {
         message = message[0];
@@ -39,9 +39,9 @@ exports.getEditProfile = (request, response, next) => {
     const userId = request.user._id;
     User.findById(userId)
         .then(user => {
-            response.render('site/edit_profile', {
-                pageTitle: 'Edit Profile',
-                path: '/edit_profile',
+            response.render('site/edit_customer', {
+                pageTitle: 'Edit Customer',
+                path: '/edit_customer',
                 user: user,
                 errorMessage: message,
                 validationErrors: []
@@ -50,10 +50,9 @@ exports.getEditProfile = (request, response, next) => {
         .catch(err => {
             console.log(err)
         });
-
 };
 
-exports.postEditProfile = (request, response, next) => {
+exports.postEditCustomerProfile = (request, response, next) => {
     const firstName = request.body.firstName;
     const lastName = request.body.lastName;
     const photoUrl = request.body.photoUrl;
@@ -61,9 +60,9 @@ exports.postEditProfile = (request, response, next) => {
 
     const errors = validationResult(request);
     if (!errors.isEmpty()) {
-        return response.status(422).render('site/edit_profile', {
-            pageTitle: 'Edit Profile',
-            path: '/edit_profile',
+        return response.status(422).render('site/edit_customer', {
+            pageTitle: 'Edit Customer',
+            path: '/edit_customer',
             user: {
                 firstName: firstName,
                 lastName: lastName,
@@ -83,8 +82,8 @@ exports.postEditProfile = (request, response, next) => {
             return user.save();
         })
         .then(result => {
-            console.log('Updated Profile Info');
-            response.redirect('/edit-profile');
+            console.log('Updated Customer Profile Info');
+            response.redirect('/edit-customer');
         })
         .catch(err => {
             console.log(err)

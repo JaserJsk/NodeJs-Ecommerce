@@ -139,9 +139,12 @@ exports.postSignup = (request, response, next) => {
     bcrypt.hash(password, 12)
         .then(hashedPassword => {
             const user = new User({
+                email: email,
                 firstName: '',
                 lastName: '',
-                email: email,
+                phone: '',
+                biography: '',
+                address: '',
                 photoUrl: '',
                 password: hashedPassword,
                 cart: { items: [] }
