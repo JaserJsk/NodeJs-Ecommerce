@@ -13,9 +13,13 @@
 
             <div class="header14 po-relative">
 
-                <%- include('../../includes/site/header.ejs') %>
-
-                <%- include('../../includes/site/navigation.ejs') %>
+                <% if (isAuthenticated) { %>
+                    <%- include('../../includes/site/header.ejs', { userIsMerchant: user.isMerchant }) %>
+                    <%- include('../../includes/site/navigation.ejs', { userIsMerchant: user.isMerchant }) %>
+                <% } else { %>
+                    <%- include('../../includes/site/header.ejs') %>
+                    <%- include('../../includes/site/navigation.ejs') %>
+                <% } %>
 
             </div>
 
@@ -77,13 +81,26 @@
                                 
                                 <h4 class="font-medium m-b-30">$<%= product.price %></h4>
 
-                                <form action="/cart" method="POST">
-                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                                    <button type="submit" class="btn btn-outline-info btn-md m-t-20">Add to Cart</button>
-                                    <input type="hidden" name="productId" value="<%= product._id %>">
-                                </form>
+                                <% if (isAuthenticated) { %>
 
+                                <% if (user.isMerchant == 'off') { %>
+                                    <form action="/cart" method="POST">
+                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                        <button type="submit" class="btn btn-outline-info btn-md m-t-20">Add to Cart</button>
+                                        <input type="hidden" name="productId" value="<%= product._id %>">
+                                    </form>
+                                <% } %>
+                                
+                                <% } else { %>
+                                    
+                                    <a href="/auth/login" class="btn btn-outline-info btn-md m-t-20">
+                                        You need to Login before you can buy!
+                                    </a>
+
+                                <% } %>
+                                
                             </div>
+
                         </div>
 
                         <div class="row m-t-40 m-b-40">

@@ -15,15 +15,15 @@ router.get('/products/:productId', ecommerceController.getProductById);
 /**
  * Routes for customer cart.
  */
-router.get('/cart', isAuth, ecommerceController.getCart);
-router.post('/cart', isAuth, ecommerceController.postToCart); 
-router.post('/cart-delete-item', isAuth, ecommerceController.postCartDeleteProduct);
+router.get('/cart', isAuth.customer, ecommerceController.getCart);
+router.post('/cart', isAuth.customer, ecommerceController.postToCart); 
+router.post('/cart-delete-item', isAuth.customer, ecommerceController.postCartDeleteProduct);
 
 /**
  * Routes customer orders.
  */
-router.get('/orders', isAuth, ecommerceController.getOrders);
-router.post('/place-order', isAuth, ecommerceController.postOrder);
+router.get('/orders', isAuth.customer, ecommerceController.getOrders);
+router.post('/place-order', isAuth.customer, ecommerceController.postOrder);
 
 //router.get('/checkout', ecommerceController.getCheckout);
 

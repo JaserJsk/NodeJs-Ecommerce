@@ -12,9 +12,13 @@
 
             <div class="header14 po-relative">
 
-                <%- include('../../includes/site/header.ejs') %>
-
-                <%- include('../../includes/site/navigation.ejs') %>
+                <% if (isAuthenticated) { %>
+                    <%- include('../../includes/site/header.ejs', { userIsMerchant: user.isMerchant }) %>
+                    <%- include('../../includes/site/navigation.ejs', { userIsMerchant: user.isMerchant }) %>
+                <% } else { %>
+                    <%- include('../../includes/site/header.ejs') %>
+                    <%- include('../../includes/site/navigation.ejs') %>
+                <% } %>
 
             </div>
 

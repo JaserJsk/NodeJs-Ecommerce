@@ -1,4 +1,5 @@
 <%- include('../includes/admin/head.ejs') %>
+<link rel="stylesheet" type="text/css" href="/admin/plugins/bootstrap-switch/bootstrap-switch.min.css">
 </head>
 
 <body>
@@ -28,7 +29,8 @@
                                 placeholder="Email" required >
                         </div>
                     </div>
-                    <div class="form-group ">
+
+                    <div class="form-group">
                         <div class="col-xs-12">
                             <input class="form-control <%= validationErrors.find(e => e.param === 'password') ? 'is-invalid' : '' %>" 
                                 type="password" 
@@ -38,6 +40,7 @@
                                 placeholder="Password" required>
                         </div>
                     </div>
+
                     <div class="form-group">
                         <div class="col-xs-12">
                             <input class="form-control <%= validationErrors.find(e => e.param === 'confirmPassword') ? 'is-invalid' : '' %>" 
@@ -48,14 +51,22 @@
                                 placeholder="Confirm Password" required>
                         </div>
                     </div>
+
+                    <h5>Select your account type!</h5>
+
+                    <% let checked = oldInput.isMerchant ? "checked" : "" %>
+
                     <div class="form-group">
-                        <div class="col-md-12">
-                            <div class="checkbox checkbox-primary p-t-0">
-                                <input id="checkbox-signup" type="checkbox">
-                                <label for="checkbox-signup"> I agree to all <a href="#">Terms</a></label>
-                            </div>
+                        <div class="col-xs-12 bt-switch">
+                            <input type="checkbox" name="isMerchant" id="isMerchant" 
+                                data-off-color="default" 
+                                data-on-color="info" 
+                                data-on-text="Merchant" 
+                                data-off-text="Customer"
+                                <%= checked %> />
                         </div>
                     </div>
+
                     <div class="form-group text-center m-t-20">
                         <div class="col-xs-12">
                             <input type="hidden" name="_csrf" value="<%= csrfToken %>">
@@ -64,11 +75,13 @@
                             </button>
                         </div>
                     </div>
+
                     <div class="form-group m-b-0">
                         <div class="col-sm-12 text-center">
                             <p>Already have an account? <a href="/auth/login" class="text-info m-l-5"><b>Login</b></a></p>
                         </div>
                     </div>
+
                 </form>
 
                 <% if (errorMessage) { %>
@@ -82,3 +95,28 @@
     </section>
 
     <%- include('../includes/admin/end.ejs') %>
+
+    <script type="text/javascript" src="/admin/plugins/bootstrap-switch/bootstrap-switch.min.js"></script>
+
+    <script type="text/javascript">
+        $(".bt-switch input[type='checkbox'], .bt-switch input[type='radio']").bootstrapSwitch();
+        var radioswitch = function() {
+            var bt = function() {
+                $(".radio-switch").on("switch-change", function() {
+                    $(".radio-switch").bootstrapSwitch("toggleRadioState")
+                }), $(".radio-switch").on("switch-change", function() {
+                    $(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck")
+                }), $(".radio-switch").on("switch-change", function() {
+                    $(".radio-switch").bootstrapSwitch("toggleRadioStateAllowUncheck", !1)
+                })
+            };
+            return {
+                init: function() {
+                    bt()
+                }
+            }
+        }();
+        $(document).ready(function() {
+            radioswitch.init()
+        });
+    </script>

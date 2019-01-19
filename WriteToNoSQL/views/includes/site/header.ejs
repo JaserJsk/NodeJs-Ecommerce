@@ -45,12 +45,13 @@
                                     <span class="text-secondary">
                                         9:00-18:00
                                     </span>
-                                    <br /> 
+                                    <br />
                                     Sat & Sun - Closed
                                 </small>
                             </div>
                         </a>
                     </li>
+
                     <li class="nav-item">
                         <a class="nav-link">
                             <div class="display-6 m-r-10">
@@ -67,23 +68,30 @@
                     </li>
 
                     <% if (isAuthenticated) { %>
-                        <li class="nav-item donate-btn">
-                            <form action="/auth/logout" method="post">
-                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                                <button type="submit" class="btn btn-outline-info">Logout</button>
-                            </form>
-                        </li>
-                        <li class="nav-item donate-btn" style="margin-left: 10px;">
-                            <a href="/admin/dashboard" class="btn btn-outline-info">
-                                Admin
-                            </a>
-                        </li>
+
+                    <% if (userIsMerchant == 'on') { %>
+                    <li class="nav-item donate-btn" style="margin-right: 10px;">
+                        <a href="/admin/dashboard" class="btn btn-outline-info">
+                            Admin
+                        </a>
+                    </li>
+                    <% } %>
+
+                    <li class="nav-item donate-btn">
+                        <form action="/auth/logout" method="post">
+                            <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                            <button type="submit" class="btn btn-outline-info">Logout</button>
+                        </form>
+                    </li>
+
                     <% } else { %>
-                        <li class="nav-item donate-btn">
-                            <a href="/auth/login" class="btn btn-outline-info">
-                                Login
-                            </a>
-                        </li>
+
+                    <li class="nav-item donate-btn">
+                        <a href="/auth/login" class="btn btn-outline-info">
+                            Login
+                        </a>
+                    </li>
+
                     <% } %>
 
                 </ul>

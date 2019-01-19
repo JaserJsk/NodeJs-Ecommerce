@@ -58,7 +58,7 @@ exports.postLogin = (request, response, next) => {
 
     const errors = validationResult(request);
     if (!errors.isEmpty()) {
-        console.log(errors.array());
+        //console.log(errors.array());
         return response.status(422).render('auth/login', {
             pageTitle: 'Login',
             path: '/auth/login',
@@ -91,7 +91,7 @@ exports.postLogin = (request, response, next) => {
                         request.session.isLoggedIn = true;
                         request.session.user = user;
                         return request.session.save(err => {
-                            console.log(err);
+                            //console.log(err);
                             response.redirect('/');
                         });
                     }
@@ -119,6 +119,7 @@ exports.postLogin = (request, response, next) => {
 exports.postSignup = (request, response, next) => {
     const email = request.body.email;
     const password = request.body.password;
+    const isMerchant = request.body.isMerchant;
 
     const errors = validationResult(request);
     if (!errors.isEmpty()) {
@@ -130,7 +131,8 @@ exports.postSignup = (request, response, next) => {
             oldInput: { 
                 email: email, 
                 password: password, 
-                confirmPassword: request.body.confirmPassword 
+                confirmPassword: request.body.confirmPassword,
+                isMerchant: isMerchant
             },
             validationErrors: errors.array()
         });
@@ -147,6 +149,7 @@ exports.postSignup = (request, response, next) => {
                 address: '',
                 photoUrl: '',
                 password: hashedPassword,
+                isMerchant: isMerchant ? isMerchant: 'off',
                 cart: { items: [] }
             })
             return user.save();
@@ -172,7 +175,7 @@ exports.postSignup = (request, response, next) => {
 
 exports.postLogout = (request, response, next) => {
     request.session.destroy(err => {
-        console.log(err);
+        //console.log(err);
         response.redirect('/');
     });
 };

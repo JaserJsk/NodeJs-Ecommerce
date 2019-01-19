@@ -31,6 +31,11 @@ const userSchema = new Schema({
         type: String,
         required: false
     },
+
+    isMerchant: {
+        type: String,
+        required: false
+    },
     
     password: {
         type: String,

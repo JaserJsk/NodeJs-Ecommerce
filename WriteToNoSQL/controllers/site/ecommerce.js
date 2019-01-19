@@ -1,3 +1,4 @@
+const User = require('../../models/user');
 const Product = require('../../models/product');
 const Order = require('../../models/order');
 
@@ -6,17 +7,37 @@ const Order = require('../../models/order');
  * Display products to customers!
  */
 exports.getProducts = (request, response, next) => {
-    Product.find()
-        .then(products => {
-            response.render('site/ecommerce/product_list', {
-                prods: products,
-                pageTitle: 'All Products',
-                path: '/products'
+    if (request.session.isLoggedIn) {
+        User.findById(request.user._id)
+            .then(user => {
+                Product.find()
+                    .then(products => {
+                        response.render('site/ecommerce/product_list', {
+                            pageTitle: 'All Products',
+                            path: '/products',
+                            prods: products,
+                            user: user
+                        });
+                    })
+            })
+            .catch(err => {
+                console.log(err)
             });
-        })
-        .catch(err => {
-            console.log(err)
-        });
+    }
+    else {
+        Product.find()
+            .then(products => {
+                response.render('site/ecommerce/product_list', {
+                    pageTitle: 'All Products',
+                    path: '/products',
+                    prods: products,
+                });
+            })
+            .catch(err => {
+                console.log(err)
+            });
+    }
+
 };
 
 /**
@@ -25,17 +46,37 @@ exports.getProducts = (request, response, next) => {
  */
 exports.getProductById = (request, response, next) => {
     const prodId = request.params.productId;
-    Product.findById(prodId)
-        .then(product => {
-            response.render('site/ecommerce/product_detail', {
-                product: product,
-                pageTitle: product.title,
-                path: '/products'
+    if (request.session.isLoggedIn) {
+        User.findById(request.user._id)
+            .then(user => {
+                Product.findById(prodId)
+                    .then(product => {
+                        response.render('site/ecommerce/product_detail', {
+                            product: product,
+                            pageTitle: product.title,
+                            path: '/products',
+                            user: user
+                        });
+                    })
+            })
+            .catch(err => {
+                console.log(err)
             });
-        })
-        .catch(err => {
-            console.log(err)
-        });
+    }
+    else {
+        Product.findById(prodId)
+            .then(product => {
+                response.render('site/ecommerce/product_detail', {
+                    product: product,
+                    pageTitle: product.title,
+                    path: '/products',
+                });
+            })
+            .catch(err => {
+                console.log(err)
+            });
+    }
+
 };
 
 /**
@@ -51,7 +92,8 @@ exports.getCart = (request, response, next) => {
             response.render('site/ecommerce/cart', {
                 path: '/cart',
                 pageTitle: 'Your Cart',
-                products: products
+                products: products,
+                user: user
             });
         })
         .catch(err => {
@@ -104,7 +146,7 @@ exports.postOrder = (request, response, next) => {
         .execPopulate()
         .then(user => {
             const products = user.cart.items.map(i => {
-                return {quantity: i.quantity, product: { ...i.productId._doc } }
+                return { quantity: i.quantity, product: { ...i.productId._doc } }
             });
             const order = new Order({
                 user: {
@@ -136,7 +178,8 @@ exports.getOrders = (request, response, next) => {
             response.render('site/ecommerce/orders', {
                 pageTitle: 'Your Orders',
                 path: '/orders',
-                orders: orders
+                orders: orders,
+                user: request.user._id
             });
         })
         .catch(err => {

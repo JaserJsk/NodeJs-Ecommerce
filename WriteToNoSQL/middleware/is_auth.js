@@ -1,6 +1,40 @@
-module.exports = (request, response, next) => {
+/* module.exports = (request, response, next) => {
     if (!request.session.isLoggedIn) {
         return response.redirect('/auth/login');
     }
     next();
+} */
+
+module.exports = {
+
+    public: (request, response, next) => {
+
+        if (!request.session.isLoggedIn) {
+            return response.redirect('/auth/login');
+        }
+        next();
+    },
+
+    merhant: (request, response, next) => {
+
+        if (!request.session.isLoggedIn) {
+            return response.redirect('/auth/login');
+        }
+
+        if (request.user.isMerchant === "on") {
+            next();
+        }
+
+    },
+
+    customer: (request, response, next) => {
+        if (!request.session.isLoggedIn) {
+            return response.redirect('/auth/login');
+        }
+
+        if (request.user.isMerchant === "off") {
+            next();
+        }
+        
+    }
 }

@@ -7,10 +7,25 @@ const User = require('../../models/user');
  * Index page!
  */
 exports.getIndex = (request, response, next) => {
-    response.render('site/index', {
-        pageTitle: 'Ecomerce',
-        path: '/',
-    });
+    if (request.session.isLoggedIn) {
+        User.findById(request.user._id)
+            .then(user => {
+                response.render('site/index', {
+                    pageTitle: 'Ecomerce',
+                    path: '/',
+                    user: user,
+                });
+            })
+            .catch(err => {
+                console.log(err)
+            });
+    }
+    else {
+        response.render('site/index', {
+            pageTitle: 'Ecomerce',
+            path: '/',
+        });
+    }
 };
 
 /**
@@ -18,10 +33,55 @@ exports.getIndex = (request, response, next) => {
  * About page!
  */
 exports.getAbout = (request, response, next) => {
-    response.render('site/about', {
-        pageTitle: 'About',
-        path: '/',
-    });
+    if (request.session.isLoggedIn) {
+        console.log('You are logged in');
+        User.findById(request.user._id)
+            .then(user => {
+                response.render('site/about', {
+                    pageTitle: 'About',
+                    path: '/about',
+                    user: user,
+                });
+            })
+            .catch(err => {
+                console.log(err)
+            });
+    }
+    else {
+        console.log('You are not logged in');
+        response.render('site/about', {
+            pageTitle: 'About',
+            path: '/about',
+        });
+    }
+};
+
+/**
+ * *********************************************************** 
+ * Contact page!
+ */
+exports.getContact = (request, response, next) => {
+    if (request.session.isLoggedIn) {
+        console.log('You are logged in');
+        User.findById(request.user._id)
+            .then(user => {
+                response.render('site/contact', {
+                    pageTitle: 'Contact',
+                    path: '/contact',
+                    user: user,
+                });
+            })
+            .catch(err => {
+                console.log(err)
+            });
+    }
+    else {
+        console.log('You are not logged in');
+        response.render('site/contact', {
+            pageTitle: 'Contact',
+            path: '/contact',
+        });
+    }
 };
 
 /**
@@ -88,15 +148,4 @@ exports.postEditCustomerProfile = (request, response, next) => {
         .catch(err => {
             console.log(err)
         });
-};
-
-/**
- * *********************************************************** 
- * Contact page!
- */
-exports.getContact = (request, response, next) => {
-    response.render('site/contact', {
-        pageTitle: 'Contact',
-        path: '/',
-    });
 };
