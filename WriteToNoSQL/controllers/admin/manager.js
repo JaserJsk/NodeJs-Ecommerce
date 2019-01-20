@@ -56,6 +56,7 @@ exports.postAddProduct = (request, response, next) => {
             path: '/admin/edit_product',
             editing: false,
             hasError: true,
+            user: request.user,
             product: {
                 title: title,
                 price: price,

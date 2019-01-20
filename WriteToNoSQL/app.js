@@ -84,10 +84,12 @@ app.use((error, request, response, next) => {
     response.redirect('/500');
 })
 
-mongoose.connect(keys.MONGODB_URI)
+mongoose.connect(keys.MONGODB_URI, { useNewUrlParser: true })
     .then(result => {
         app.listen(3000);
     })
     .catch(err => {
         console.log(err)
     });
+
+mongoose.set('useCreateIndex', true);
