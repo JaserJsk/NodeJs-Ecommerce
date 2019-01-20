@@ -112,7 +112,9 @@ exports.postLogin = (request, response, next) => {
                 });
         })
         .catch(err => {
-            console.log(err)
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         });
 };
 
@@ -169,13 +171,15 @@ exports.postSignup = (request, response, next) => {
             sgMail.send(signup);
         })
         .catch(err => {
-            console.log(err);
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         });
 };
 
 exports.postLogout = (request, response, next) => {
     request.session.destroy(err => {
-        //console.log(err);
+        console.log(err);
         response.redirect('/');
     });
 };
@@ -233,7 +237,9 @@ exports.postReset = (request, response, next) => {
                 sgMail.send(reset);
             })
             .catch(err => {
-                console.log(err);
+                const error = new Error(err);
+                error.httpStatusCode = 500;
+                return next(error);
             });
     });
 };
@@ -257,7 +263,9 @@ exports.getNewPassword = (request, response, next) => {
             });
         })
         .catch(err => {
-            console.log(err);
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         });
 };
 
@@ -267,10 +275,7 @@ exports.postNewPassword = (request, response, next) => {
     const passwordToken = request.body.passwordToken;
     let resetUser;
 
-    User.findOne({
-        resetToken: passwordToken, resetTokenExpiration: { $gt: Date.now() },
-        _id: userId
-    })
+    User.findOne({ resetToken: passwordToken, resetTokenExpiration: { $gt: Date.now() }, _id: userId })
         .then(user => {
             resetUser = user;
             return bcrypt.hash(newPassword, 12)
@@ -285,6 +290,8 @@ exports.postNewPassword = (request, response, next) => {
             response.redirect('/auth/login');
         })
         .catch(err => {
-            console.log(err);
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         });
 };

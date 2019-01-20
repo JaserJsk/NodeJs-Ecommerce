@@ -17,7 +17,9 @@ exports.getProducts = (request, response, next) => {
             });
         })
         .catch(err => {
-            console.log(err)
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         });
 };
 
@@ -78,7 +80,9 @@ exports.postAddProduct = (request, response, next) => {
             response.redirect('/admin/products');
         })
         .catch(err => {
-            console.log(err)
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         });
 };
 
@@ -109,7 +113,9 @@ exports.getEditProduct = (request, response, next) => {
             });
         })
         .catch(err => {
-            console.log(err)
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         });
 };
 
@@ -159,7 +165,9 @@ exports.postEditProduct = (request, response, next) => {
             });
         })
         .catch(err => {
-            console.log(err)
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         });
 };
 
@@ -175,6 +183,8 @@ exports.postDeleteProduct = (request, response, next) => {
             response.redirect('/admin/products');
         })
         .catch(err => {
-            console.log(err)
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         });
 };

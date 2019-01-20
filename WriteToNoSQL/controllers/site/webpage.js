@@ -17,7 +17,9 @@ exports.getIndex = (request, response, next) => {
                 });
             })
             .catch(err => {
-                console.log(err)
+                const error = new Error(err);
+                error.httpStatusCode = 500;
+                return next(error);
             });
     }
     else {
@@ -44,7 +46,9 @@ exports.getAbout = (request, response, next) => {
                 });
             })
             .catch(err => {
-                console.log(err)
+                const error = new Error(err);
+                error.httpStatusCode = 500;
+                return next(error);
             });
     }
     else {
@@ -72,7 +76,9 @@ exports.getContact = (request, response, next) => {
                 });
             })
             .catch(err => {
-                console.log(err)
+                const error = new Error(err);
+                error.httpStatusCode = 500;
+                return next(error);
             });
     }
     else {
@@ -108,7 +114,9 @@ exports.getEditCustomerProfile = (request, response, next) => {
             });
         })
         .catch(err => {
-            console.log(err)
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         });
 };
 
@@ -146,6 +154,8 @@ exports.postEditCustomerProfile = (request, response, next) => {
             response.redirect('/edit-customer');
         })
         .catch(err => {
-            console.log(err)
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         });
 };

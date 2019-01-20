@@ -1,20 +1,5 @@
-/* module.exports = (request, response, next) => {
-    if (!request.session.isLoggedIn) {
-        return response.redirect('/auth/login');
-    }
-    next();
-} */
-
 module.exports = {
-
-    public: (request, response, next) => {
-
-        if (!request.session.isLoggedIn) {
-            return response.redirect('/auth/login');
-        }
-        next();
-    },
-
+    
     merhant: (request, response, next) => {
 
         if (!request.session.isLoggedIn) {

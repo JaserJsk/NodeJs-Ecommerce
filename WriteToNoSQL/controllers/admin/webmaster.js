@@ -17,7 +17,9 @@ exports.getDashboard = (request, response, next) => {
             });
         })
         .catch(err => {
-            console.log(err)
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         });
 };
 
@@ -45,7 +47,9 @@ exports.getEditMerchantProfile = (request, response, next) => {
             });
         })
         .catch(err => {
-            console.log(err)
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         });
 };
 
@@ -92,6 +96,8 @@ exports.postEditMerchantProfile = (request, response, next) => {
             response.redirect('/admin/edit-merchant');
         })
         .catch(err => {
-            console.log(err)
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
         });
 };

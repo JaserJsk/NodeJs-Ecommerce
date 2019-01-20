@@ -14,11 +14,11 @@
             <div class="header14 po-relative">
 
                 <% if (isAuthenticated) { %>
-                    <%- include('../../includes/site/header.ejs', { userIsMerchant: user.isMerchant }) %>
-                    <%- include('../../includes/site/navigation.ejs', { userIsMerchant: user.isMerchant }) %>
+                <%- include('../../includes/site/header.ejs', { userIsMerchant: user.isMerchant }) %>
+                <%- include('../../includes/site/navigation.ejs', { userIsMerchant: user.isMerchant }) %>
                 <% } else { %>
-                    <%- include('../../includes/site/header.ejs') %>
-                    <%- include('../../includes/site/navigation.ejs') %>
+                <%- include('../../includes/site/header.ejs') %>
+                <%- include('../../includes/site/navigation.ejs') %>
                 <% } %>
 
             </div>
@@ -63,42 +63,49 @@
                             <div class="col-lg-5">
                                 <div class="owl-carousel owl-theme image-slide">
                                     <!-- item -->
-                                    <div class="item"><img src="<%= product.imageUrl %>" class="img-responsive"
-                                            alt="<%= product.title %>" /></div>
+                                    <div class="item"><img src="<%= product.imageUrl %>" class="img-responsive" alt="<%= product.title %>" /></div>
                                     <!-- item -->
-                                    <div class="item"><img src="<%= product.imageUrl %>" class="img-responsive"
-                                            alt="<%= product.title %>" /></div>
+                                    <div class="item"><img src="<%= product.imageUrl %>" class="img-responsive" alt="<%= product.title %>" /></div>
                                     <!-- item -->
-                                    <div class="item"><img src="<%= product.imageUrl %>" class="img-responsive"
-                                            alt="<%= product.title %>" /></div>
+                                    <div class="item"><img src="<%= product.imageUrl %>" class="img-responsive" alt="<%= product.title %>" /></div>
                                 </div>
                             </div>
                             <!-- column  -->
 
                             <div class="col-lg-6 ml-auto">
 
-                                <h4 class="title"><%= product.title %></h4>
-                                
-                                <h4 class="font-medium m-b-30">$<%= product.price %></h4>
+                                <h4 class="title">
+                                    <%= product.title %>
+                                </h4>
+
+                                <h4 class="font-medium m-b-30">$
+                                    <%= product.price %>
+                                </h4>
 
                                 <% if (isAuthenticated) { %>
 
                                 <% if (user.isMerchant == 'off') { %>
-                                    <form action="/cart" method="POST">
-                                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                                        <button type="submit" class="btn btn-outline-info btn-md m-t-20">Add to Cart</button>
-                                        <input type="hidden" name="productId" value="<%= product._id %>">
-                                    </form>
-                                <% } %>
-                                
+                                <form action="/cart" method="POST">
+                                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                    <button type="submit" class="btn btn-outline-info btn-md m-t-20">Add to Cart</button>
+                                    <input type="hidden" name="productId" value="<%= product._id %>">
+                                </form>
                                 <% } else { %>
-                                    
-                                    <a href="/auth/login" class="btn btn-outline-info btn-md m-t-20">
-                                        You need to Login before you can buy!
-                                    </a>
+
+                                <a href="#" class="btn btn-outline-info btn-md m-t-20">
+                                    Only customers can buy!
+                                </a>
 
                                 <% } %>
-                                
+
+                                <% } else { %>
+
+                                <a href="/auth/login" class="btn btn-outline-info btn-md m-t-20">
+                                    You need to Login before you can buy!
+                                </a>
+
+                                <% } %>
+
                             </div>
 
                         </div>
@@ -106,7 +113,9 @@
                         <div class="row m-t-40 m-b-40">
                             <div class="col-md-12">
                                 <h5 class="title font-medium">Product Summery</h5>
-                                <p><%= product.description %></p>
+                                <p>
+                                    <%= product.description %>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -132,13 +141,13 @@
 
     <script>
         $('.image-slide').owlCarousel({
-        autoplay: true,
-        autoplayHoverPause: false,
-        items: 1,
-        loop: true,
-        margin: 0,
-        nav: false,
-        dots: true
+            autoplay: true,
+            autoplayHoverPause: false,
+            items: 1,
+            loop: true,
+            margin: 0,
+            nav: false,
+            dots: true
 
-    })
+        })
     </script>

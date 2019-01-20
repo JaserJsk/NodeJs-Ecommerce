@@ -10,6 +10,8 @@ const flash = require('connect-flash');
 const keys = require('../../../Credentials/keys');
 const User = require('./models/user');
 
+const errorsController = require('./controllers/errors');
+
 const app = express();
 const store = new MongoDBStore({
     uri: keys.MONGODB_URI,
@@ -33,9 +35,6 @@ const managerRoutes = require('./routes/admin/manager');
 const siteRoutes = require('./routes/site/webpage');
 const ecommerceRoutes = require('./routes/site/ecommerce');
 
-/* Errors */
-const errorRoutes = require('./routes/errors');
-
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(
@@ -50,21 +49,26 @@ app.use(csrfProtection);
 app.use(flash());
 
 app.use((request, response, next) => {
+    response.locals.isAuthenticated = request.session.isLoggedIn;
+    response.locals.csrfToken = request.csrfToken();
+    next();
+});
+
+app.use((request, response, next) => {
     if (!request.session.user) {
         return next();
     }
     User.findById(request.session.user._id)
         .then(user => {
+            if (!user) {
+                return next();
+            }
             request.user = user;
             next();
         })
-        .catch(err => {console.log(err)});
-});
-
-app.use((request, response, next) => {
-    response.locals.isAuthenticated = request.session.isLoggedIn;
-    response.locals.csrfToken = request.csrfToken();
-    next();
+        .catch(err => {
+            next(new Error(err));
+        });
 });
 
 app.use('/auth', authRoutes);
@@ -72,7 +76,13 @@ app.use('/admin', adminRoutes);
 app.use('/admin', managerRoutes);
 app.use(siteRoutes);
 app.use(ecommerceRoutes);
-app.use(errorRoutes);
+
+app.get('/500', errorsController.get500);
+app.use(errorsController.get404);
+
+app.use((error, request, response, next) => {
+    response.redirect('/500');
+})
 
 mongoose.connect(keys.MONGODB_URI)
     .then(result => {
