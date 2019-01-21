@@ -18,8 +18,7 @@ router.get('/add-product', isAuth.merhant, managerController.getAddProduct);
 router.post('/add-product', [
     body('title').isString().isLength({ min: 5 }).withMessage('Title must be minimum of 5 characters.').trim(),
     body('price').isFloat().withMessage('Price must be a floating number.'),
-    body('description').isLength({ min: 10, max: 500 }).withMessage('Description must be minimum of 5 characters & maximum of of 500.').trim(),
-    body('imageUrl').isURL().withMessage('ImageUrl must contain a valid URL.')
+    body('description').isLength({ min: 10, max: 500 }).withMessage('Description must be minimum of 5 characters & maximum of of 500.').trim()
 ], isAuth.merhant, managerController.postAddProduct);
 
 /**
@@ -30,8 +29,7 @@ router.get('/edit-product=:productId', isAuth.merhant, managerController.getEdit
 router.post('/edit-product', [
     body('title').isString().isLength({ min: 5 }).withMessage('Title must be minimum of 5 characters.').trim(),
     body('price').isFloat().withMessage('Price must be a floating number.'),
-    body('description').isLength({ min: 10, max: 500 }).withMessage('Description must be minimum of 5 characters & maximum of of 500.').trim(),
-    body('imageUrl').isURL().withMessage('ImageUrl must contain a valid URL.')
+    body('description').isLength({ min: 10, max: 500 }).withMessage('Description must be minimum of 5 characters & maximum of of 500.').trim()
 ], isAuth.merhant, managerController.postEditProduct);
 
 /**

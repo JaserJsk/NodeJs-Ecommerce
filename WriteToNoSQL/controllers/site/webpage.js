@@ -36,7 +36,6 @@ exports.getIndex = (request, response, next) => {
  */
 exports.getAbout = (request, response, next) => {
     if (request.session.isLoggedIn) {
-        console.log('You are logged in');
         User.findById(request.user._id)
             .then(user => {
                 response.render('site/about', {
@@ -52,7 +51,6 @@ exports.getAbout = (request, response, next) => {
             });
     }
     else {
-        console.log('You are not logged in');
         response.render('site/about', {
             pageTitle: 'About',
             path: '/about',
@@ -66,7 +64,6 @@ exports.getAbout = (request, response, next) => {
  */
 exports.getContact = (request, response, next) => {
     if (request.session.isLoggedIn) {
-        console.log('You are logged in');
         User.findById(request.user._id)
             .then(user => {
                 response.render('site/contact', {
@@ -82,7 +79,6 @@ exports.getContact = (request, response, next) => {
             });
     }
     else {
-        console.log('You are not logged in');
         response.render('site/contact', {
             pageTitle: 'Contact',
             path: '/contact',
@@ -123,7 +119,9 @@ exports.getEditCustomerProfile = (request, response, next) => {
 exports.postEditCustomerProfile = (request, response, next) => {
     const firstName = request.body.firstName;
     const lastName = request.body.lastName;
-    const photoUrl = request.body.photoUrl;
+    const phone = request.body.phone;
+    const address = request.body.address;
+    const image = request.file;
     const UserId = request.user._id;
 
     const errors = validationResult(request);
@@ -132,10 +130,11 @@ exports.postEditCustomerProfile = (request, response, next) => {
             pageTitle: 'Edit Customer',
             path: '/edit_customer',
             user: {
+                email: request.user.email,
                 firstName: firstName,
                 lastName: lastName,
-                email: request.user.email,
-                photoUrl: photoUrl
+                phone: phone,
+                address: address,
             },
             errorMessage: errors.array()[0].msg,
             validationErrors: errors.array()
@@ -146,7 +145,11 @@ exports.postEditCustomerProfile = (request, response, next) => {
         .then(user => {
             user.firstName = firstName ? firstName : user.firstName;
             user.lastName = lastName ? lastName : user.lastName;
-            user.photoUrl = photoUrl ? photoUrl : user.photoUrl;
+            user.phone = phone ? phone : user.phone;
+            user.address = address ? address : user.address;
+            if (image) {
+                user.photoUrl = image.path;;
+            }
             return user.save();
         })
         .then(result => {

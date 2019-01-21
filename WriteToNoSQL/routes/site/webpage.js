@@ -25,7 +25,8 @@ router.get('/edit-customer', isAuth.customer, siteController.getEditCustomerProf
 router.post('/edit-customer', [
     body('firstName').isAlphanumeric().withMessage('Enter your first name.').trim(),
     body('lastName').isAlphanumeric().withMessage('Enter your last name.').trim(),
-    body('photoUrl').isURL().withMessage('PhotoUrl must contain a valid URL.')
+    body('phone').isString().withMessage('Enter your phone number.').trim(),
+    body('address').isString().withMessage('Enter your current address.').trim()
 ], isAuth.customer, siteController.postEditCustomerProfile);
 
 /**

@@ -59,7 +59,7 @@ exports.postEditMerchantProfile = (request, response, next) => {
     const phone = request.body.phone;
     const address = request.body.address;
     const biography = request.body.biography;
-    const photoUrl = request.body.photoUrl;
+    const image = request.file;
     const UserId = request.user._id;
 
     const errors = validationResult(request);
@@ -74,7 +74,6 @@ exports.postEditMerchantProfile = (request, response, next) => {
                 phone: phone,
                 address: address,
                 biography: biography,
-                photoUrl: photoUrl
             },
             errorMessage: errors.array()[0].msg,
             validationErrors: errors.array()
@@ -88,7 +87,9 @@ exports.postEditMerchantProfile = (request, response, next) => {
             user.phone = phone ? phone : user.phone;
             user.address = address ? address : user.address;
             user.biography = biography ? biography : user.biography;
-            user.photoUrl = photoUrl ? photoUrl : user.photoUrl;
+            if (image) {
+                user.photoUrl = image.path;;
+            }
             return user.save();
         })
         .then(result => {

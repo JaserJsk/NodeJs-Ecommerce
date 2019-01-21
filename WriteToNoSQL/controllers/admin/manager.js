@@ -47,26 +47,46 @@ exports.postAddProduct = (request, response, next) => {
     const title = request.body.title;
     const price = request.body.price;
     const description = request.body.description;
-    const imageUrl = request.body.imageUrl;
+    const image = request.file;
 
-    const errors = validationResult(request);
-    if (!errors.isEmpty()) {
+    if (!image) {
         return response.status(422).render('admin/manager/edit_product', {
             pageTitle: 'Add Product',
             path: '/admin/edit_product',
             editing: false,
             hasError: true,
-            user: request.user,
+            user: request.user, // I added this becouse I wanted to send data to the frontend.
             product: {
                 title: title,
                 price: price,
                 description: description,
-                imageUrl: imageUrl
+            },
+            errorMessage: 'Attached file is not an image.',
+            validationErrors: []
+        });
+    }
+    
+    const errors = validationResult(request);
+
+    if (!errors.isEmpty()) {
+        console.log(errors.array());
+        return response.status(422).render('admin/manager/edit_product', {
+            pageTitle: 'Add Product',
+            path: '/admin/edit_product',
+            editing: false,
+            hasError: true,
+            user: request.user, // I added this becouse I wanted to send data to the frontend.
+            product: {
+                title: title,
+                price: price,
+                description: description,
             },
             errorMessage: errors.array()[0].msg,
             validationErrors: errors.array()
         });
     }
+
+    const imageUrl = image.path;
 
     const product = new Product({
         title: title, 
@@ -129,7 +149,7 @@ exports.postEditProduct = (request, response, next) => {
     const updatedTitle = request.body.title;
     const updatedPrice = request.body.price;
     const updatedDesc = request.body.description;
-    const updatedImageUrl = request.body.imageUrl;
+    const image = request.file;
 
     const errors = validationResult(request);
     if (!errors.isEmpty()) {
@@ -142,7 +162,6 @@ exports.postEditProduct = (request, response, next) => {
                 title: updatedTitle,
                 price: updatedPrice,
                 description: updatedDesc,
-                imageUrl: updatedImageUrl,
                 _id: prodId
             },
             errorMessage: errors.array()[0].msg,
@@ -158,7 +177,9 @@ exports.postEditProduct = (request, response, next) => {
             product.title = updatedTitle;
             product.price = updatedPrice;
             product.description = updatedDesc;
-            product.imageUrl = updatedImageUrl;
+            if (image) {
+                product.imageUrl = image.path;
+            }
             return product.save()
             .then(result => {
                 console.log('Updated Product');

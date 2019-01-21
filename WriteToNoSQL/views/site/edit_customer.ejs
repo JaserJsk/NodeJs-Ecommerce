@@ -1,5 +1,6 @@
 <%- include('../includes/site/head.ejs') %>
 <link rel="stylesheet" href="/css/shop.css">
+<link rel="stylesheet" type="text/css" href="/plugins/dropify/dist/css/dropify.min.css">
 </head>
 
 <body>
@@ -59,38 +60,50 @@
                         <div class="col-sm-12">
                             <div class="card card-body">
                                 <!-- Img  -->
-                                <img src="<%=user.photoUrl%>" alt="" class="photo-placeholder rounded-circle" style="margin: 0 auto"
+                                <img src="/<%=user.photoUrl%>" alt="" class="photo-placeholder rounded-circle" style="margin: 0 auto"
                                     width="200" height="200" data-aos="fade-down" data-aos-duration="1200">
 
                                 <!-- Row  -->
                                 <form class="row form-material justify-content-center" data-aos="fade-up"
-                                    data-aos-duration="1200" action="/edit-customer" method="POST">
+                                    data-aos-duration="1200" action="/edit-customer" method="POST" enctype="multipart/form-data">
 
                                     <div class="form-group col-md-6 m-t-20">
                                         <label>First Name</label>
                                         <input class="form-control <%= validationErrors.find(e => e.param === 'firstName') ? 'is-invalid' : '' %>"
                                             type="text" name="firstName" id="firstName" value="<%=user.firstName%>"
-                                            placeholder="Firstname...">
+                                            placeholder="...">
                                     </div>
 
                                     <div class="form-group col-md-6 m-t-20">
                                         <label>Last Name</label>
                                         <input class="form-control <%= validationErrors.find(e => e.param === 'lastName') ? 'is-invalid' : '' %>"
                                             type="text" name="lastName" id="lastName" value="<%=user.lastName%>"
-                                            placeholder="Lastname...">
+                                            placeholder="...">
                                     </div>
 
-                                    <div class="form-group col-md-12 m-t-20">
+                                    <div class="form-group col-md-6 m-t-20">
+                                        <label>Phone No</label>
+                                        <input class="form-control <%= validationErrors.find(e => e.param === 'phone') ? 'is-invalid' : '' %>" 
+                                            type="text" name="phone" id="phone" value="<%=user.phone%>"
+                                            placeholder="...">
+                                    </div>
+
+                                    <div class="form-group col-md-6 m-t-20">
                                         <label>Email</label>
                                         <input class="form-control" type="email" name="email" id="email" value="<%=user.email%>"
                                             readonly>
                                     </div>
 
                                     <div class="form-group col-md-12 m-t-20">
-                                        <label for="imageUrl">Photo Url </label>
-                                        <input class="form-control <%= validationErrors.find(e => e.param === 'photoUrl') ? 'is-invalid' : '' %>"
-                                            type="text" name="photoUrl" id="photoUrl" value="<%=user.photoUrl%>"
-                                            placeholder="PhotoUrl...">
+                                        <label >Address </label>
+                                        <input class="form-control <%= validationErrors.find(e => e.param === 'address') ? 'is-invalid' : '' %>"
+                                            type="text" name="address" id="address" value="<%=user.address%>" 
+                                            placeholder="...">
+                                    </div>
+
+                                    <div class="form-group col-md-12 m-t-20">
+                                        <label for="image">Add your photo</label>
+                                        <input type="file" name="image" id="image" class="dropify" />
                                     </div>
 
                                     <input type="hidden" value="<%= user._id %>" name="userId">
@@ -134,3 +147,5 @@
     <%- include('../includes/site/end.ejs') %>
 
     <script type="text/javascript" src="/js/type.js"></script>
+    <script type="text/javascript" src="/plugins/dropify/dist/js/dropify.js"></script>
+    <script type="text/javascript" src="/js/custom.dropify.js"></script>

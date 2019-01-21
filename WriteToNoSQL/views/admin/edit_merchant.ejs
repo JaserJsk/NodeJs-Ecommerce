@@ -1,4 +1,5 @@
 <%- include('../includes/admin/head.ejs') %>
+<link rel="stylesheet" type="text/css" href="/admin/plugins/dropify/dist/css/dropify.min.css">
 </head>
 
 <body class="fix-header fix-sidebar card-no-border">
@@ -65,11 +66,10 @@
                     <div class="col-lg-4 col-xlg-3 col-md-5">
                         <div class="card">
                             <div class="card-body">
-                                <center class="m-t-30"> <img src="<%=user.photoUrl%>" class="photo-placeholder-xl img-circle"
-                                        width="150" />
+                                <center class="m-t-30"> <img src="/<%=user.photoUrl%>" class="photo-placeholder-xl img-circle"
+                                        width="150" height="150" />
                                     <h4 class="card-title m-t-10">
-                                        <%=user.firstName%>
-                                        <%=user.lastName%>
+                                        <%=user.firstName%> <%=user.lastName%>
                                     </h4>
 
                                     <div class="row text-center justify-content-md-center">
@@ -176,7 +176,7 @@
                                 <div class="tab-pane" id="settings" role="tabpanel">
                                     <div class="card-body">
 
-                                        <form class="row form-horizontal form-material" action="/admin/edit-merchant" method="POST">
+                                        <form class="row form-horizontal form-material" action="/admin/edit-merchant" method="POST" enctype="multipart/form-data">
 
                                             <div class="form-group col-md-6 m-t-20">
                                                 <label>Firstname</label>
@@ -203,7 +203,7 @@
                                             </div>
 
                                             <div class="form-group col-md-12">
-                                                <label >Address </label>
+                                                <label >Address</label>
                                                 <input class="form-control form-control-line <%= validationErrors.find(e => e.param === 'address') ? 'is-invalid' : '' %>"
                                                     type="text" name="address" id="address" value="<%=user.address%>">
                                             </div>
@@ -211,13 +211,12 @@
                                             <div class="form-group col-md-12">
                                                 <label>Biography</label>
                                                 <textarea class="form-control form-control-line <%= validationErrors.find(e => e.param === 'biography') ? 'is-invalid' : '' %>" 
-                                                    rows="5" name="biography" id="biography"><%=user.biography%></textarea>
+                                                    name="biography" id="biography" rows="5" cols="80"><%=user.biography%></textarea>
                                             </div>
 
                                             <div class="form-group col-md-12">
-                                                <label >Photo Url </label>
-                                                <input class="form-control form-control-line <%= validationErrors.find(e => e.param === 'photoUrl') ? 'is-invalid' : '' %>"
-                                                    type="text" name="photoUrl" id="photoUrl" value="<%=user.photoUrl%>">
+                                                <label for="image">Add your photo</label>
+                                                <input type="file" name="image" id="image" class="dropify" />
                                             </div>
 
                                             <input type="hidden" value="<%= user._id %>" name="userId">
@@ -266,3 +265,6 @@
     </div>
 
     <%- include('../includes/admin/end.ejs') %>
+
+    <script type="text/javascript" src="/admin/plugins/dropify/dist/js/dropify.js"></script>
+    <script type="text/javascript" src="/admin/js/custom.dropify.js"></script>
