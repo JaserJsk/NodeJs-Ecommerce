@@ -1,3 +1,7 @@
+const fs = require('fs');
+const path = require('path');
+const PDFDocument = require('pdfkit');
+
 const User = require('../../models/user');
 const Product = require('../../models/product');
 const Order = require('../../models/order');
@@ -122,7 +126,7 @@ exports.postToCart = (request, response, next) => {
             return request.user.addToCart(product);
         })
         .then(result => {
-            console.log(result);
+            //console.log(result);
             response.redirect('/cart');
         })
         .catch(err => {
@@ -204,6 +208,59 @@ exports.getOrders = (request, response, next) => {
             return next(error);
         });
 };
+
+/**
+ * *********************************************************** 
+ * Let customer download an invoice!
+ */
+
+exports.getInvoice = (request, response, next) => {
+    const orderId = request.params.orderId;
+
+    Order.findById(orderId)
+    .then(order => {
+        if (!order) {
+            return next(new Error('No order was found.'));
+        }
+        if (order.user.userId.toString() !== request.user._id.toString()) {
+            return next(new Error('You are Unauthorized.'));
+        }
+        const invoiceName = 'invoice-' + orderId + '.pdf';
+        const invoicePath = path.join('data', 'invoices', invoiceName);
+
+        const pdfDoc = new PDFDocument();
+        response.setHeader('Content-Type', 'application/pdf');
+        response.setHeader('Content-Disposition', 'inline; filename="' + invoiceName + '"');
+
+        pdfDoc.pipe(fs.createWriteStream(invoicePath));
+        pdfDoc.pipe(response);
+
+        pdfDoc.fontSize(20).text('Order Invoice', {
+            underline: true
+        });
+
+        pdfDoc.text('------------------------------------');
+        let totalPrice = 0;
+        order.products.forEach(prod => {
+            totalPrice = totalPrice + prod.quantity * prod.product.price;
+            pdfDoc.fontSize(14).text(
+                prod.product.title + ' --- ' + 
+                prod.quantity + ' * ' + '$' + 
+                prod.product.price
+            );
+        });
+
+        pdfDoc.fontSize(16).text('Total Price: $' + totalPrice, {
+            align: 'right'
+        });
+
+        pdfDoc.end();
+
+    })
+    .catch(err => {
+        next(err);
+    });
+}
 
 // GET CECKOUT PAGE
 /*

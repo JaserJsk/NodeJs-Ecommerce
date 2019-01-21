@@ -1,5 +1,7 @@
 const { validationResult } = require('express-validator/check');
 
+const fileHelper = require('../../helpers/file');
+
 const User = require('../../models/user');
 
 /**
@@ -148,7 +150,12 @@ exports.postEditCustomerProfile = (request, response, next) => {
             user.phone = phone ? phone : user.phone;
             user.address = address ? address : user.address;
             if (image) {
-                user.photoUrl = image.path;;
+
+                if (user.photoUrl) {
+                    fileHelper.deleteFile(user.photoUrl);
+                }
+
+                user.photoUrl = image.path;
             }
             return user.save();
         })
