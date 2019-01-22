@@ -127,6 +127,15 @@
 
                                 </table>
 
+                                <%- include('../../includes/admin/pageination.ejs', {
+                                    currentPage: currentPage, 
+                                    nextPage: nextPage, 
+                                    previousPage: previousPage, 
+                                    lastPage: lastPage, 
+                                    hasNextPage: hasNextPage, 
+                                    hasPreviousPage: hasPreviousPage}
+                                ) %>
+
                                 <% } else { %>
 
                                 <h3>No Products Found!</h3>

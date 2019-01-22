@@ -4,25 +4,41 @@ const fileHelper = require('../../helpers/file');
 
 const Product = require('../../models/product');
 
+const ITEMS_PER_PAGE = 8;
+
 /**
  * *********************************************************** 
  * Display list of all existing product!
  */
 exports.getProducts = (request, response, next) => {
-    Product.find()
-        .then(products => {
-            response.render('admin/manager/products', {
-                pageTitle: 'Manage Products',
-                path: '/admin/products',
-                prods: products,
-                user: request.user
-            });
-        })
-        .catch(err => {
-            const error = new Error(err);
-            error.httpStatusCode = 500;
-            return next(error);
+    const page = +request.query.page || 1;
+    let totalItems;
+
+    Product.find().countDocuments().then(numProducts => {
+        totalItems = numProducts;
+        return Product.find()
+            .skip((page - 1) * ITEMS_PER_PAGE)
+            .limit(ITEMS_PER_PAGE);
+    })
+    .then(products => {
+        response.render('admin/manager/products', {
+            pageTitle: 'Manage Products',
+            path: '/admin/products',
+            prods: products,
+            user: request.user,
+            currentPage: page,
+            hasNextPage: ITEMS_PER_PAGE * page < totalItems,
+            hasPreviousPage: page > 1,
+            nextPage: page + 1,
+            previousPage: page - 1,
+            lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE)
         });
+    })
+    .catch(err => {
+        const error = new Error(err);
+        error.httpStatusCode = 500;
+        return next(error);
+    });
 };
 
 /**
@@ -67,7 +83,7 @@ exports.postAddProduct = (request, response, next) => {
             validationErrors: []
         });
     }
-    
+
     const errors = validationResult(request);
 
     if (!errors.isEmpty()) {
@@ -91,9 +107,9 @@ exports.postAddProduct = (request, response, next) => {
     const imageUrl = image.path;
 
     const product = new Product({
-        title: title, 
-        price: price, 
-        description: description, 
+        title: title,
+        price: price,
+        description: description,
         imageUrl: imageUrl,
         userId: request.user
     });
@@ -184,10 +200,10 @@ exports.postEditProduct = (request, response, next) => {
                 product.imageUrl = image.path;
             }
             return product.save()
-            .then(result => {
-                console.log('Updated Product');
-                response.redirect('/admin/products');
-            });
+                .then(result => {
+                    console.log('Updated Product');
+                    response.redirect('/admin/products');
+                });
         })
         .catch(err => {
             const error = new Error(err);
@@ -203,21 +219,21 @@ exports.postEditProduct = (request, response, next) => {
 exports.postDeleteProduct = (request, response, next) => {
     const prodId = request.body.productId;
     Product.findById(prodId)
-    .then(product => {
-        if (!product) {
-            return next(new Error('Product not found!'));
-        }
-        fileHelper.deleteFile(product.imageUrl);
+        .then(product => {
+            if (!product) {
+                return next(new Error('Product not found!'));
+            }
+            fileHelper.deleteFile(product.imageUrl);
 
-        return Product.deleteOne({ _id: prodId, userId: request.user._id });
-    })
-    .then(() => {
-        console.log('Destroyed Product');
-        response.redirect('/admin/products');
-    })
-    .catch(err => {
-        const error = new Error(err);
-        error.httpStatusCode = 500;
-        return next(error);
-    });
+            return Product.deleteOne({ _id: prodId, userId: request.user._id });
+        })
+        .then(() => {
+            console.log('Destroyed Product');
+            response.redirect('/admin/products');
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        });
 };

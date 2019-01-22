@@ -6,23 +6,39 @@ const User = require('../../models/user');
 const Product = require('../../models/product');
 const Order = require('../../models/order');
 
+const ITEMS_PER_PAGE = 8;
+
 /**
  * *********************************************************** 
  * Display products to customers!
  */
 exports.getProducts = (request, response, next) => {
+    const page = +request.query.page || 1;
+    let totalItems;
+
     if (request.session.isLoggedIn) {
         User.findById(request.user._id)
             .then(user => {
-                Product.find()
-                    .then(products => {
-                        response.render('site/ecommerce/product_list', {
-                            pageTitle: 'All Products',
-                            path: '/products',
-                            prods: products,
-                            user: user
-                        });
-                    })
+                Product.find().countDocuments().then(numProducts => {
+                    totalItems = numProducts;
+                    return Product.find()
+                    .skip((page - 1) * ITEMS_PER_PAGE)
+                    .limit(ITEMS_PER_PAGE);
+                })
+                .then(products => {
+                    response.render('site/ecommerce/product_list', {
+                        pageTitle: 'All Products',
+                        path: '/products',
+                        prods: products,
+                        user: user,
+                        currentPage: page,
+                        hasNextPage: ITEMS_PER_PAGE * page < totalItems,
+                        hasPreviousPage: page > 1,
+                        nextPage: page + 1,
+                        previousPage: page - 1,
+                        lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE)
+                    });
+                })
             })
             .catch(err => {
                 const error = new Error(err);
@@ -31,21 +47,31 @@ exports.getProducts = (request, response, next) => {
             });
     }
     else {
-        Product.find()
-            .then(products => {
-                response.render('site/ecommerce/product_list', {
-                    pageTitle: 'All Products',
-                    path: '/products',
-                    prods: products,
-                });
-            })
-            .catch(err => {
-                const error = new Error(err);
-                error.httpStatusCode = 500;
-                return next(error);
+        Product.find().countDocuments().then(numProducts => {
+            totalItems = numProducts;
+            return Product.find()
+            .skip((page - 1) * ITEMS_PER_PAGE)
+            .limit(ITEMS_PER_PAGE);
+        })
+        .then(products => {
+            response.render('site/ecommerce/product_list', {
+                pageTitle: 'All Products',
+                path: '/products',
+                prods: products,
+                currentPage: page,
+                hasNextPage: ITEMS_PER_PAGE * page < totalItems,
+                hasPreviousPage: page > 1,
+                nextPage: page + 1,
+                previousPage: page - 1,
+                lastPage: Math.ceil(totalItems / ITEMS_PER_PAGE)
             });
+        })
+        .catch(err => {
+            const error = new Error(err);
+            error.httpStatusCode = 500;
+            return next(error);
+        });
     }
-
 };
 
 /**

@@ -36,6 +36,12 @@
     outline:none;
 }
 
+.page-item.active .page-link {
+    color: #fff;
+    background-color: #26c6da;
+    border-color: #26c6da;
+}
+
 /* ********************************************************* */
 /* CSS USED FOR PLACEHOLDER IMAGES */
 .photo-placeholder-sm /* img */ {

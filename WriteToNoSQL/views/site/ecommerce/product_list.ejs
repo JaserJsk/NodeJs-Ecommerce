@@ -13,13 +13,13 @@
             <div class="header14 po-relative">
 
                 <% if (isAuthenticated) { %>
-                    <%- include('../../includes/site/header.ejs', { userIsMerchant: user.isMerchant }) %>
-                    <%- include('../../includes/site/navigation.ejs', { userIsMerchant: user.isMerchant }) %>
+                <%- include('../../includes/site/header.ejs', { userIsMerchant: user.isMerchant }) %>
+                <%- include('../../includes/site/navigation.ejs', { userIsMerchant: user.isMerchant }) %>
                 <% } else { %>
-                    <%- include('../../includes/site/header.ejs') %>
-                    <%- include('../../includes/site/navigation.ejs') %>
+                <%- include('../../includes/site/header.ejs') %>
+                <%- include('../../includes/site/navigation.ejs') %>
                 <% } %>
-                
+
             </div>
 
         </div>
@@ -42,8 +42,7 @@
                             <div class="col-md-8 align-self-center text-center" data-aos="fade-right" data-aos-duration="1200">
                                 <h1 class="title">
                                     <b class="font-bold text-secondary">Products</b> <br />
-                                    <span class="text-info-gradiant typewrite" data-period="2000"
-                                        data-type='[ "Browse Available Products!" ]'>
+                                    <span class="text-info-gradiant typewrite" data-period="2000" data-type='[ "Browse Available Products!" ]'>
                                     </span>
                                 </h1>
                             </div>
@@ -81,7 +80,7 @@
                                     <!-- column  -->
                                     <div class="col-lg-3">
                                         <div class="card shop-hover">
-                                            <img src="<%= product.imageUrl %>" alt="<%= product.title %>" class="mx-auto d-block"
+                                            <img src="/<%= product.imageUrl %>" alt="<%= product.title %>" class="mx-auto d-block"
                                                 width="250" height="240" />
 
                                             <div class="card-img-overlay align-items-center">
@@ -107,25 +106,14 @@
 
                                     <% } %>
 
-                                    <!-- column  -->
-                                    <div class="col-lg-12">
-                                        <nav class="">
-                                            <ul class="pagination justify-content-center">
-                                                <li class="page-item disabled">
-                                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
-                                                </li>
-                                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                                                <li class="page-item ">
-                                                    <a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
-                                                </li>
-                                                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                                                <li class="page-item">
-                                                    <a class="page-link" href="#">Next</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </div>
-                                    <!-- column  -->
+                                    <%- include('../../includes/site/pageination.ejs', {
+                                        currentPage: currentPage, 
+                                        nextPage: nextPage, 
+                                        previousPage: previousPage, 
+                                        lastPage: lastPage, 
+                                        hasNextPage: hasNextPage, 
+                                        hasPreviousPage: hasPreviousPage}
+                                    ) %>
 
                                     <% } else { %>
 
