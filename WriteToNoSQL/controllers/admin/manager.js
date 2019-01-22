@@ -16,7 +16,7 @@ exports.getProducts = (request, response, next) => {
 
     Product.find().countDocuments().then(numProducts => {
         totalItems = numProducts;
-        return Product.find()
+        return Product.find({ userId: request.user._id })
             .skip((page - 1) * ITEMS_PER_PAGE)
             .limit(ITEMS_PER_PAGE);
     })
@@ -73,7 +73,7 @@ exports.postAddProduct = (request, response, next) => {
             path: '/admin/edit_product',
             editing: false,
             hasError: true,
-            user: request.user, // I added this becouse I wanted to send data to the frontend.
+            user: request.user,
             product: {
                 title: title,
                 price: price,
@@ -93,7 +93,7 @@ exports.postAddProduct = (request, response, next) => {
             path: '/admin/edit_product',
             editing: false,
             hasError: true,
-            user: request.user, // I added this becouse I wanted to send data to the frontend.
+            user: request.user,
             product: {
                 title: title,
                 price: price,
@@ -216,24 +216,22 @@ exports.postEditProduct = (request, response, next) => {
  * *********************************************************** 
  * Delete an existing product!
  */
-exports.postDeleteProduct = (request, response, next) => {
-    const prodId = request.body.productId;
+exports.deleteProduct = (request, response, next) => {
+    const prodId = request.params.productId;
     Product.findById(prodId)
         .then(product => {
             if (!product) {
                 return next(new Error('Product not found!'));
             }
+            
             fileHelper.deleteFile(product.imageUrl);
-
             return Product.deleteOne({ _id: prodId, userId: request.user._id });
         })
         .then(() => {
             console.log('Destroyed Product');
-            response.redirect('/admin/products');
+            response.status(200).json({message: 'Delete has succeeded!'});
         })
         .catch(err => {
-            const error = new Error(err);
-            error.httpStatusCode = 500;
-            return next(error);
+            response.status(500).json({message: 'Delete has failed!'});
         });
 };

@@ -35,6 +35,6 @@ router.post('/edit-product', [
 /**
  * Route for deleting a product.
  */
-router.post('/delete-product', isAuth.merhant, managerController.postDeleteProduct);
+router.delete('/product/:productId', isAuth.merhant, managerController.deleteProduct);
 
 module.exports = router;

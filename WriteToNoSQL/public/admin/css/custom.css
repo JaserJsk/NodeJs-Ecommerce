@@ -44,7 +44,7 @@
 
 /* ********************************************************* */
 /* CSS USED FOR PLACEHOLDER IMAGES */
-.photo-placeholder-sm /* img */ {
+.photo-placeholder-sm img {
     min-width: 30px;
     min-height: 30px;
     background: url('../images/placeholders/user1.png');
