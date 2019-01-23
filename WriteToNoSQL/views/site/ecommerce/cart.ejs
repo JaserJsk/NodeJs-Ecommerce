@@ -130,10 +130,12 @@
 
                                 </table>
 
-                                <form action="/place-order" method="POST">
+                                <!-- <form action="/place-order" method="POST">
                                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
-                                    <button type="submit" class="btn btn-outline-info btn-md m-t-20 pull-right">Place Order</button>
-                                </form>
+                                    <button type="submit" class="btn btn-outline-info btn-md m-t-20 pull-right">Checkout</button>
+                                </form> -->
+
+                                <a href="/checkout" class="btn btn-outline-info btn-md m-t-20 pull-right">Place Order!</a>
 
                                 <% } else { %>
                                 <h3>No Products in Cart!</h3>

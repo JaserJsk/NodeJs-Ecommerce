@@ -20,13 +20,18 @@ router.post('/cart', isAuth.customer, ecommerceController.postToCart);
 router.post('/cart-delete-item', isAuth.customer, ecommerceController.postCartDeleteProduct);
 
 /**
- * Routes customer orders.
+ * Route customer orders.
  */
 router.get('/orders', isAuth.customer, ecommerceController.getOrders);
-router.post('/place-order', isAuth.customer, ecommerceController.postOrder);
 
+/**
+ * Route customer checkout.
+ */
+router.get('/checkout', isAuth.customer, ecommerceController.getCheckout);
+
+/**
+ * Route customer invoice.
+ */
 router.get('/orders/:orderId', isAuth.customer, ecommerceController.getInvoice);
-
-//router.get('/checkout', ecommerceController.getCheckout);
 
 module.exports = router;

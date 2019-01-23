@@ -13,11 +13,11 @@
             <div class="header14 po-relative">
 
                 <% if (isAuthenticated) { %>
-                    <%- include('../../includes/site/header.ejs', { userIsMerchant: user.isMerchant }) %>
-                    <%- include('../../includes/site/navigation.ejs', { userIsMerchant: user.isMerchant }) %>
+                <%- include('../../includes/site/header.ejs', { userIsMerchant: user.isMerchant }) %>
+                <%- include('../../includes/site/navigation.ejs', { userIsMerchant: user.isMerchant }) %>
                 <% } else { %>
-                    <%- include('../../includes/site/header.ejs') %>
-                    <%- include('../../includes/site/navigation.ejs') %>
+                <%- include('../../includes/site/header.ejs') %>
+                <%- include('../../includes/site/navigation.ejs') %>
                 <% } %>
 
             </div>
@@ -42,8 +42,7 @@
                             <div class="col-md-8 align-self-center text-center" data-aos="fade-right" data-aos-duration="1200">
                                 <h1 class="title">
                                     <b class="font-bold text-secondary">Checkout</b> <br />
-                                    <span class="text-info-gradiant typewrite" data-period="2000"
-                                        data-type='[ "Thank your for your purchase!" ]'>
+                                    <span class="text-info-gradiant typewrite" data-period="2000" data-type='[ "Thank your for your purchase!" ]'>
                                     </span>
                                 </h1>
                             </div>
@@ -54,8 +53,117 @@
 
                 <!-- ============================================================== -->
                 <!-- Content -->
-                
-                <h3>Nothing there!</h3>
+
+                <div class="spacer">
+                    <div class="container">
+                        <div class="row m-t-30">
+                            
+                            <!-- column  -->
+                            <div class="col-lg-6">
+                                <table class="table shop-table">
+                                    <thead>
+                                        <tr>
+                                            <th class="b-0 text-left">Title</th>
+                                            <th class="b-0 text-center">Quantity</th>
+                                            <th class="b-0 text-right">Price</th>
+                                        </tr>
+                                    </thead>
+                                    <% products.forEach(p => { %>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-ellipsis">
+                                                <%= p.productId.title %>
+                                            </td>
+                                            <td class="text-center">
+                                                <%= p.quantity %>
+                                            </td>
+                                            <td class="text-right">
+                                                <h5>
+                                                    <%= p.productId.price * p.quantity  %>
+                                                </h5>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                    <% }); %>
+                                </table>
+
+                                <table class="table shop-table">
+                                    <tr>
+                                        <td colspan="3">
+                                            <div class="d-flex">
+                                                <span>Sub Total</span>
+                                                <h5 class="font-medium m-b-30 ml-auto">$<%= totalSum %></h5>
+                                            </div>
+                                            <div class="d-flex">
+                                                <span>Shipping</span>
+                                                <h5 class="font-medium m-b-30 ml-auto">$0</h5>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <!-- column  -->
+                            <div class="col-lg-5 ml-auto">
+
+                                <div class="m-b-40">
+                                    <div class="form-group">
+                                        <h6 class="m-b-20 font-medium">CUSTOMER INFORMATION</h6>
+                                        <input type="text" class="form-control" value="<%= user.email %>" readonly>
+                                    </div>
+                                </div>
+
+                                <div class="m-t-40">
+                                    <h6 class="m-b-20 font-medium">SHIPPING INFORMATION</h6>
+                                    <div class="row">
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" value="<%= user.firstName %>">
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <input type="text" class="form-control" value="<%= user.lastName %>">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" value="<%= user.address %>">
+                                    </div>
+                                    
+                                    <br />
+                                    <div class="form-group">
+                                        <div class="col-auto my-1">
+                                            <div class="custom-control custom-checkbox mr-sm-2">
+                                                <input type="checkbox" class="custom-control-input" id="customControlAutosizing">
+                                                <label class="custom-control-label" for="customControlAutosizing">
+                                                    I agree with
+                                                    <a href="" style="color: #188ef4;">
+                                                        Terms &amp;Condition
+                                                    </a>
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <br />
+                                </div>
+
+                                <form action="/place-order" method="POST">
+                                    <script src="https://checkout.stripe.com/checkout.js" 
+                                        class="stripe-button"
+                                        data-label="Demo pay with card"
+                                        data-key="pk_test_EYakAIi58EIM1N5q4ylBrMVe" 
+                                        data-amount="<%= totalSum * 100 %>" 
+                                        data-name="Ecommerce"
+                                        data-description="Thank your for your purchase!" 
+                                        data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                                        data-locale="auto" 
+                                        data-zip-code="usd">
+                                    </script>
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
 
             </div>
 

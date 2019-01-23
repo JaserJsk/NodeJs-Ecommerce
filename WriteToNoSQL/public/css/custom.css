@@ -6,6 +6,10 @@ body {
     background: #f4f8fa;
 }
 
+.topbar.fixed-header .navbar .navbar-brand img {
+    height: 31px;
+}
+
 .sl-icon-options-vertical {
     color: #188ef4;
 }

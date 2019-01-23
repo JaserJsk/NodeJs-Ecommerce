@@ -9,8 +9,10 @@ const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
 const keys = require('../../../Credentials/keys');
+const isAuth = require('./middleware/is_auth');
 const User = require('./models/user');
 
+const ecommerceController = require('./controllers/site/ecommerce');
 const errorsController = require('./controllers/errors');
 
 const app = express();
@@ -73,12 +75,11 @@ app.use(
         store: store
     })
 );
-app.use(csrfProtection);
+
 app.use(flash());
 
 app.use((request, response, next) => {
     response.locals.isAuthenticated = request.session.isLoggedIn;
-    response.locals.csrfToken = request.csrfToken();
     next();
 });
 
@@ -97,6 +98,17 @@ app.use((request, response, next) => {
         .catch(err => {
             next(new Error(err));
         });
+});
+
+/**
+ * Route post order.
+ */
+app.post('/place-order', isAuth.customer, ecommerceController.postOrder);
+
+app.use(csrfProtection);
+app.use((request, response, next) => {
+    response.locals.csrfToken = request.csrfToken();
+    next();
 });
 
 app.use('/auth', authRoutes);
