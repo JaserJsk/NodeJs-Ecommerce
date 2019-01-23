@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/JonasJsk/Node-Apps/issues"
   },
-  "homepage": "https://github.com/JonasJsk/Node-Apps#readme",
+  "homepage": "https://github.com/JonasJsk/NodeJs-Ecommerce#readme",
   "devDependencies": {
     "nodemon": "^1.18.9"
   },
