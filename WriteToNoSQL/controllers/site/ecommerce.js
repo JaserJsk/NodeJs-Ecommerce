@@ -130,10 +130,15 @@ exports.getCart = (request, response, next) => {
         .execPopulate()
         .then(user => {
             const products = user.cart.items;
+            let total = 0;
+            products.forEach(p => {
+                total += p.quantity * p.productId.price;
+            });
             response.render('site/ecommerce/cart', {
                 path: '/cart',
                 pageTitle: 'Your Cart',
                 products: products,
+                totalSum: total,
                 user: user
             });
         })
