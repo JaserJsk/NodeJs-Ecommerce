@@ -9,12 +9,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/JonasJsk/Node-Apps.git"
+    "url": "git+https://github.com/JonasJsk/NodeJs-Ecommerce.git"
   },
   "author": "Jonas Jsk",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/JonasJsk/Node-Apps/issues"
+    "url": "https://github.com/JonasJsk/NodeJs-Ecommerce/issues"
   },
   "homepage": "https://github.com/JonasJsk/NodeJs-Ecommerce#readme",
   "devDependencies": {
