@@ -5,9 +5,8 @@ const PDFDocument = require('pdfkit');
 const User = require('../../models/user');
 const Product = require('../../models/product');
 const Order = require('../../models/order');
-const keys = require('../../../../../Credentials/keys');
 
-const stripe = require("stripe")(keys.STRIPE_TEST_API);
+const stripe = require("stripe")(process.env.STRIPE_TEST_KEY);
 
 const ITEMS_PER_PAGE = 8;
 

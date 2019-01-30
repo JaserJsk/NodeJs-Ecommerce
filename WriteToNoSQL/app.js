@@ -1,4 +1,6 @@
+const fs = require('fs');
 const path = require('path');
+/* const https = require('https'); */
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -8,20 +10,29 @@ const session = require('express-session');
 const MongoDBStore = require('connect-mongodb-session')(session);
 const csrf = require('csurf');
 const flash = require('connect-flash');
-const keys = require('../../../Credentials/keys');
+const helmet = require('helmet');
+const compression = require('compression');
+const morgan = require('morgan');
+
 const isAuth = require('./middleware/is_auth');
 const User = require('./models/user');
+
+const MONGODB_URI_ECOMMERCE = 
+`mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@githubcluster-jqh7o.gcp.mongodb.net/${process.env.MONGO_DEFAULT_DATABASE}?retryWrites=true`;
 
 const ecommerceController = require('./controllers/site/ecommerce');
 const errorsController = require('./controllers/errors');
 
 const app = express();
 const store = new MongoDBStore({
-    uri: keys.MONGODB_URI,
+    uri: MONGODB_URI_ECOMMERCE,
     collection: 'sessions'
 });
 
 const csrfProtection = csrf();
+
+/* const privateKey = fs.readFileSync('server.key');
+const certificate = fs.readFileSync('server.cert'); */
 
 const fileStorage = multer.diskStorage({
     destination: (request, file, callback) => {
@@ -47,7 +58,6 @@ const fileFilter = (request, file, callback) => {
 app.set('view engine', 'ejs');
 app.set('views', 'views');
 
-
 /* Auth */
 const authRoutes = require('./routes/auth');
 
@@ -58,6 +68,19 @@ const managerRoutes = require('./routes/admin/manager');
 /* Site */
 const siteRoutes = require('./routes/site/webpage');
 const ecommerceRoutes = require('./routes/site/ecommerce');
+
+const accessLogStream = fs.createWriteStream(
+    path.join(__dirname, 'access.log'), 
+    { flags: 'a'}
+);
+
+// Add special headers.
+app.use(helmet());
+
+// Compress assets.
+app.use(compression());
+
+app.use(morgan('combined', { stream: accessLogStream }));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(multer({
@@ -128,9 +151,14 @@ app.use((error, request, response, next) => {
     });
 });
 
-mongoose.connect(keys.MONGODB_URI, { useNewUrlParser: true })
+mongoose.connect(MONGODB_URI_ECOMMERCE, { useNewUrlParser: true })
     .then(result => {
-        app.listen(3000);
+        
+        // Used when we want to run local server with ssl mode.
+        /* https.createServer({key: privateKey, cert: certificate}, app)
+            .listen(process.env.PORT || 3000); */
+
+        app.listen(process.env.PORT || 3000);
     })
     .catch(err => {
         console.log(err)

@@ -3,10 +3,14 @@
   "version": "1.0.0",
   "description": "This is an Ecommerce application.",
   "main": "app.js",
+  "engines": {
+    "node": "10.14.2"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon app.js",
-    "start-server": "node app.js"
+    "start": "MONGO_USER=jonas MONGO_PASSWORD=IEOd3MRoKhcvx7I1 MONGO_DEFAULT_DATABASE=node_ecommerce SENDGRID_API_KEY=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 SIGNUP_TEMPLATE_ID=d-679672b713204163908df63cfbb07c00 RESET_TEMPLATE_ID=d-8ac2d3d38f4e41158d601ff9633a7749 STRIPE_TEST_KEY=sk_test_Zh9onx0ZlKCNUjTxNXP3yQ9S node app.js",
+    "start-server": "node app.js",
+    "start:dev": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -25,6 +29,7 @@
     "@sendgrid/mail": "^6.3.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
+    "compression": "^1.7.3",
     "connect-flash": "^0.1.1",
     "connect-mongodb-session": "^2.0.6",
     "csurf": "^1.9.0",
@@ -32,8 +37,10 @@
     "express": "^4.16.4",
     "express-session": "^1.15.6",
     "express-validator": "^5.3.1",
+    "helmet": "^3.15.0",
     "mongodb": "^3.1.10",
     "mongoose": "^5.4.1",
+    "morgan": "^1.9.1",
     "multer": "^1.4.1",
     "pdfkit": "^0.8.3",
     "stripe": "^6.20.1"

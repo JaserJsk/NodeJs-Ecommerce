@@ -6,7 +6,6 @@ const { validationResult } = require('express-validator/check');
 
 sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 
-const keys = require('../../../../Credentials/keys');
 const User = require('../models/user');
 
 /**
@@ -163,7 +162,7 @@ exports.postSignup = (request, response, next) => {
                 from: 'support@senseidev.com',
                 subject: 'Signup succeeded successfully!',
                 html: '<h2>You successfully signed up!</h2>',
-                templateId: keys.SIGNUP_TEMPLATE_ID,
+                templateId: process.env.SIGNUP_TEMPLATE_ID,
                 dynamic_template_data: {
                     subject: 'Signup succeeded successfully!',
                 },
@@ -225,7 +224,7 @@ exports.postReset = (request, response, next) => {
                         <p>You have requested a password reset</p>
                         <p>Click this <a href="http://localhost:3000/auth/reset/${token}">Link</a> to set a new password</p>
                     `,
-                    templateId: keys.RESET_TEMPLATE_ID,
+                    templateId: process.env.RESET_TEMPLATE_ID,
                     dynamic_template_data: {
                         subject: 'Reset your password!',
                         reset: `
