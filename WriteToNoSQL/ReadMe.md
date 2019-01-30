@@ -2,4 +2,4 @@
 > Work in progress, Coming soon!
 
 ## Demo Application
-[Demo](https://node-js-ecommerce.herokuapp.com/)
+Check out the [Demo](https://node-js-ecommerce.herokuapp.com/) application.
