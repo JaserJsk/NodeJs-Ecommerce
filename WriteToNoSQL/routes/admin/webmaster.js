@@ -19,7 +19,7 @@ router.post('/edit-merchant', [
     body('lastName').isAlphanumeric().withMessage('Enter your last name.').trim(),
     body('phone').isString().withMessage('Enter your phone number.').trim(),
     body('address').isString().withMessage('Enter your current address.').trim(),
-    body('biography').isLength({ min: 10, max: 500 }).withMessage('Biography must be minimum of 5 characters & maximum of of 500.').trim()
+    body('biography').isLength({ min: 10 }).withMessage('Biography must be minimum of 10 characters.').trim()
 ], isAuth.merhant, webmasterController.postEditMerchantProfile);
 
 module.exports = router;
